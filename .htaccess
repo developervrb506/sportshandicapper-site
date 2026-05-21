@@ -1,0 +1,103 @@
+<files wp-config.php>
+	
+	order allow,deny
+	
+	deny from all
+	
+</files>
+
+# Block the include-only files.
+
+<IfModule mod_rewrite.c>
+	
+	RewriteEngine On
+	
+	RewriteBase /
+	
+	RewriteRule ^wp-admin/includes/ - [F,L]
+	
+	RewriteRule !^wp-includes/ - [S=3]
+	
+	RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+	
+	RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+	
+	RewriteRule ^wp-includes/theme-compat/ - [F,L]
+	
+</IfModule>
+
+ErrorDocument 401 default
+
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+
+
+# Wordfence WAF
+<Files ".user.ini">
+	<IfModule mod_authz_core.c>
+		Require all denied
+	</IfModule>
+	<IfModule !mod_authz_core.c>
+		Order deny,allow
+		Deny from all
+	</IfModule>
+</Files>
+
+# END Wordfence WAF
+<Files 403.shtml>
+	order allow,deny
+	allow from all
+</Files>
+
+deny from 212.34.146.87
+deny from 198.44.190.188
+deny from 107.151.248.207
+deny from 13.60.11.174
+deny from 159.65.232.209
+deny from 199.195.252.57
+deny from 196.251.86.150
+deny from 2602:fa59:0010:03e0:0000:0000:0000:0001
+deny from 20.105.202.227
+deny from 103.154.184.168
+deny from 13.58.77.151
+deny from 16.170.143.231
+deny from 35.234.156.214
+deny from 18.217.149.209
+deny from 13.53.122.255
+deny from 93.123.109.116
+deny from 51.21.247.146
+deny from 103.186.31.45
+deny from 104.28.205.110
+deny from 34.58.141.101
+deny from 167.172.49.122
+deny from 64.227.179.218
+deny from 144.172.113.152
+deny from 45.141.233.14
+deny from 196.251.84.49
+deny from 162.222.237.113
+deny from 196.251.86.209
+deny from 196.251.81.91
+deny from 2804:29b8:5025:788c:c00a:7170:f7a3:429b
+deny from 45.164.240.65
+deny from 2602:fb54:0372:0000:0000:0000:0000:0000
+deny from 41.84.236.98
+deny from 84.202.89.145
+deny from 54.172.73.113
+deny from 64.23.190.85
+deny from 124.150.139.86
+deny from 212.38.189.186
+deny from 36.74.40.179
