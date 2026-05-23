@@ -1,390 +1,518 @@
 @extends('layouts.public')
-@section('title', 'INSPIN - Sports Betting Analysis & Picks')
+@section('title', 'Sportshandicapper — Simulation Model Up +150 Units Over 3 Years')
+@section('meta', 'Exclusive articles, daily picks, and membership access to a proven sports simulation handicapper model. Crush the books without the guesswork.')
 
 @push('styles')
 <style>
-body { background: #171818; }
-
-/* ── Responsive grids ── */
-.home-articles-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-@media(max-width:900px){ .home-articles-grid { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:560px){ .home-articles-grid { grid-template-columns: 1fr; } }
-
-.home-picks-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
-@media(max-width:740px){ .home-picks-grid { grid-template-columns: 1fr; } }
-
-.home-pkg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-@media(max-width:900px){ .home-pkg-grid { grid-template-columns: repeat(2,1fr); } }
-@media(max-width:560px){ .home-pkg-grid { grid-template-columns: 1fr; } }
-
-/* ── Article card ── */
-.home-art-card {
-    background: #212121;
-    border: 1px solid rgba(255,252,238,0.07);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
-    color: inherit;
-}
-.home-art-card:hover { border-color: rgba(253,181,21,0.35); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,.6); }
-.home-art-card img { width:100%; height:185px; object-fit:cover; display:block; }
-
-/* ── Pick card ── */
-.home-pick-card {
-    background: #212121;
-    border: 1px solid rgba(255,252,238,0.12);
-    border-radius: 12px;
-    padding: 20px 22px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    transition: border-color .2s, box-shadow .2s;
-}
-.home-pick-card:hover { border-color: rgba(253,181,21,0.45); box-shadow: 0 8px 32px rgba(0,0,0,.5); }
-
-/* ── Package card ── */
-.home-pkg-card {
-    background: #212121;
-    border: 1px solid rgba(255,252,238,0.07);
-    border-radius: 12px;
-    padding: 26px 22px 22px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    transition: border-color .2s, box-shadow .2s;
-}
-.home-pkg-card:hover { border-color: rgba(253,181,21,0.35); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
-
-/* ── Nav arrow buttons ── */
-.arr-btn {
-    width: 34px; height: 34px; border-radius: 50%;
-    border: 1.5px solid #FDB515; background: transparent;
-    color: #FDB515; font-size: 18px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .18s, color .18s; flex-shrink: 0;
-    line-height: 1;
-}
-.arr-btn:hover { background: #FDB515; color: #171818; }
-
-/* ── Live dot pulse ── */
+/* ── Pulse animation ── */
 @keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-.live-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4444; animation:livePulse 1.4s infinite; flex-shrink:0; }
+.pulse-dot { display:inline-block;width:8px;height:8px;border-radius:50%;background:rgba(14,165,233,0.8); }
+.pulse-dot-ping { position:absolute;inset:0;border-radius:50%;background:rgba(14,165,233,0.75);animation:ping 1.2s cubic-bezier(0,0,0.2,1) infinite; }
+@keyframes ping { 75%,100%{transform:scale(2);opacity:0} }
+.pulse-green { background:#22c55e; }
+.pulse-green-ping { position:absolute;inset:0;border-radius:50%;background:#22c55e;animation:ping 1.2s cubic-bezier(0,0,0.2,1) infinite; }
+.live-dot { display:inline-flex;width:6px;height:6px;border-radius:50%;background:#22c55e;animation:livePulse 1.4s infinite; }
 
-/* ── Team avatar ── */
-.t-avatar {
-    width:28px; height:28px; border-radius:50%;
-    background:#2d2d2d; color:#6e6e6e;
-    display:flex; align-items:center; justify-content:center;
-    font-size:8px; font-weight:800; letter-spacing:.3px;
-    flex-shrink:0; text-transform:uppercase;
+/* ── Grid background (hero) ── */
+.hero-grid-lines {
+    background-image: linear-gradient(to right,rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:56px 56px;
 }
 
-/* ── Hero heading responsive ── */
-@media(max-width:900px){ .hero-h1 { font-size:2.8rem !important; } }
-@media(max-width:640px){ .hero-h1 { font-size:2rem !important; } }
-@media(max-width:400px){ .hero-h1 { font-size:1.5rem !important; } }
+/* ── Section heading ── */
+.section-h2 { font-family:'Space Grotesk',sans-serif;font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;color:white;letter-spacing:-0.03em;line-height:1.1; }
 
-/* ── Mobile section padding ── */
-@media(max-width:768px){
-    .home-picks-grid { grid-template-columns:1fr !important; }
-    .home-pkg-grid { grid-template-columns:1fr !important; }
-    .home-articles-grid { grid-template-columns:1fr !important; }
+/* ── Eyebrow pill ── */
+.eyebrow-pill { display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:9999px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.3);color:#7DD3FC;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase; }
+
+/* ── Round CTA link ── */
+.round-link { display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:9999px;border:1px solid rgba(14,165,233,0.4);color:#7DD3FC;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s; }
+.round-link:hover { background:rgba(14,165,233,0.1);border-color:rgba(14,165,233,0.7);color:#BAE6FD; }
+
+/* ── Confidence bar ── */
+.conf-bar { height:8px;background:rgba(255,255,255,0.06);border-radius:9999px;overflow:hidden; }
+.conf-fill { height:100%;background:linear-gradient(90deg,#1E90FF,#22D3EE);border-radius:9999px; }
+.conf-fill-violet { background:linear-gradient(90deg,#0EA5E9,#22D3EE); }
+.conf-fill-full { background:linear-gradient(90deg,#1E90FF,#22D3EE,#A855F7);box-shadow:0 0 10px rgba(30,144,255,0.4); }
+
+/* ── Grids ── */
+.g12 { display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:start; }
+.g12-center { align-items:center; }
+.c7 { grid-column:span 7; }
+.c5 { grid-column:span 5; }
+.g3 { display:grid;grid-template-columns:repeat(3,1fr);gap:24px; }
+.g4 { display:grid;grid-template-columns:repeat(4,1fr);gap:24px; }
+.g2 { display:grid;grid-template-columns:repeat(2,1fr);gap:32px;align-items:center; }
+.g-stats { display:grid;grid-template-columns:repeat(4,1fr);gap:32px; }
+
+@media(max-width:1024px){
+    .g12,.g12-center { grid-template-columns:1fr; }
+    .c7,.c5 { grid-column:span 1; }
+    .g3 { grid-template-columns:repeat(2,1fr); }
+    .g4 { grid-template-columns:repeat(2,1fr); }
+    .g2 { grid-template-columns:1fr; }
+    .g-stats { grid-template-columns:repeat(2,1fr);gap:24px; }
 }
-@media(max-width:480px){
-    .home-pick-card { padding:16px; }
-    .home-pkg-card { padding:20px 16px; }
-    .arr-btn { width:30px; height:30px; font-size:16px; }
+@media(max-width:640px){
+    .g3,.g4 { grid-template-columns:1fr; }
+    .g-stats { grid-template-columns:repeat(2,1fr);gap:16px; }
 }
+
+/* ── Article cards ── */
+.art-featured { border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .25s;display:flex;flex-direction:column;min-height:460px;text-decoration:none;color:inherit; }
+.art-featured:hover { border-color:rgba(14,165,233,0.4); }
+.art-secondary { display:flex;gap:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:16px;transition:all .2s;text-decoration:none;color:inherit; }
+.art-secondary:hover { border-color:rgba(14,165,233,0.3);background:rgba(255,255,255,0.05); }
+
+/* ── Pick cards ── */
+.pick-feat { border-radius:24px;border:1px solid rgba(14,165,233,0.2);background:linear-gradient(135deg,rgba(14,165,233,0.08),rgba(255,255,255,0.03),rgba(168,85,247,0.08));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:32px 36px;position:relative;overflow:hidden;display:flex;flex-direction:column; }
+.pick-secondary { border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:20px;transition:all .2s;display:flex;flex-direction:column; }
+.pick-secondary:hover { border-color:rgba(14,165,233,0.3);background:rgba(255,255,255,0.05); }
+.pick-mini { border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:16px; }
+
+/* ── Stats bar ── */
+.stats-section { border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.015); }
+.stat-num { font-family:'Space Grotesk',sans-serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;letter-spacing:-0.04em;background:linear-gradient(135deg,#fff 0%,#C7D2FE 50%,#93C5FD 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1; }
+
+/* ── Package cards ── */
+.pkg-card { border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);padding:28px 24px;position:relative;display:flex;flex-direction:column;transition:border-color .25s,box-shadow .3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px); }
+.pkg-card:hover { border-color:rgba(14,165,233,0.3);box-shadow:0 20px 60px -20px rgba(14,165,233,0.2); }
+.pkg-card.highlight { border-color:rgba(14,165,233,0.35);background:linear-gradient(180deg,rgba(13,18,36,0.9),rgba(10,12,28,0.9));box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 0 0 1px rgba(14,165,233,0.15),0 20px 60px -20px rgba(14,165,233,0.3); }
+
+/* ── Tool cards ── */
+.tool-card { border-radius:16px;padding:24px;position:relative;background:linear-gradient(180deg,rgba(13,18,36,0.9),rgba(10,12,28,0.9));border:1px solid rgba(14,165,233,0.12);box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 20px 40px -20px rgba(0,0,0,0.6);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease; }
+.tool-card:hover { transform:translateY(-3px);border-color:rgba(14,165,233,0.35);box-shadow:0 0 0 1px rgba(168,85,247,0.4),0 20px 60px -20px rgba(168,85,247,0.45); }
+.tool-icon { width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.25);font-size:20px; }
+.tool-soon { position:absolute;top:16px;right:16px;font-size:9px;font-weight:700;background:rgba(14,165,233,0.15);color:#7DD3FC;border-radius:9999px;padding:3px 10px;letter-spacing:0.12em;text-transform:uppercase; }
+
+/* ── About stat cards ── */
+.about-stat { border-radius:14px;border:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.02);padding:20px; }
 </style>
 @endpush
 
 @section('content')
 
-{{-- ════════════════════════════════════════════ --}}
-{{--  HERO                                         --}}
-{{-- ════════════════════════════════════════════ --}}
-<section style="background:#171818;padding:110px 0 100px;text-align:center;position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;">
-    {{-- Crosshatch grid lines --}}
-    <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,252,238,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,252,238,.03) 1px,transparent 1px);background-size:68px 68px;"></div>
-    {{-- Centre vignette --}}
-    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 65% at 50% 48%,rgba(23,24,24,.85) 0%,transparent 100%);"></div>
-    {{-- Bottom gold divider --}}
-    <div style="position:absolute;bottom:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent 5%,#c47f10 30%,#FDB515 50%,#c47f10 70%,transparent 95%);"></div>
-    {{-- Amber corner dots --}}
-    <div style="position:absolute;bottom:76px;left:56px;width:8px;height:8px;border-radius:50%;background:#FDB515;opacity:.65;box-shadow:0 0 8px rgba(253,181,21,.5);"></div>
-    <div style="position:absolute;bottom:76px;right:56px;width:8px;height:8px;border-radius:50%;background:#FDB515;opacity:.65;box-shadow:0 0 8px rgba(253,181,21,.5);"></div>
+{{-- ══════════════════════════════════════════════ --}}
+{{--  HERO                                          --}}
+{{-- ══════════════════════════════════════════════ --}}
+<section style="padding:80px 0 96px;position:relative;overflow:hidden;">
+    <div class="container-x">
+        <div class="g12 g12-center">
 
-    <div class="container" style="position:relative;width:100%;">
-        {{-- Headline with Figma gradient: edges fade into #171818, center is #FFFCEE --}}
-        <h1 class="hero-h1" style="font-family:'Clash Display',sans-serif;font-size:61px;font-weight:500;line-height:1.18;letter-spacing:-.5px;margin-bottom:24px;max-width:920px;margin-left:auto;margin-right:auto;background:linear-gradient(90deg,#171818 -15.33%,#FFFCEE 48.07%,#171818 113.68%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-            INSPIN Simulation/Handicapper Model – Up +150 Units over 3 Years
-        </h1>
-        <p style="color:#FDB515;font-size:13.5px;font-weight:500;margin-bottom:16px;letter-spacing:.1px;opacity:.9;">
-            ($100 bettor won $15,000 / $500 bettor won $75,000 / $1,000 bettor won $150,000)
-        </p>
-        <p style="color:#7a7a8a;font-size:15px;font-weight:400;margin-bottom:22px;">
-            Want to crush the books without the guesswork?
-        </p>
-        <p style="margin-bottom:34px;">
-            <a href="{{ route('join') }}" style="color:#5a5a6a;font-size:13px;text-decoration:underline;text-underline-offset:3px;transition:color .15s;" onmouseover="this.style.color='#9a9aaa'" onmouseout="this.style.color='#5a5a6a'">See More</a>
-        </p>
-        <a href="{{ route('join') }}"
-           style="display:inline-block;padding:13px 46px;border:1px solid #FDB515;border-radius:50px;color:#FDB515;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;letter-spacing:.2px;text-decoration:none;background:#171818;transition:box-shadow .2s;box-shadow:0 0 21.7px rgba(253,181,21,.39);"
-           onmouseover="this.style.boxShadow='0 0 32px rgba(253,181,21,.6)'"
-           onmouseout="this.style.boxShadow='0 0 21.7px rgba(253,181,21,.39)'"
-        >Join Now</a>
+            {{-- LEFT --}}
+            <div class="c7" style="display:flex;flex-direction:column;gap:28px;">
+                {{-- Live badge --}}
+                <div>
+                    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(14,165,233,0.9);">
+                        <span style="position:relative;display:inline-flex;width:8px;height:8px;">
+                            <span class="pulse-dot-ping"></span>
+                            <span class="pulse-dot"></span>
+                        </span>
+                        Live Edge Detection Active
+                    </div>
+                </div>
+
+                {{-- Headline --}}
+                <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4.25rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:white;margin:0;">
+                    Betting <span style="background:linear-gradient(90deg,#1E90FF,#22D3EE,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Intelligence</span> At Scale.
+                </h1>
+
+                {{-- Subtext --}}
+                <p style="font-size:clamp(15px,1.5vw,18px);color:#94A3B8;line-height:1.75;max-width:540px;margin:0;">
+                    Institutional-grade sports analytics, predictive modeling, and live pick feeds built for professional handicappers. Don't play the house — use their data against them.
+                </p>
+
+                {{-- CTAs --}}
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;">
+                    <a href="{{ route('join') }}" class="btn-primary">
+                        Get Started Today
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="{{ route('picks') }}" class="btn-secondary">
+                        Explore Models
+                    </a>
+                </div>
+            </div>
+
+            {{-- RIGHT: ROI Simulator --}}
+            <div class="c5">
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:2.5rem;padding:32px 36px;position:relative;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.4),0 0 0 1px rgba(14,165,233,0.05);">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,144,255,0.1),transparent 50%,rgba(168,85,247,0.1));opacity:0.7;pointer-events:none;border-radius:inherit;"></div>
+                    <div style="position:relative;z-index:1;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+                            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:white;letter-spacing:-0.01em;margin:0;">ROI Simulator</h3>
+                            <span style="font-size:9px;font-weight:700;padding:5px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:#94A3B8;letter-spacing:0.12em;text-transform:uppercase;">Pro Model v4.2</span>
+                        </div>
+
+                        <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:28px;">
+                            <div>
+                                <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                                    <span style="font-size:14px;color:#94A3B8;font-weight:500;">Monthly Units Staked</span>
+                                    <span style="font-size:14px;color:white;font-weight:700;">450 Units</span>
+                                </div>
+                                <div class="conf-bar"><div class="conf-fill" style="width:65%;"></div></div>
+                            </div>
+                            <div>
+                                <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                                    <span style="font-size:14px;color:#94A3B8;font-weight:500;">Projected Win Rate</span>
+                                    <span style="font-size:14px;color:#22D3EE;font-weight:700;">58.4%</span>
+                                </div>
+                                <div class="conf-bar"><div class="conf-fill conf-fill-violet" style="width:78%;"></div></div>
+                            </div>
+                        </div>
+
+                        <div style="padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;margin-bottom:20px;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#64748B;margin-bottom:8px;">Potential Monthly Profit</div>
+                            <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2.25rem,4vw,3.25rem);font-weight:800;color:white;letter-spacing:-0.04em;line-height:1;">$12,480.00</div>
+                            <div style="font-size:11px;font-weight:700;color:#818CF8;letter-spacing:0.15em;margin-top:8px;text-transform:uppercase;">+24.2% ROI Per Slip</div>
+                        </div>
+
+                        <a href="{{ route('join') }}" style="display:block;text-align:center;padding:13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;font-size:11px;font-weight:700;color:white;text-decoration:none;letter-spacing:0.12em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.09)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                            Apply Strategy
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
-{{-- ════════════════════════════════════════════ --}}
-{{--  EXCLUSIVE ARTICLES                           --}}
-{{-- ════════════════════════════════════════════ --}}
+{{-- ══════════════════════════════════════════════ --}}
+{{--  EXCLUSIVE ARTICLES                            --}}
+{{-- ══════════════════════════════════════════════ --}}
 @if($articles->count() > 0)
-<section style="background:#171818;padding:80px 0;">
-    <div class="container">
-        {{-- Section header --}}
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:32px;flex-wrap:wrap;">
-            <div>
-                <h2 style="font-family:'Clash Display',sans-serif;font-size:1.7rem;font-weight:500;color:#FFFCEE;letter-spacing:-.2px;margin-bottom:5px;">Exclusive Articles and Analysis</h2>
-                <p style="color:#6e6e6e;font-size:13.5px;margin:0;">Expert insights to sharpen your edge</p>
+<section style="padding:80px 0;">
+    <div class="container-x">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:40px;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+                <div class="eyebrow-pill"><span style="width:6px;height:6px;border-radius:50%;background:#0EA5E9;display:inline-block;flex-shrink:0;"></span>Editorial</div>
+                <h2 class="section-h2">Exclusive Articles and Analysis</h2>
+                <p style="color:#64748B;font-size:14px;margin:0;">Expert insights to sharpen your edge</p>
             </div>
-            <div style="display:flex;gap:8px;padding-top:6px;">
-                <button class="arr-btn" onclick="scrollArts(-1)" aria-label="Previous">&#8249;</button>
-                <button class="arr-btn" onclick="scrollArts(1)"  aria-label="Next">&#8250;</button>
-            </div>
+            <a href="{{ route('articles') }}" class="round-link">All Articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
 
-        <div id="artsTrack" class="home-articles-grid">
-            @foreach($articles as $art)
-            <a href="{{ route('article.show', $art) }}" class="home-art-card">
-                @if($art->featured_image)
-                    <img src="{{ asset('storage/'.$art->featured_image) }}" alt="{{ $art->title }}">
-                @else
-                    <div style="width:100%;height:185px;background:#2d2d2d;display:flex;align-items:center;justify-content:center;color:#4a4a4a;font-size:2.5rem;">🏅</div>
-                @endif
+        @php $featured = $articles->first(); $rest = $articles->slice(1,2); @endphp
 
-                <div style="padding:16px 18px 20px;display:flex;flex-direction:column;flex:1;">
-                    {{-- Badge row --}}
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-                        @php
-                            $sp = strtolower($art->sport ?? '');
-                            $bc = $sp==='mlb'?'rgba(22,163,74,.15)':($sp==='nba'?'rgba(220,38,38,.15)':($sp==='nfl'?'rgba(29,78,216,.15)':'rgba(253,181,21,.12)'));
-                            $tc = $sp==='mlb'?'#4ade80':($sp==='nba'?'#f87171':($sp==='nfl'?'#93c5fd':'#FDB515'));
-                        @endphp
-                        <span style="background:{{ $bc }};color:{{ $tc }};padding:3px 10px;border-radius:5px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">{{ $art->sport }}</span>
-                        <span style="background:rgba(36,251,238,0.12);border:1px solid rgba(36,251,238,0.3);color:#24FBEE;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:600;letter-spacing:.3px;">{{ $art->category }}</span>
-                    </div>
-                    {{-- Title --}}
-                    <h3 style="font-family:'Clash Display',sans-serif;font-size:14px;font-weight:500;color:#FFFCEE;line-height:1.4;margin-bottom:8px;">{{ Str::limit($art->title, 80) }}</h3>
-                    {{-- Excerpt --}}
-                    <p style="font-size:13px;color:#6e6e6e;line-height:1.55;flex:1;margin-bottom:14px;">{{ Str::limit(strip_tags($art->excerpt ?? ''), 110) }}</p>
-                    {{-- Meta --}}
-                    <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,252,238,.06);padding-top:11px;">
-                        <div style="display:flex;align-items:center;gap:8px;">
-                            <div style="width:26px;height:26px;border-radius:50%;background:#2d2d2d;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#9a9a9a;flex-shrink:0;text-transform:uppercase;">{{ substr($art->author ?? 'A',0,1) }}</div>
-                            <span style="font-size:12px;color:#9a9a9a;">{{ $art->author }}</span>
+        <div class="g12">
+            {{-- Featured --}}
+            <div class="c7">
+                <a href="{{ route('article.show', $featured) }}" class="art-featured">
+                    <div style="position:relative;height:280px;background:linear-gradient(135deg,rgba(30,144,255,0.35),rgba(168,85,247,0.25));overflow:hidden;flex-shrink:0;">
+                        @if($featured->featured_image)
+                            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="{{ $featured->title }}" style="width:100%;height:100%;object-fit:cover;opacity:0.7;">
+                        @endif
+                        <div style="position:absolute;inset:0;background:linear-gradient(to top,#07091A 0%,rgba(7,9,26,0.3) 60%,transparent 100%);"></div>
+                        <div style="position:absolute;top:20px;left:20px;display:flex;gap:8px;align-items:center;">
+                            <span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:white;background:linear-gradient(135deg,#1E90FF,#0EA5E9);padding:6px 12px;border-radius:6px;box-shadow:0 4px 14px rgba(14,165,233,0.4);">★ Featured</span>
+                            <span style="font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#86efac;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);padding:5px 10px;border-radius:6px;backdrop-filter:blur(8px);">{{ $featured->sport }}</span>
                         </div>
-                        <span style="display:flex;align-items:center;gap:4px;color:#4a4a4a;font-size:12px;flex-shrink:0;">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            {{ $art->published_at?->format('M d, Y') ?? '' }}
-                        </span>
                     </div>
-                </div>
-            </a>
-            @endforeach
+                    <div style="padding:32px 36px;flex:1;display:flex;flex-direction:column;margin-top:-20px;position:relative;z-index:1;">
+                        <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#38BDF8;margin-bottom:12px;display:block;">{{ $featured->sport }} Sports Betting &middot; {{ $featured->published_at?->format('M d, Y') ?? '' }}</span>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.1rem,2vw,1.6rem);font-weight:800;color:white;line-height:1.25;letter-spacing:-0.02em;margin-bottom:16px;flex:1;">{{ $featured->title }}</h3>
+                        <p style="color:#64748B;font-size:14px;line-height:1.65;margin-bottom:24px;">{{ Str::limit(strip_tags($featured->excerpt ?? ''), 130) }}</p>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1E90FF,#22D3EE);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;">{{ substr($featured->author ?? 'A',0,1) }}</div>
+                                <div>
+                                    <div style="font-size:13px;font-weight:700;color:white;">{{ $featured->author }}</div>
+                                    <div style="font-size:11px;color:#64748B;">Senior Analyst</div>
+                                </div>
+                            </div>
+                            <span style="color:#38BDF8;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;">Read Story <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {{-- Secondary --}}
+            <div class="c5" style="display:flex;flex-direction:column;gap:20px;">
+                @foreach($rest as $art)
+                <a href="{{ route('article.show', $art) }}" class="art-secondary">
+                    <div style="width:150px;flex-shrink:0;border-radius:12px;background:linear-gradient(135deg,rgba(30,144,255,0.25),rgba(34,211,238,0.2));position:relative;overflow:hidden;min-height:120px;">
+                        @if($art->featured_image)
+                            <img src="{{ asset('storage/'.$art->featured_image) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;">
+                        @endif
+                        <div style="position:absolute;bottom:8px;left:8px;"><span style="font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:white;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:4px;">{{ $art->sport }}</span></div>
+                    </div>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;padding:4px 0;">
+                        <span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#38BDF8;margin-bottom:8px;">{{ $art->sport }} Sports Betting</span>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:white;line-height:1.4;flex:1;">{{ Str::limit($art->title, 80) }}</h3>
+                        <div style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748B;margin-top:10px;">
+                            <span style="font-weight:600;color:#94A3B8;">{{ $art->author }}</span>
+                            <span style="width:3px;height:3px;border-radius:50%;background:#334155;display:inline-block;"></span>
+                            <span>{{ $art->published_at?->format('M d, Y') ?? '' }}</span>
+                        </div>
+                    </div>
+                </a>
+                @endforeach
+                @if($rest->count() < 2)
+                <div class="art-secondary" style="opacity:0.3;"><div style="width:150px;flex-shrink:0;border-radius:12px;background:rgba(255,255,255,0.03);min-height:120px;display:flex;align-items:center;justify-content:center;font-size:28px;">🏈</div><div style="flex:1;display:flex;align-items:center;"><p style="color:#64748B;font-size:13px;">More articles coming soon</p></div></div>
+                @endif
+            </div>
         </div>
     </div>
 </section>
 @endif
 
-{{-- ════════════════════════════════════════════ --}}
-{{--  ACTIVE PICKS                                --}}
-{{-- ════════════════════════════════════════════ --}}
+{{-- ══════════════════════════════════════════════ --}}
+{{--  ACTIVE PICKS                                  --}}
+{{-- ══════════════════════════════════════════════ --}}
 @if($expertPicks->count() > 0)
-<section style="background:#171818;padding:80px 0;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(253,181,21,.035) 1px,transparent 1px);background-size:40px 40px;"></div>
-    <div class="container" style="position:relative;">
-        {{-- Header --}}
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;">
-            <div>
-                <h2 style="font-family:'Clash Display',sans-serif;font-size:1.7rem;font-weight:500;color:#FFFCEE;letter-spacing:-.2px;margin-bottom:5px;">Active Picks</h2>
-                <p style="color:#6e6e6e;font-size:13.5px;margin:0;">Current picks — login to see full details</p>
+<section style="padding:80px 0;">
+    <div class="container-x">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:40px;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+                <h2 class="section-h2">Active Picks</h2>
+                <p style="color:#64748B;font-size:14px;margin:0;">Current picks — <a href="{{ route('join') }}" style="color:#38BDF8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#7DD3FC'" onmouseout="this.style.color='#38BDF8'">login to see full details</a></p>
             </div>
-            <a href="{{ route('picks') }}" style="display:inline-flex;align-items:center;padding:9px 22px;border:1px solid #FDB515;border-radius:50px;color:#FDB515;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .18s;align-self:flex-start;margin-top:4px;" onmouseover="this.style.background='rgba(253,181,21,.1)'" onmouseout="this.style.background='transparent'">View All Picks</a>
+            <a href="{{ route('picks') }}" class="round-link">View All Picks</a>
         </div>
 
-        {{-- 2×2 grid --}}
-        <div class="home-picks-grid">
-            @foreach($expertPicks as $pick)
-            @php
-                $rawTime   = $pick->game_time ? (string)$pick->game_time : '00:00:00';
-                $timeStr   = strlen($rawTime) === 5 ? $rawTime.':00' : substr($rawTime, 0, 8);
-                $gameStart = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pick->game_date->format('Y-m-d').' '.$timeStr, 'America/New_York');
-                $now       = \Carbon\Carbon::now('America/New_York');
-                $status    = $pick->result !== 'pending' ? 'Graded' : ($now->gte($gameStart) ? 'Started' : 'Active');
-                $sportEmojis = ['MLB'=>'⚾','NFL'=>'🏈','NBA'=>'🏀','NHL'=>'🏒','NCAAF'=>'🏈','NCAAB'=>'🏀','MMA'=>'🥊','GOLF'=>'⛳'];
-                $sEmoji = $sportEmojis[$pick->sport] ?? '🏅';
-                $t1init = strtoupper(substr($pick->team1_name ?? 'TM',0,3));
-                $t2init = strtoupper(substr($pick->team2_name ?? 'TM',0,3));
-                $conf   = $pick->team1_percent;
-                $statusStyles = ['Started'=>'background:rgba(239,68,68,.15);border:1px solid #ef4444;color:#ef4444;','Active'=>'background:rgba(0,209,91,.15);border:1px solid #00D15B;color:#00D15B;','Graded'=>'background:rgba(100,100,100,.12);border:1px solid #4a4a4a;color:#9a9a9a;'];
-            @endphp
-            <div class="home-pick-card">
-                {{-- Row 1: sport icon circle + name | stars --}}
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="width:38px;height:38px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid rgba(255,252,238,.08);">{{ $sEmoji }}</div>
-                        <span style="color:#FFFCEE;font-size:14px;font-weight:600;letter-spacing:.1px;">{{ $pick->sport }}</span>
+        @php
+            $fp = $expertPicks->first();
+            $rp = $expertPicks->slice(1,3);
+            $sEmoji = ['MLB'=>'⚾','NFL'=>'🏈','NBA'=>'🏀','NHL'=>'🏒','NCAAF'=>'🏈','NCAAB'=>'🏀','MMA'=>'🥊','GOLF'=>'⛳'];
+            $getStatus = function($pick){
+                $t = $pick->game_time?(string)$pick->game_time:'00:00:00';
+                $ts = strlen($t)===5?$t.':00':substr($t,0,8);
+                $gs = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$pick->game_date->format('Y-m-d').' '.$ts,'America/New_York');
+                $now = \Carbon\Carbon::now('America/New_York');
+                return $pick->result!=='pending'?'Graded':($now->gte($gs)?'Started':'Active');
+            };
+            $fpStatus = $getStatus($fp);
+        @endphp
+
+        <div class="g12">
+            {{-- Featured whale --}}
+            <div class="c7" style="height:100%;">
+                <div class="pick-feat" style="height:100%;">
+                    {{-- Glow accents --}}
+                    <div style="position:absolute;top:-80px;right:-60px;width:320px;height:320px;border-radius:50%;background:rgba(14,165,233,0.2);filter:blur(80px);pointer-events:none;"></div>
+                    <div style="position:absolute;bottom:-80px;left:-50px;width:280px;height:280px;border-radius:50%;background:rgba(168,85,247,0.15);filter:blur(80px);pointer-events:none;"></div>
+
+                    <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:0;height:100%;">
+                        {{-- Top row --}}
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:white;background:linear-gradient(135deg,#1E90FF,#0EA5E9);padding:6px 12px;border-radius:6px;box-shadow:0 4px 14px rgba(14,165,233,0.4);">★ Spotlight</span>
+                                @if($fpStatus==='Started'||$fpStatus==='Active')
+                                <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;border:1px solid rgba(34,197,94,0.4);color:#86efac;font-size:11px;font-weight:700;">
+                                    <span class="live-dot"></span>Live · Started
+                                </span>
+                                @endif
+                            </div>
+                            @if($fp->stars===10)
+                            <span style="color:#C7D2FE;font-size:12px;font-weight:800;letter-spacing:0.1em;">★10 WHALE</span>
+                            @else
+                            <span style="color:#818CF8;font-size:15px;letter-spacing:2px;">{{ str_repeat('★',(int)$fp->stars) }}</span>
+                            @endif
+                        </div>
+
+                        {{-- Matchup --}}
+                        <div style="margin-bottom:24px;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#38BDF8;margin-bottom:10px;">{{ $fp->sport }} · {{ $fp->game_date?->format('M d') }}{{ $fp->game_time?' @ '.\Carbon\Carbon::parse($fp->game_time)->format('g:i A').' ET':'' }}</div>
+                            <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+                                <span style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:800;color:white;letter-spacing:-0.03em;line-height:1.1;">{{ $fp->team1_name }}</span>
+                                <span style="font-size:12px;color:#334155;text-transform:uppercase;letter-spacing:0.1em;padding-bottom:4px;">vs</span>
+                                <span style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.25rem,2vw,1.85rem);font-weight:700;color:#94A3B8;letter-spacing:-0.02em;line-height:1.1;">{{ $fp->team2_name }}</span>
+                            </div>
+                        </div>
+
+                        @if($fp->team1_percent)
+                        {{-- Mini stat chips --}}
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+                            <div class="pick-mini"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;margin-bottom:6px;">Confidence</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:800;color:white;line-height:1;">{{ $fp->team1_percent }}%</div></div>
+                            <div class="pick-mini"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;margin-bottom:6px;">Edge</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:800;color:#86efac;line-height:1;">+EV</div></div>
+                            <div class="pick-mini"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;margin-bottom:6px;">Stars</div><div style="font-size:16px;color:#818CF8;margin-top:4px;">{{ $fp->stars===10?'★10':str_repeat('★',(int)$fp->stars) }}</div></div>
+                        </div>
+
+                        {{-- Confidence bar --}}
+                        <div style="margin-bottom:24px;"><div class="conf-bar" style="height:8px;"><div class="conf-fill conf-fill-full" style="width:{{ $fp->team1_percent }}%;"></div></div></div>
+                        @endif
+
+                        {{-- CTAs --}}
+                        <div style="display:flex;gap:12px;margin-top:auto;">
+                            @auth
+                            <a href="{{ route('picks') }}" class="btn-primary" style="flex:1;">View Pick Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            @else
+                            <a onclick="openModal('join');return false;" href="#" class="btn-primary" style="flex:1;">Unlock Whale Pick <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            @endauth
+                            <button class="btn-secondary" style="padding:14px 20px;">Details</button>
+                        </div>
                     </div>
-                    <div style="font-size:15px;letter-spacing:1px;">
-                        @if($pick->stars === 10)
-                            <span style="color:#FDB515;font-size:10px;font-weight:800;letter-spacing:.2px;">★10 WHALE</span>
+                </div>
+            </div>
+
+            {{-- Secondary picks --}}
+            <div class="c5" style="display:flex;flex-direction:column;gap:16px;">
+                @foreach($rp as $pick)
+                @php $pConf = $pick->team1_percent; $pStatus = $getStatus($pick); @endphp
+                <div class="pick-secondary">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1E90FF,#22D3EE);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;flex-shrink:0;">{{ strtoupper(substr($pick->sport,0,3)) }}</div>
+                            <span style="display:inline-flex;align-items:center;gap:5px;color:#86efac;font-size:11px;font-weight:700;"><span class="live-dot" style="width:5px;height:5px;"></span>Live</span>
+                        </div>
+                        @if($pick->stars===10)
+                        <span style="color:#C7D2FE;font-size:10px;font-weight:800;letter-spacing:0.1em;">★10 WHALE</span>
                         @else
-                            <span style="color:#FDB515;">{{ str_repeat('★', (int)$pick->stars) }}</span><span style="color:#3a3a3a;">{{ str_repeat('★', max(0,5-(int)$pick->stars)) }}</span>
+                        <span style="color:#818CF8;font-size:13px;letter-spacing:1px;">{{ str_repeat('★',(int)$pick->stars) }}</span>
                         @endif
                     </div>
-                </div>
-
-                {{-- Row 2: status pill + time --}}
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-                    @if($status==='Started')<span class="live-dot"></span>@endif
-                    <span style="{{ $statusStyles[$status] ?? '' }}font-size:13px;font-weight:800;padding:3px 10px;border-radius:20px;">{{ $status }}</span>
-                    <span style="color:#6e6e6e;font-size:12px;">
-                        {{ $pick->game_date?->format('M d') }}{{ $pick->game_time ? ' @ '.\Carbon\Carbon::parse($pick->game_time)->format('g:i A').' ET' : '' }}
-                    </span>
-                </div>
-
-                {{-- Row 3: Teams combined + confidence --}}
-                <div style="margin-bottom:16px;">
-                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;flex-wrap:wrap;">
-                        <div style="width:28px;height:28px;border-radius:50%;background:#2a2a2a;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,252,238,.08);overflow:hidden;">
-                            @if($pick->team1_logo)
-                                <img src="{{ asset('storage/'.$pick->team1_logo) }}" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                                <span style="display:none;font-size:8px;font-weight:800;color:#9a9a9a;">{{ $t1init }}</span>
-                            @else
-                                <span style="font-size:8px;font-weight:800;color:#9a9a9a;">{{ $t1init }}</span>
-                            @endif
-                        </div>
-                        <span style="color:#FFFCEE;font-size:13px;font-weight:600;">{{ $pick->team1_name }}</span>
-                        <span style="color:#4a4a4a;font-size:11px;">vs</span>
-                        <div style="width:28px;height:28px;border-radius:50%;background:#2a2a2a;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,252,238,.08);overflow:hidden;">
-                            @if($pick->team2_logo)
-                                <img src="{{ asset('storage/'.$pick->team2_logo) }}" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                                <span style="display:none;font-size:8px;font-weight:800;color:#9a9a9a;">{{ $t2init }}</span>
-                            @else
-                                <span style="font-size:8px;font-weight:800;color:#9a9a9a;">{{ $t2init }}</span>
-                            @endif
-                        </div>
-                        <span style="color:#FFFCEE;font-size:13px;font-weight:600;">{{ $pick->team2_name }}</span>
+                    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+                        <span style="font-size:14px;font-weight:700;color:white;">{{ $pick->team1_name }}</span>
+                        <span style="font-size:10px;color:#334155;text-transform:uppercase;">vs</span>
+                        <span style="font-size:13px;font-weight:600;color:#94A3B8;">{{ $pick->team2_name }}</span>
                     </div>
-                    @if($conf)
-                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-                        <span style="{{ $statusStyles[$status] ?? '' }}font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;">{{ $status }} Pick</span>
-                        <span style="font-size:13px;font-weight:700;color:#FDB515;">{{ $conf }}% Confidence</span>
-                    </div>
-                    <div style="height:4px;background:#2a2a2a;border-radius:4px;overflow:hidden;">
-                        <div style="width:{{ $conf }}%;height:100%;background:#FDB515;border-radius:4px;"></div>
+                    <div style="font-size:11px;color:#64748B;margin-bottom:12px;">{{ $pick->game_date?->format('M d') }}{{ $pick->game_time?' @ '.\Carbon\Carbon::parse($pick->game_time)->format('g:i A').' ET':'' }}</div>
+                    @if($pConf)
+                    <div style="margin-top:auto;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;">Confidence</span><span style="font-size:12px;font-weight:800;color:white;">{{ $pConf }}%</span></div>
+                        <div class="conf-bar" style="height:6px;"><div class="conf-fill conf-fill-full" style="width:{{ $pConf }}%;"></div></div>
                     </div>
                     @endif
                 </div>
-
-                {{-- View Pick --}}
-                @auth
-                    <a href="{{ route('picks') }}" style="display:block;text-align:center;padding:11px;border:1px solid #3a3a3a;border-radius:9px;color:#9a9a9a;font-weight:600;font-size:13px;text-decoration:none;transition:border-color .15s,color .15s;" onmouseover="this.style.borderColor='#FDB515';this.style.color='#FDB515'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#9a9a9a'">View Pick</a>
-                @else
-                    <button onclick="openModal('join')" style="width:100%;padding:11px;border:1px solid #3a3a3a;border-radius:9px;color:#9a9a9a;font-weight:600;font-size:13px;background:transparent;cursor:pointer;transition:border-color .15s,color .15s;" onmouseover="this.style.borderColor='#FDB515';this.style.color='#FDB515'" onmouseout="this.style.borderColor='#3a3a3a';this.style.color='#9a9a9a'">View Pick</button>
-                @endauth
+                @endforeach
+                @if($rp->count()<3)
+                <div class="pick-secondary" style="opacity:0.3;justify-content:center;align-items:center;min-height:80px;"><p style="color:#64748B;font-size:13px;text-align:center;">More picks loading</p></div>
+                @endif
             </div>
-            @endforeach
         </div>
     </div>
 </section>
 @endif
 
-{{-- ════════════════════════════════════════════ --}}
-{{--  MEMBERSHIP PACKAGES                         --}}
-{{-- ════════════════════════════════════════════ --}}
+{{-- ══════════════════════════════════════════════ --}}
+{{--  TRUST STATS                                   --}}
+{{-- ══════════════════════════════════════════════ --}}
+<section class="stats-section" style="padding:48px 0;">
+    <div class="container-x">
+        <div class="g-stats">
+            @foreach([['1,248+','Total Units Won'],['3 yrs','Verified Track Record'],['6','Sports Covered'],['62.4%','Win Rate']] as $s)
+            <div style="text-align:center;">
+                <div class="stat-num">{{ $s[0] }}</div>
+                <div class="eyebrow" style="margin-top:8px;">{{ $s[1] }}</div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════ --}}
+{{--  MEMBERSHIP PACKAGES                           --}}
+{{-- ══════════════════════════════════════════════ --}}
 @php
-    $featuredSlugs    = ['free-trial','1-week','2-weeks','monthly','quarterly','semi-annual'];
-    $featuredPackages = $packages
-        ->filter(fn($p) => in_array($p->slug, $featuredSlugs))
-        ->sortBy(fn($p)  => array_search($p->slug, $featuredSlugs));
+    $featuredSlugs = ['free-trial','1-week','2-weeks','monthly','quarterly','semi-annual'];
+    $featuredPackages = $packages->filter(fn($p)=>in_array($p->slug,$featuredSlugs))->sortBy(fn($p)=>array_search($p->slug,$featuredSlugs));
 @endphp
-<section style="background:#171818;padding:80px 0;">
-    <div class="container">
-        <div style="margin-bottom:36px;">
-            <h2 style="font-family:'Clash Display',sans-serif;font-size:1.7rem;font-weight:500;color:#FFFCEE;letter-spacing:-.2px;margin-bottom:6px;">Membership Packages</h2>
-            <p style="color:#6e6e6e;font-size:13.5px;margin:0;">Start free. Upgrade anytime. Cancel anytime.</p>
+<section style="padding:80px 0;">
+    <div class="container-x">
+        <div style="max-width:560px;margin-bottom:48px;">
+            <h2 class="section-h2" style="margin-bottom:8px;">Membership Packages</h2>
+            <p style="color:#94A3B8;font-size:15px;margin:0;">Start free. Upgrade anytime. Cancel anytime.</p>
         </div>
 
-        <div class="home-pkg-grid">
+        <div class="g3">
             @foreach($featuredPackages as $pkg)
-            @php
-                $isFree    = $pkg->slug === 'free-trial';
-                $isMonthly = $pkg->slug === 'monthly';
-            @endphp
-            <div class="home-pkg-card">
-                {{-- Badge --}}
-                @if($isFree)
-                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;padding:4px 18px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.6px;white-space:nowrap;box-shadow:0 2px 8px rgba(34,197,94,.4);">Starts Free</div>
-                @elseif($isMonthly)
-                <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#FDB515;color:#171818;padding:4px 18px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.6px;white-space:nowrap;box-shadow:0 2px 8px rgba(253,181,21,.4);">Starts Free</div>
-                @endif
+            @php $isFree=$pkg->slug==='free-trial';$isMo=$pkg->slug==='monthly'; @endphp
+            <div class="pkg-card {{ $isMo?'highlight':'' }}">
+                @if($isFree)<div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:4px 18px;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:.06em;white-space:nowrap;box-shadow:0 2px 10px rgba(34,197,94,0.4);">START FREE</div>@endif
+                @if($isMo)<div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#1E90FF,#22D3EE);color:white;padding:4px 18px;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:.06em;white-space:nowrap;box-shadow:0 2px 10px rgba(14,165,233,0.4);">MOST POPULAR</div>@endif
 
-                <div style="margin-top:{{ ($isFree||$isMonthly)?'12px':'0' }}">
-                    <p style="font-size:11.5px;color:#6e6e6e;margin-bottom:4px;letter-spacing:.3px;">{{ $pkg->duration }} Access</p>
-                    <p style="font-family:'Clash Display',sans-serif;font-size:1rem;font-weight:500;color:#FFFCEE;margin-bottom:18px;letter-spacing:-.1px;">{{ $pkg->name }}</p>
+                <div style="margin-top:{{ ($isFree||$isMo)?'12px':'0' }};">
+                    <p class="eyebrow" style="margin-bottom:4px;">{{ $pkg->duration }} Access</p>
+                    <p style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:white;margin-bottom:20px;">{{ $pkg->name }}</p>
                 </div>
 
-                {{-- Price --}}
-                <div style="margin-bottom:20px;">
+                <div style="margin-bottom:24px;">
                     @if($isFree)
-                        <div style="font-family:'Clash Display',sans-serif;font-size:2.8rem;font-weight:600;color:#FFFCEE;line-height:1;letter-spacing:-1px;">FREE</div>
-                        <div style="font-size:12px;color:#4ade80;margin-top:6px;">No credit card needed</div>
+                        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.75rem;font-weight:800;color:white;line-height:1;letter-spacing:-0.04em;">FREE</div>
+                        <div style="font-size:12px;color:#4ade80;margin-top:6px;font-weight:600;">No credit card needed</div>
                     @else
-                        <div style="font-family:'Clash Display',sans-serif;font-size:2.4rem;font-weight:600;color:#FFFCEE;line-height:1;letter-spacing:-1px;">
-                            <sup style="font-size:.9rem;color:#6e6e6e;vertical-align:top;margin-top:9px;font-weight:500;">$</sup>{{ number_format($pkg->price,2) }}
-                        </div>
+                        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:800;color:white;line-height:1;letter-spacing:-0.04em;"><sup style="font-size:1rem;color:#64748B;vertical-align:top;margin-top:10px;font-weight:500;">$</sup>{{ number_format($pkg->price,2) }}</div>
                     @endif
                 </div>
 
-                {{-- Features --}}
-                <ul style="list-style:none;padding:0;margin:0 0 22px;flex:1;">
-                    @foreach(array_slice($pkg->features ?? [],0,5) as $feat)
-                    <li style="display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13px;color:#9a9a9a;border-bottom:1px solid rgba(255,252,238,.06);">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><circle cx="8" cy="8" r="8" fill="rgba(74,222,128,.12)"/><polyline points="5,8.5 7,10.5 11,6" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                <ul style="list-style:none;padding:0;margin:0 0 24px;flex:1;">
+                    @foreach(array_slice($pkg->features??[],0,5) as $feat)
+                    <li style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:#94A3B8;border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><circle cx="8" cy="8" r="8" fill="rgba(14,165,233,0.15)"/><polyline points="5,8.5 7,10.5 11,6" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         {{ $feat }}
                     </li>
                     @endforeach
                 </ul>
 
-                {{-- CTA --}}
-                <a href="{{ route('join') }}"
-                   style="display:block;text-align:center;padding:11px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;letter-spacing:.1px;transition:background .18s;border:1px solid {{ $isFree?'#22c55e':'#2dd4bf' }};color:{{ $isFree?'#22c55e':'#2dd4bf' }};background:transparent;"
-                   onmouseover="this.style.background='{{ $isFree?'rgba(34,197,94,.1)':'rgba(45,212,191,.1)' }}'"
-                   onmouseout="this.style.background='transparent'">
-                    {{ $isFree ? 'Start Free Trial' : 'Get Started' }}
+                <a href="{{ route('join') }}" class="{{ $isMo?'btn-primary':'btn-secondary' }}" style="width:100%;justify-content:center;{{ $isMo?'':'border-color:rgba(255,255,255,0.15);color:#94A3B8;' }}">
+                    {{ $isFree?'Start Free Trial':'Get Started' }}
                 </a>
             </div>
             @endforeach
         </div>
 
-        <p style="text-align:center;margin-top:24px;">
-            <a href="{{ route('join') }}" style="color:#4a4a4a;font-size:13px;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#FDB515'" onmouseout="this.style.color='#4a4a4a'">View all packages &amp; pricing →</a>
+        <p style="text-align:center;margin-top:32px;">
+            <a href="{{ route('join') }}" style="font-size:13px;color:#38BDF8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#7DD3FC'" onmouseout="this.style.color='#38BDF8'">View all packages &amp; pricing →</a>
         </p>
     </div>
 </section>
 
-@push('scripts')
-<script>
-function scrollArts(d) {
-    var t = document.getElementById('artsTrack');
-    if (t) t.scrollBy({ left: d * 360, behavior: 'smooth' });
-}
-</script>
-@endpush
+{{-- ══════════════════════════════════════════════ --}}
+{{--  DATA & TOOLS                                  --}}
+{{-- ══════════════════════════════════════════════ --}}
+<section style="padding:80px 0;">
+    <div class="container-x">
+        <div style="max-width:640px;margin-bottom:48px;">
+            <p class="eyebrow" style="margin-bottom:12px;">Data &amp; tools</p>
+            <h2 class="section-h2">Everything you need to beat the books.</h2>
+        </div>
+        <div class="g4">
+            @foreach([['🔬','Simulation Model','Monte-Carlo backed projections across every game on the slate.'],['⚡','Live Odds','Real-time line comparison across major sportsbooks.'],['📊','Consensus Data','Track where the public — and the sharps — are betting.'],['📈','Hot Trends','Streaks, splits, and situational angles updated daily.']] as $t)
+            <div class="tool-card">
+                <span class="tool-soon">Soon</span>
+                <div class="tool-icon">{{ $t[0] }}</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:white;margin:16px 0 6px;letter-spacing:-0.01em;">{{ $t[1] }}</h3>
+                <p style="font-size:13px;color:#64748B;line-height:1.65;margin:0;">{{ $t[2] }}</p>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ══════════════════════════════════════════════ --}}
+{{--  ABOUT                                         --}}
+{{-- ══════════════════════════════════════════════ --}}
+<section style="padding:80px 0;">
+    <div class="container-x">
+        <div class="g2">
+            <div>
+                <p class="eyebrow" style="margin-bottom:12px;">About us</p>
+                <h2 class="section-h2" style="margin-bottom:20px;">Built by bettors.<br>Powered by simulation.</h2>
+                <p style="color:#94A3B8;font-size:15px;line-height:1.75;margin-bottom:16px;">We built our simulation handicapper model to remove emotion from betting. Every pick is the output of millions of game iterations modeled against live market lines — so the only thing left to do is follow the edge.</p>
+                <p style="color:#94A3B8;font-size:15px;line-height:1.75;margin-bottom:32px;">Three years of verified results, transparent unit accounting, and a team of analysts who actually bet the plays we publish.</p>
+                <div style="display:flex;gap:16px;flex-wrap:wrap;">
+                    <a href="{{ route('join') }}" class="btn-primary">Join Now</a>
+                    <a href="{{ route('picks') }}" class="btn-secondary">See Today's Picks</a>
+                </div>
+            </div>
+            <div class="card-premium" style="padding:32px;position:relative;overflow:hidden;">
+                <div style="position:absolute;inset:0;z-index:0;opacity:0.4;background:radial-gradient(closest-side,rgba(14,165,233,0.35),transparent 70%);"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1;">
+                    @foreach([['62.4%','Win rate'],['+1,248u','Total profit'],['3 yrs','Verified'],['6','Sports']] as $s)
+                    <div class="about-stat">
+                        <div class="gradient-text" style="font-family:'Space Grotesk',sans-serif;font-size:1.75rem;font-weight:900;letter-spacing:-0.03em;">{{ $s[0] }}</div>
+                        <div class="eyebrow" style="margin-top:4px;">{{ $s[1] }}</div>
+                    </div>
+                    @endforeach
+                </div>
+                <div style="margin-top:24px;display:flex;align-items:flex-start;gap:8px;font-size:11px;color:#334155;position:relative;z-index:1;line-height:1.5;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    Information is for news and entertainment purposes only. Past performance is not a guarantee of future results.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 @endsection

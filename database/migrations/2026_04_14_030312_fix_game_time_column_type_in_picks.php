@@ -9,15 +9,14 @@ return new class extends Migration
 {
     public function up()
     {
-        // Convert any existing datetime values to time-only before changing type
+        if (DB::getDriverName() === 'sqlite') { return; }
         DB::statement("UPDATE picks SET game_time = TIME(game_time) WHERE game_time IS NOT NULL");
-
-        // Change column from datetime to time
         DB::statement("ALTER TABLE picks MODIFY COLUMN game_time TIME NULL");
     }
 
     public function down()
     {
+        if (DB::getDriverName() === 'sqlite') { return; }
         DB::statement("ALTER TABLE picks MODIFY COLUMN game_time DATETIME NULL");
     }
 };
