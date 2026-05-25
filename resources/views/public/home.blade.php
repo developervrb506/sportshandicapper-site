@@ -20,7 +20,7 @@
 }
 
 /* ── Section heading ── */
-.section-h2 { font-family:'Space Grotesk',sans-serif;font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;color:white;letter-spacing:-0.03em;line-height:1.1; }
+.section-h2 { font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;color:white;letter-spacing:-0.03em;line-height:1.1; }
 
 /* ── Eyebrow pill ── */
 .eyebrow-pill { display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:9999px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.3);color:#7DD3FC;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase; }
@@ -72,7 +72,7 @@
 
 /* ── Stats bar ── */
 .stats-section { border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.015); }
-.stat-num { font-family:'Space Grotesk',sans-serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;letter-spacing:-0.04em;background:linear-gradient(135deg,#fff 0%,#C7D2FE 50%,#93C5FD 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1; }
+.stat-num { font-size:clamp(1.75rem,3vw,2.5rem);font-weight:900;letter-spacing:-0.04em;color:#22D3EE;line-height:1; }
 
 /* ── Package cards ── */
 .pkg-card { border-radius:16px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);padding:28px 24px;position:relative;display:flex;flex-direction:column;transition:border-color .25s,box-shadow .3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px); }
@@ -113,8 +113,8 @@
                 </div>
 
                 {{-- Headline --}}
-                <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4.25rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:white;margin:0;">
-                    Betting <span style="background:linear-gradient(90deg,#1E90FF,#22D3EE,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Intelligence</span> At Scale.
+                <h1 style="font-size:clamp(2.5rem,5vw,4.25rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:white;margin:0;">
+                    Betting <span class="gradient-text-vivid">Intelligence</span> At Scale.
                 </h1>
 
                 {{-- Subtext --}}
@@ -501,7 +501,7 @@
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1;">
                     @foreach([['62.4%','Win rate'],['+1,248u','Total profit'],['3 yrs','Verified'],['6','Sports']] as $s)
                     <div class="about-stat">
-                        <div class="gradient-text" style="font-family:'Space Grotesk',sans-serif;font-size:1.75rem;font-weight:900;letter-spacing:-0.03em;">{{ $s[0] }}</div>
+                        <div class="gradient-text-vivid" style="font-size:1.75rem;font-weight:900;letter-spacing:-0.03em;">{{ $s[0] }}</div>
                         <div class="eyebrow" style="margin-top:4px;">{{ $s[1] }}</div>
                     </div>
                     @endforeach

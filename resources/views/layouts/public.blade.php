@@ -11,7 +11,7 @@
     <meta name="description" content="@yield('meta', 'Sportshandicapper - Expert sports betting analysis, simulation models, daily picks, and trends for NFL, NBA, MLB, NHL.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* ===== DESIGN TOKENS ===== */
         :root {
@@ -34,7 +34,7 @@
         /* ===== BASE ===== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow-x: hidden; background: #060818; color-scheme: dark; }
-        body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; }
         a { color: var(--text); text-decoration: none; transition: color 0.15s; }
         a:hover { color: var(--gold); }
         img { max-width: 100%; }
@@ -408,8 +408,8 @@
         @keyframes grid-pan { from{background-position:0 0,0 0} to{background-position:56px 56px,56px 56px} }
 
         /* ===== FLOATING PILL NAV ===== */
-        .site-header { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 1280px; z-index: 150; }
-        .pill-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(14,21,50,0.45); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.06); }
+        .site-header { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 1280px; z-index: 150; }
+        .pill-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 10px 40px -10px rgba(99,102,241,0.25); }
         .nav-pill-group { display: none; align-items: center; background: rgba(255,255,255,0.05); border-radius: 50px; padding: 4px 8px; border: 1px solid rgba(255,255,255,0.05); gap: 2px; }
         @media (min-width: 1024px) { .nav-pill-group { display: flex; } }
         .nav-pitem { padding: 8px 16px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.7); border-radius: 50px; transition: all 0.15s; text-decoration: none; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
@@ -419,7 +419,7 @@
         .nav-pitem-pulse { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: livePulse 1.4s infinite; display: inline-block; flex-shrink: 0; }
         .nav-pdivider { width: 1px; height: 16px; background: rgba(255,255,255,0.1); margin: 0 4px; flex-shrink: 0; }
         .nav-pdrop { position: relative; }
-        .nav-pdrop-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13.5px; font-weight: 500; color: #818CF8; border-radius: 50px; transition: all 0.15s; background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+        .nav-pdrop-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.7); border-radius: 50px; transition: all 0.15s; background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
         .nav-pdrop-btn:hover { color: #a5b4fc; background: rgba(99,102,241,0.1); }
         .nav-pdrop-btn .caret { transition: transform 0.2s; }
         .nav-pdrop:hover .nav-pdrop-btn .caret { transform: rotate(180deg); }
@@ -430,9 +430,9 @@
         .nav-pdrop-label { font-size: 13.5px; font-weight: 600; color: white; margin-bottom: 1px; }
         .nav-pdrop-sub { font-size: 11px; color: #94A3B8; }
         .nav-pdrop-soon { font-size: 9px; font-weight: 700; background: rgba(99,102,241,0.15); color: #818CF8; border-radius: 20px; padding: 2px 8px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
-        .nav-join { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 13.5px; font-weight: 700; color: white; border-radius: 12px; background: linear-gradient(135deg, #1E90FF, #22D3EE); box-shadow: 0 4px 16px rgba(30,144,255,0.35); transition: all 0.2s; text-decoration: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
-        .nav-join:hover { box-shadow: 0 6px 24px rgba(30,144,255,0.55); transform: translateY(-1px); color: white; }
-        .nav-login-btn { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); transition: color 0.15s; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; font-family: 'DM Sans', sans-serif; }
+        .nav-join { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: white; border-radius: 9999px; background: #1E90FF; box-shadow: 0 8px 24px -12px rgba(30,144,255,0.5); transition: transform 0.2s ease, background 0.2s ease; text-decoration: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+        .nav-join:hover { transform: translateY(-1px); background: #1873cc; color: white; }
+        .nav-login-btn { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); transition: color 0.15s; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; font-family: 'Inter', sans-serif; }
         .nav-login-btn:hover { color: white; }
         .nav-ham { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; }
         @media (min-width: 1024px) { .nav-ham { display: none; } }
@@ -449,43 +449,46 @@
         /* Buttons — fully pill-shaped */
         .btn-primary {
             display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;
-            padding:0.875rem 1.75rem;border-radius:9999px;
-            background:linear-gradient(135deg,#1E90FF,#22D3EE);
-            color:white;font-weight:600;font-size:0.95rem;letter-spacing:-0.01em;
-            box-shadow:0 8px 24px -8px rgba(14,165,233,0.6);
-            transition:transform 0.2s ease,box-shadow 0.3s ease;
-            text-decoration:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;
+            padding:0.75rem 1.5rem;border-radius:9999px;
+            background:#1E90FF;
+            color:white;font-weight:600;font-size:0.95rem;
+            box-shadow:0 8px 24px -12px rgba(30,144,255,0.5);
+            transition:transform 0.2s ease,background 0.2s ease;
+            text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;
         }
-        .btn-primary:hover { transform:translateY(-1px);box-shadow:0 0 32px rgba(14,165,233,0.55),0 12px 32px -8px rgba(59,130,246,0.6);color:white; }
+        .btn-primary:hover { transform:translateY(-1px);background:#1873cc;color:white; }
         .btn-secondary {
             display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;
-            padding:0.875rem 1.75rem;border-radius:9999px;
-            background:transparent;border:1px solid rgba(14,165,233,0.5);
-            color:white;font-weight:500;font-size:0.95rem;
-            transition:all 0.25s ease;text-decoration:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;
+            padding:0.75rem 1.5rem;border-radius:9999px;
+            background:transparent;border:1px solid rgba(255,255,255,0.15);
+            color:white;font-weight:600;font-size:0.95rem;
+            transition:all 0.2s ease;text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;
         }
-        .btn-secondary:hover { background:linear-gradient(135deg,#1E90FF,#22D3EE);border-color:transparent;box-shadow:0 0 24px rgba(14,165,233,0.35);color:white; }
+        .btn-secondary:hover { background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);color:white; }
         /* Cards */
+        .glass {
+            background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);
+            border-radius:20px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+        }
         .card-glass {
             background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
             border-radius:20px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
             transition:border-color 0.25s,box-shadow 0.3s;
         }
-        .card-glass:hover { border-color:rgba(14,165,233,0.35);box-shadow:0 0 0 1px rgba(168,85,247,0.2),0 20px 60px -20px rgba(168,85,247,0.35); }
         .card-premium {
-            position:relative;
-            background:linear-gradient(180deg,rgba(13,18,36,0.9),rgba(10,12,28,0.9));
-            border:1px solid rgba(14,165,233,0.12);border-radius:16px;
-            box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 20px 40px -20px rgba(0,0,0,0.6);
-            transition:transform 0.3s ease,box-shadow 0.3s ease,border-color 0.3s ease;
+            background:#0C1020;
+            border:1px solid rgba(255,255,255,0.08);border-radius:1rem;
+            box-shadow:0 20px 50px -20px rgba(0,0,0,0.7);
+            transition:transform 0.3s ease,border-color 0.3s ease;
         }
-        .card-premium:hover { transform:translateY(-3px);border-color:rgba(14,165,233,0.35);box-shadow:0 0 0 1px rgba(168,85,247,0.4),0 20px 60px -20px rgba(168,85,247,0.45); }
+        .card-premium:hover { transform:translateY(-3px);border-color:rgba(255,255,255,0.18); }
         /* Text utilities */
-        .gradient-text { background:linear-gradient(135deg,#fff 0%,#C7D2FE 50%,#93C5FD 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+        .gradient-text { color:#ffffff; }
+        .gradient-text-vivid { color:#22D3EE; }
         .glow-text { text-shadow:0 0 40px rgba(14,165,233,0.45); }
-        .eyebrow { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94A3B8; }
+        .eyebrow { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#94A3B8; }
         .container-x { max-width:1200px;margin-inline:auto;padding-inline:1.5rem; }
-        .divider-glow { height:1px;background:linear-gradient(90deg,transparent,rgba(14,165,233,0.4),transparent); }
+        .divider-glow { height:1px;background:rgba(255,255,255,0.1); }
         /* ===== CHAT WIDGET MOBILE ===== */
         @media (max-width: 520px) {
             #chatPanel {
@@ -499,90 +502,54 @@
     </style>
     @stack('styles')
     <style>
-        /* ===== MODAL — dark Figma theme ===== */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; align-items: flex-start; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; padding: 24px 16px; }
+        /* ===== MODAL ===== */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(3,5,15,0.85); z-index: 1000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); overflow-y: auto; padding: 24px 16px; }
         .modal-overlay.active { display: flex; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.94) translateY(16px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .modal-box {
-            background: #0A0F1E;
-            border: 1px solid rgba(99,102,241,0.2);
-            border-radius: 20px;
-            padding: 36px 32px 32px;
-            max-width: 420px;
-            width: 100%;
-            box-shadow: 0 0 60px rgba(99,102,241,0.08), 0 32px 80px rgba(0,0,0,0.7);
-            animation: modalIn 0.22s cubic-bezier(0.34,1.56,0.64,1);
-            position: relative;
-            overflow: visible;
-            margin: auto;
-        }
-        .modal-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #6366F1, transparent);
-        }
-        .modal-logo { text-align: center; margin-bottom: 6px; }
-        .modal-logo img { height: 40px; width: auto; }
-        .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 500; color: #F0F0FF; text-align: center; margin-bottom: 6px; }
-        .modal-subtitle { font-size: 13px; color: #6e6e6e; text-align: center; margin-bottom: 24px; }
-        .modal-tabs { display: flex; margin-bottom: 24px; border-radius: 50px; overflow: hidden; border: 1px solid rgba(99,102,241,.2); gap: 0; background: #080D1A; padding: 4px; }
-        .modal-tab { flex: 1; padding: 9px; background: transparent; border: none; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.2s; color: #6e6e6e; border-radius: 50px; font-size: 13.5px; }
-        .modal-tab.active { background: #6366F1; color: #060818; }
-        .modal-tab-content { display: none; text-align: left; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(16px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-tab-content { display: none; }
         .modal-tab-content.active { display: block; }
         .modal-input {
             width: 100%;
-            padding: 13px 16px;
-            border: 1px solid rgba(99,102,241,.15);
-            border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
+            height: 48px;
+            padding: 0 44px 0 42px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            margin-bottom: 12px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background: #060818;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            background: rgba(255,255,255,0.04);
             color: #F0F0FF;
+            box-sizing: border-box;
         }
-        .modal-input::placeholder { color: #4a4a4a; }
-        .modal-input:focus { outline: none; border-color: #6366F1; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+        .modal-input::placeholder { color: #64748B; }
+        .modal-input:focus { outline: none; border-color: rgba(34,211,238,0.5); background: rgba(255,255,255,0.06); box-shadow: 0 0 0 4px rgba(34,211,238,0.1); }
         .modal-btn {
             width: 100%;
-            padding: 14px;
-            background: #6366F1;
-            color: #060818;
+            padding: 13px;
+            background: #1E90FF;
+            color: white;
             border: none;
-            border-radius: 50px;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 700;
-            font-size: 15px;
+            border-radius: 9999px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 6px;
-            transition: all 0.2s;
-            letter-spacing: 0.1px;
-            box-shadow: 0 0 20px rgba(99,102,241,0.3);
-        }
-        .modal-btn:hover { background: #ffc62a; box-shadow: 0 0 30px rgba(99,102,241,0.5); transform: translateY(-1px); }
-        .modal-remember { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-        .modal-remember input[type=checkbox] { width: 16px; height: 16px; accent-color: #6366F1; cursor: pointer; flex-shrink: 0; }
-        .modal-remember label { font-size: 13px; color: #9a9a9a; cursor: pointer; user-select: none; }
-        .modal-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
-        .modal-divider span { font-size: 12px; color: #4a4a4a; white-space: nowrap; }
-        .modal-divider::before, .modal-divider::after { content: ''; flex: 1; height: 1px; background: rgba(99,102,241,.08); }
-        .modal-error { color: #ef4444; font-size: 13px; margin-top: 6px; display: none; }
-        .modal-link { color: #6366F1; font-size: 13px; text-decoration: none; transition: opacity .15s; }
-        .modal-link:hover { opacity: 0.8; color: #6366F1; }
-        .modal-close {
-            position: absolute; top: 14px; right: 14px;
-            background: rgba(99,102,241,.05);
-            border: 1px solid rgba(99,102,241,.08);
-            border-radius: 50%;
-            width: 30px; height: 30px;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 8px 24px -8px rgba(30,144,255,0.5);
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: #6e6e6e; font-size: 18px; line-height: 1;
-            transition: all 0.15s;
         }
-        .modal-close:hover { background: rgba(99,102,241,.1); color: #F0F0FF; }
+        .modal-btn:hover { transform: translateY(-1px); background: #1873cc; }
+        .modal-remember { display: flex; align-items: center; gap: 8px; }
+        .modal-remember input[type=checkbox] { width: 16px; height: 16px; accent-color: #1E90FF; cursor: pointer; flex-shrink: 0; }
+        .modal-remember label { font-size: 13px; color: #94A3B8; cursor: pointer; user-select: none; }
+        .modal-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
+        .modal-divider span { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: #64748B; white-space: nowrap; }
+        .modal-divider::before, .modal-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+        .modal-error { color: #ef4444; font-size: 13px; margin-top: 4px; display: none; }
+        @media (max-width: 700px) {
+            .modal-overlay > div { grid-template-columns: 1fr !important; }
+            .modal-overlay > div > div:first-child { display: none !important; }
+        }
     </style>
 </head>
 <body>
@@ -602,17 +569,17 @@
     <script>setTimeout(function(){var t=document.getElementById('flash-error');if(t){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},400);}},5000);</script>
     @endif
     {{-- ═══ GLOBAL AURORA BACKGROUND ═══ --}}
-    <div id="aurora-bg" style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
-        <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.6;"></canvas>
-        <div class="aurora aurora-1"></div>
-        <div class="aurora aurora-2"></div>
-        <div class="aurora aurora-3"></div>
-        <div class="aurora aurora-4"></div>
-        <div class="conic-shimmer"></div>
-        <div class="scan-beam"></div>
-        {{-- grid removed --}}
+    <div id="aurora-bg" style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#060818;">
+        {{-- Blob 1: top-left blue --}}
+        <div style="position:absolute;top:-20%;left:-10%;width:60vw;height:60vw;border-radius:9999px;background:#1E90FF;filter:blur(160px);opacity:0.12;"></div>
+        {{-- Blob 2: bottom-right cyan --}}
+        <div style="position:absolute;bottom:-20%;right:-10%;width:55vw;height:55vw;border-radius:9999px;background:#0EA5E9;filter:blur(160px);opacity:0.10;"></div>
+        {{-- Noise overlay --}}
+        <div class="noise-overlay"></div>
         {{-- Vignette --}}
-        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(6,8,24,0.75) 100%);"></div>
+        <div class="vignette"></div>
+        {{-- Particles --}}
+        <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5;"></canvas>
     </div>
 
     <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
@@ -748,98 +715,151 @@
     }
     </style>
 
-    <!-- Login/Register Modal -->
-    <div id="authModal" class="modal-overlay">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
+    <!-- Auth Modal — two-column design -->
+    <div id="authModal" class="modal-overlay" onclick="closeModal()">
+        <div onclick="event.stopPropagation()" style="position:relative;width:100%;max-width:900px;display:grid;grid-template-columns:1.05fr 1fr;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:rgba(10,12,28,0.92);box-shadow:0 40px 120px -20px rgba(30,144,255,0.35);animation:modalIn 0.25s cubic-bezier(0.22,1,0.36,1);">
+            <!-- Top cyan strip -->
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(34,211,238,0.5);z-index:1;"></div>
 
-            <div class="modal-logo" style="margin-bottom:10px;">
-                <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,#818CF8,#6366F1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Sportshandicapper</span>
-            </div>
-            <div id="modalTitle" class="modal-title">Welcome Back</div>
-            <div id="modalSubtitle" class="modal-subtitle">Sign in to access your picks</div>
+            <!-- LEFT: Brand panel -->
+            <div style="position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:40px;background:#0A0F22;overflow:hidden;">
+                <div style="position:absolute;top:-20%;left:-15%;width:380px;height:380px;border-radius:9999px;background:#1E90FF;filter:blur(110px);opacity:0.5;pointer-events:none;"></div>
+                <div style="position:absolute;bottom:-20%;right:-10%;width:340px;height:340px;border-radius:9999px;background:#A855F7;filter:blur(110px);opacity:0.4;pointer-events:none;"></div>
+                <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 0);background-size:24px 24px;"></div>
 
-            <div class="modal-tabs">
-                <button class="modal-tab active" id="tabLoginBtn" onclick="switchTab('login')">Log In</button>
-                <button class="modal-tab" id="tabRegisterBtn" onclick="switchTab('register')">Join Now</button>
-            </div>
-
-            <!-- Login Form -->
-            <div id="loginTab" class="modal-tab-content active">
-                <form id="loginForm">
-                    <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email">
-                    <div style="position:relative;margin-bottom:12px;">
-                        <input type="password" id="loginPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="current-password" style="margin-bottom:0;padding-right:44px;">
-                        <button type="button" onclick="togglePw('loginPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6e6e6e;font-size:17px;line-height:1;padding:0;" title="Show/hide password">👁</button>
-                    </div>
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                        <div class="modal-remember">
-                            <input type="checkbox" id="rememberMe" name="remember">
-                            <label for="rememberMe">Remember me</label>
+                <div style="position:relative;">
+                    <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:36px;width:auto;object-fit:contain;">
+                    <div style="margin-top:32px;">
+                        <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#CBD5E1;margin-bottom:20px;">
+                            <span style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:9999px;background:#22c55e;"></span>
+                            Verified Picks · Live
                         </div>
-                        <a href="{{ route('password.request') }}" class="modal-link" style="font-size:12.5px;">Forgot password?</a>
+                        <h2 style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;line-height:1.2;color:white;margin:0 0 16px;">Sharper picks.<br><span style="color:#22D3EE;">Smarter bankroll.</span></h2>
+                        <p style="color:#94A3B8;font-size:13px;line-height:1.7;max-width:280px;margin:0;">Join thousands of bettors winning with timestamped, graded picks from verified handicappers — across every major league.</p>
                     </div>
-                    <button type="submit" class="modal-btn">Log In</button>
-                    <div id="loginError" class="modal-error"></div>
-                    <div class="modal-divider"><span>or</span></div>
-                    <p style="text-align:center;font-size:13px;color:#6e6e6e;margin:0;">
-                        Don't have an account?
-                        <a href="#" class="modal-link" onclick="switchTab('register');return false;">Join Now</a>
-                    </p>
-                </form>
-            </div>
-
-            <!-- Register Form -->
-            <div id="registerTab" class="modal-tab-content">
-                {{-- Step 1: Disclaimer (shown first) --}}
-                <div id="registerDisclaimer">
-                    <div style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:16px 18px;margin-bottom:16px;font-size:12.5px;color:#9a9a9a;line-height:1.75;">
-                        <strong style="color:#6366F1;display:block;font-size:13px;margin-bottom:8px;letter-spacing:.2px;">THIS IS NOT A GAMBLING SITE</strong>
-                        Information contained within this website is for news and entertainment purposes only. Use of this information in violation of State, Federal, or Local laws is strictly prohibited. Past performance is not a guarantee of future results.<br><br>
-                        Do you think you may have a gambling problem? If so, please contact a specialist. We are here for entertainment purposes, but your personal mental health and financial security are very important.<br><br>
-                        <strong style="color:#F0F0FF;">Billing:</strong> Any credit card charges will appear as <strong style="color:#F0F0FF;">"SPORTSHANDICAPPER"</strong> on your statement. For issues, call our 800# or use the ticket system.
-                    </div>
-                    {{-- Checkboxes --}}
-                    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">
-                        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
-                            <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:#6366F1;flex-shrink:0;margin-top:2px;">
-                            <span style="font-size:13px;color:#9a9a9a;line-height:1.5;">I agree to the <a href="{{ route('terms') }}" target="_blank" style="color:#6366F1;text-decoration:underline;text-underline-offset:2px;">Terms of Service</a></span>
-                        </label>
-                        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
-                            <input type="checkbox" id="agreePrivacy" style="width:16px;height:16px;accent-color:#6366F1;flex-shrink:0;margin-top:2px;">
-                            <span style="font-size:13px;color:#9a9a9a;line-height:1.5;">I agree to the <a href="{{ route('privacy') }}" target="_blank" style="color:#6366F1;text-decoration:underline;text-underline-offset:2px;">Privacy Policy</a></span>
-                        </label>
-                    </div>
-                    <div id="checkboxError" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none;">Please agree to both the Terms of Service and Privacy Policy to continue.</div>
-                    <button type="button" onclick="checkAndContinue()" class="modal-btn">I Understand — Continue</button>
-                    <div class="modal-divider"><span>or</span></div>
-                    <p style="text-align:center;font-size:13px;color:#6e6e6e;margin:0;">
-                        Already have an account?
-                        <a href="#" class="modal-link" onclick="switchTab('login');return false;">Log In</a>
-                    </p>
                 </div>
-                {{-- Step 2: Registration form (hidden until disclaimer accepted) --}}
-                <div id="registerFormFields" style="display:none;">
-                    <form id="registerForm">
-                        <input type="text" class="modal-input" placeholder="Full Name" name="name" required autocomplete="name">
-                        <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email">
-                        <input type="tel" class="modal-input" placeholder="Phone (optional)" name="phone">
-                        <div style="position:relative;margin-bottom:12px;">
-                            <input type="password" id="regPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="new-password" style="margin-bottom:0;padding-right:44px;">
-                            <button type="button" onclick="togglePw('regPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6e6e6e;font-size:17px;line-height:1;padding:0;" title="Show/hide password">👁</button>
+
+                <div style="position:relative;display:flex;flex-direction:column;gap:10px;margin-top:32px;">
+                    @foreach([['📈','+184u YTD verified profit'],['🛡️','100% timestamped &amp; graded'],['🏆','Top 1% capper leaderboard']] as $feat)
+                    <div style="display:flex;align-items:center;gap:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);padding:10px 14px;">
+                        <div style="width:32px;height:32px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">{{ $feat[0] }}</div>
+                        <span style="font-size:13px;color:#CBD5E1;">{!! $feat[1] !!}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- RIGHT: Form panel -->
+            <div style="position:relative;padding:28px 32px 32px;overflow-y:auto;max-height:90vh;">
+                <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:16px;line-height:1;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">&times;</button>
+
+                <div style="margin-bottom:20px;">
+                    <div class="eyebrow" style="color:#6366F1;display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l3 6 6.5 1-4.7 4.6 1.1 6.4L12 16l-5.9 3 1.1-6.4L2.5 8 9 7z"/></svg>
+                        <span id="modalEyebrow">Welcome back</span>
+                    </div>
+                    <h3 id="modalTitle" style="font-size:1.6rem;font-weight:800;color:white;margin:0 0 6px;">Sign in to your account</h3>
+                    <p id="modalSubtitle" style="font-size:13px;color:#64748B;margin:0;">Access today's picks and your tracked bankroll.</p>
+                </div>
+
+                <!-- Sliding tab switcher -->
+                <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);margin-bottom:24px;">
+                    <span id="tabSlider" style="position:absolute;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:9999px;background:#1E90FF;box-shadow:0 8px 24px -8px rgba(30,144,255,0.7);transition:transform 0.25s ease;transform:translateX(4px);"></span>
+                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Inter',sans-serif;transition:color .2s;">Log In</button>
+                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Inter',sans-serif;transition:color .2s;">Join Now</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginTab" class="modal-tab-content active">
+                    <form id="loginForm" style="display:flex;flex-direction:column;gap:14px;">
+                        <div style="position:relative;">
+                            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email" style="padding-left:42px;">
                         </div>
-                        <div style="position:relative;margin-bottom:12px;">
-                            <input type="password" id="regPasswordConfirm" class="modal-input" placeholder="Confirm Password" name="password_confirmation" required autocomplete="new-password" style="margin-bottom:0;padding-right:44px;">
-                            <button type="button" onclick="togglePw('regPasswordConfirm',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#6e6e6e;font-size:17px;line-height:1;padding:0;" title="Show/hide password">👁</button>
+                        <div style="position:relative;">
+                            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                            </div>
+                            <input type="password" id="loginPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="current-password" style="padding-left:42px;padding-right:44px;margin-bottom:0;">
+                            <button type="button" onclick="togglePw('loginPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
                         </div>
-                        <button type="submit" class="modal-btn">Create Account</button>
-                        <div id="registerError" class="modal-error"></div>
-                        <div class="modal-divider"><span>or</span></div>
-                        <p style="text-align:center;font-size:13px;color:#6e6e6e;margin:0;">
-                            Already have an account?
-                            <a href="#" class="modal-link" onclick="switchTab('login');return false;">Log In</a>
-                        </p>
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <div class="modal-remember">
+                                <input type="checkbox" id="rememberMe" name="remember">
+                                <label for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="{{ route('password.request') }}" style="font-size:12.5px;color:#22D3EE;text-decoration:none;" onmouseover="this.style.color='#7DD3FC'" onmouseout="this.style.color='#22D3EE'">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="modal-btn" style="margin-top:0;">Log In</button>
+                        <div id="loginError" class="modal-error"></div>
+                        <div class="modal-divider"><span>or continue with</span></div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <button type="button" style="height:42px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#CBD5E1;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+                                <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.5 29.3 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.5 29.3 4.5 24 4.5 16.3 4.5 9.7 8.8 6.3 14.7z"/><path fill="#4CAF50" d="M24 43.5c5.2 0 9.9-2 13.5-5.2l-6.2-5.2c-2 1.4-4.6 2.4-7.3 2.4-5.2 0-9.6-3.3-11.2-8l-6.5 5C9.5 39 16.2 43.5 24 43.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.2 5.2C40.9 36 43.5 30.5 43.5 24c0-1.2-.1-2.3-.4-3.5z"/></svg>
+                                Google
+                            </button>
+                            <button type="button" style="height:42px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#CBD5E1;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.05 12.04c-.03-2.87 2.35-4.25 2.46-4.32-1.34-1.96-3.43-2.23-4.17-2.26-1.78-.18-3.47 1.05-4.37 1.05-.92 0-2.3-1.03-3.78-1-1.94.03-3.74 1.13-4.74 2.86-2.02 3.5-.52 8.69 1.45 11.54.96 1.39 2.11 2.96 3.6 2.9 1.45-.06 2-.94 3.75-.94s2.24.94 3.78.91c1.56-.03 2.55-1.42 3.5-2.82 1.1-1.62 1.56-3.18 1.59-3.26-.03-.01-3.05-1.17-3.07-4.66zM14.36 3.86c.81-.98 1.36-2.34 1.21-3.7-1.17.05-2.59.78-3.42 1.76-.75.86-1.4 2.24-1.22 3.58 1.3.1 2.62-.66 3.43-1.64z"/></svg>
+                                Apple
+                            </button>
+                        </div>
+                        <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Don't have an account? <a href="#" onclick="switchTab('register');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Join Now</a></p>
                     </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerTab" class="modal-tab-content">
+                    {{-- Step 1: Disclaimer --}}
+                    <div id="registerDisclaimer">
+                        <div style="border-radius:12px;border:1px solid rgba(251,191,36,0.2);background:rgba(251,191,36,0.04);padding:14px 16px;margin-bottom:16px;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#FCD34D;margin-bottom:6px;">This is not a gambling site</div>
+                            <p style="font-size:12px;color:#94A3B8;line-height:1.6;margin:0 0 12px;">Information is for entertainment purposes only. Past performance is not a guarantee of future results.</p>
+                            <div style="display:flex;flex-direction:column;gap:8px;">
+                                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+                                    <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:#1E90FF;flex-shrink:0;margin-top:2px;">
+                                    <span style="font-size:12px;color:#94A3B8;line-height:1.5;">I agree to the <a href="{{ route('terms') }}" target="_blank" style="color:#22D3EE;text-decoration:none;">Terms of Service</a></span>
+                                </label>
+                                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+                                    <input type="checkbox" id="agreePrivacy" style="width:16px;height:16px;accent-color:#1E90FF;flex-shrink:0;margin-top:2px;">
+                                    <span style="font-size:12px;color:#94A3B8;line-height:1.5;">I agree to the <a href="{{ route('privacy') }}" target="_blank" style="color:#22D3EE;text-decoration:none;">Privacy Policy</a></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="checkboxError" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none;">Please agree to both the Terms of Service and Privacy Policy to continue.</div>
+                        <button type="button" onclick="checkAndContinue()" class="modal-btn">I Understand — Continue</button>
+                        <div class="modal-divider" style="margin-top:16px;"><span>or</span></div>
+                        <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Already have an account? <a href="#" onclick="switchTab('login');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Log In</a></p>
+                    </div>
+                    {{-- Step 2: Registration fields --}}
+                    <div id="registerFormFields" style="display:none;">
+                        <form id="registerForm" style="display:flex;flex-direction:column;gap:12px;">
+                            <div style="position:relative;">
+                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                                <input type="text" class="modal-input" placeholder="Full name" name="name" required autocomplete="name" style="margin-bottom:0;padding-left:42px;">
+                            </div>
+                            <div style="position:relative;">
+                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                                <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email" style="margin-bottom:0;padding-left:42px;">
+                            </div>
+                            <div style="position:relative;">
+                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                                <input type="password" id="regPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="new-password" style="margin-bottom:0;padding-left:42px;padding-right:44px;">
+                                <button type="button" onclick="togglePw('regPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                            </div>
+                            <div style="position:relative;">
+                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                                <input type="password" id="regPasswordConfirm" class="modal-input" placeholder="Confirm password" name="password_confirmation" required autocomplete="new-password" style="margin-bottom:0;padding-left:42px;padding-right:44px;">
+                                <button type="button" onclick="togglePw('regPasswordConfirm',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                            </div>
+                            <button type="submit" class="modal-btn">Create Account</button>
+                            <div id="registerError" class="modal-error"></div>
+                            <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Already have an account? <a href="#" onclick="switchTab('login');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Log In</a></p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -962,7 +982,6 @@
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.modal-tab').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.modal-tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.modal-error').forEach(e => e.style.display = 'none');
             // Reset register disclaimer on tab switch
@@ -970,21 +989,36 @@
             var fields = document.getElementById('registerFormFields');
             if (disc) disc.style.display = 'block';
             if (fields) fields.style.display = 'none';
-            // Uncheck checkboxes
             var t = document.getElementById('agreeTerms'); if (t) t.checked = false;
             var p = document.getElementById('agreePrivacy'); if (p) p.checked = false;
             var e = document.getElementById('checkboxError'); if (e) e.style.display = 'none';
 
+            var slider = document.getElementById('tabSlider');
+            var loginBtn = document.getElementById('tabLoginBtn');
+            var registerBtn = document.getElementById('tabRegisterBtn');
+
             if (tab === 'login') {
-                document.getElementById('tabLoginBtn').classList.add('active');
                 document.getElementById('loginTab').classList.add('active');
-                document.getElementById('modalTitle').textContent = 'Welcome Back';
-                document.getElementById('modalSubtitle').textContent = 'Sign in to access your picks';
+                if (slider) slider.style.transform = 'translateX(4px)';
+                if (loginBtn) loginBtn.style.color = 'white';
+                if (registerBtn) registerBtn.style.color = '#94A3B8';
+                var eyebrow = document.getElementById('modalEyebrow');
+                if (eyebrow) eyebrow.textContent = 'Welcome back';
+                var title = document.getElementById('modalTitle');
+                if (title) title.textContent = 'Sign in to your account';
+                var sub = document.getElementById('modalSubtitle');
+                if (sub) sub.textContent = 'Access today\'s picks and your tracked bankroll.';
             } else {
-                document.getElementById('tabRegisterBtn').classList.add('active');
                 document.getElementById('registerTab').classList.add('active');
-                document.getElementById('modalTitle').textContent = 'Create Account';
-                document.getElementById('modalSubtitle').textContent = 'Join Sportshandicapper and start winning';
+                if (slider) slider.style.transform = 'translateX(calc(100% + 4px))';
+                if (loginBtn) loginBtn.style.color = '#94A3B8';
+                if (registerBtn) registerBtn.style.color = 'white';
+                var eyebrow = document.getElementById('modalEyebrow');
+                if (eyebrow) eyebrow.textContent = 'Join the edge';
+                var title = document.getElementById('modalTitle');
+                if (title) title.textContent = 'Create your account';
+                var sub = document.getElementById('modalSubtitle');
+                if (sub) sub.textContent = 'Start with a free trial — cancel anytime.';
             }
         }
         
