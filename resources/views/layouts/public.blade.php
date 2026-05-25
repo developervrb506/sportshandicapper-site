@@ -672,13 +672,13 @@
         @yield('content')
     </div>
 
-    <footer style="background:#060818;border-top:1px solid rgba(255,255,255,0.05);padding:48px 0 0;">
+    <footer style="background:#060818;border-top:1px solid rgba(255,255,255,0.05);padding:48px 0 0;position:relative;z-index:1;">
         <div class="container-x">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
                 {{-- Brand column --}}
                 <div>
                     <div style="margin-bottom:16px;">
-                        <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:40px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(168,85,247,0.3));">
+                        <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:60px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(30,144,255,0.3));">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
                 </div>
