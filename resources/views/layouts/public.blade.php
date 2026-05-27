@@ -588,8 +588,11 @@
     <header class="site-header">
         <nav class="pill-nav">
             {{-- Logo --}}
-            <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
-                <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:120px;width:auto;object-fit:contain;border-radius:8px;margin:-32px 0;filter:drop-shadow(0 4px 16px rgba(30,144,255,0.3));">
+            <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:9px;">
+                <div style="width:32px;height:32px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(30,144,255,0.4);">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
+                </div>
+                <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;">Sports<span style="color:#1E90FF;">handicapper</span></span>
             </a>
 
             {{-- Pill-grouped nav links --}}
@@ -677,8 +680,11 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
                 {{-- Brand column --}}
                 <div>
-                    <div style="margin-bottom:16px;">
-                        <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:60px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(30,144,255,0.3));">
+                    <div style="margin-bottom:16px;display:flex;align-items:center;gap:9px;">
+                        <div style="width:34px;height:34px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(30,144,255,0.4);">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
+                        </div>
+                        <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.02em;">Sports<span style="color:#1E90FF;">handicapper</span></span>
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
                 </div>
@@ -728,7 +734,12 @@
                 <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 0);background-size:24px 24px;"></div>
 
                 <div style="position:relative;">
-                    <img src="{{ asset('images/sh-logo.png') }}" alt="Sportshandicapper" style="height:36px;width:auto;object-fit:contain;">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                        <div style="width:36px;height:36px;border-radius:9px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(30,144,255,0.5);">
+                            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
+                        </div>
+                        <span style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.02em;">Sports<span style="color:#1E90FF;">handicapper</span></span>
+                    </div>
                     <div style="margin-top:32px;">
                         <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#CBD5E1;margin-bottom:20px;">
                             <span style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:9999px;background:#22c55e;"></span>
@@ -796,17 +807,6 @@
                         </div>
                         <button type="submit" class="modal-btn" style="margin-top:0;">Log In</button>
                         <div id="loginError" class="modal-error"></div>
-                        <div class="modal-divider"><span>or continue with</span></div>
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                            <button type="button" style="height:42px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#CBD5E1;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
-                                <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.5 29.3 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.5 29.3 4.5 24 4.5 16.3 4.5 9.7 8.8 6.3 14.7z"/><path fill="#4CAF50" d="M24 43.5c5.2 0 9.9-2 13.5-5.2l-6.2-5.2c-2 1.4-4.6 2.4-7.3 2.4-5.2 0-9.6-3.3-11.2-8l-6.5 5C9.5 39 16.2 43.5 24 43.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.2 5.2C40.9 36 43.5 30.5 43.5 24c0-1.2-.1-2.3-.4-3.5z"/></svg>
-                                Google
-                            </button>
-                            <button type="button" style="height:42px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#CBD5E1;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.05 12.04c-.03-2.87 2.35-4.25 2.46-4.32-1.34-1.96-3.43-2.23-4.17-2.26-1.78-.18-3.47 1.05-4.37 1.05-.92 0-2.3-1.03-3.78-1-1.94.03-3.74 1.13-4.74 2.86-2.02 3.5-.52 8.69 1.45 11.54.96 1.39 2.11 2.96 3.6 2.9 1.45-.06 2-.94 3.75-.94s2.24.94 3.78.91c1.56-.03 2.55-1.42 3.5-2.82 1.1-1.62 1.56-3.18 1.59-3.26-.03-.01-3.05-1.17-3.07-4.66zM14.36 3.86c.81-.98 1.36-2.34 1.21-3.7-1.17.05-2.59.78-3.42 1.76-.75.86-1.4 2.24-1.22 3.58 1.3.1 2.62-.66 3.43-1.64z"/></svg>
-                                Apple
-                            </button>
-                        </div>
                         <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Don't have an account? <a href="#" onclick="switchTab('register');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Join Now</a></p>
                     </form>
                 </div>
