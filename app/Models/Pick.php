@@ -10,6 +10,8 @@ class Pick extends Model
 {
     use HasFactory;
 
+    protected $connection = 'inspin';
+
     protected $fillable = [
         'sport',
         'game_date',

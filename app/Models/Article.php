@@ -10,6 +10,8 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $connection = 'inspin';
+
     protected $fillable = [
         'title', 'slug', 'excerpt', 'content', 'featured_image',
         'category', 'sport', 'author', 'expert_name', 'is_premium', 'is_published', 'published_at',
