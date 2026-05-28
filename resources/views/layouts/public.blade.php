@@ -588,11 +588,8 @@
     <header class="site-header">
         <nav class="pill-nav">
             {{-- Logo --}}
-            <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:9px;">
-                <div style="width:32px;height:32px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(30,144,255,0.4);">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
-                </div>
-                <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;">Sports<span style="color:#1E90FF;">handicapper</span></span>
+            <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
+                <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:44px;width:auto;object-fit:contain;">
             </a>
 
             {{-- Pill-grouped nav links --}}
@@ -680,11 +677,8 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
                 {{-- Brand column --}}
                 <div>
-                    <div style="margin-bottom:16px;display:flex;align-items:center;gap:9px;">
-                        <div style="width:34px;height:34px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(30,144,255,0.4);">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
-                        </div>
-                        <span style="font-size:15px;font-weight:800;color:white;letter-spacing:-0.02em;">Sports<span style="color:#1E90FF;">handicapper</span></span>
+                    <div style="margin-bottom:16px;">
+                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:52px;width:auto;object-fit:contain;">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
                 </div>
@@ -734,11 +728,8 @@
                 <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 0);background-size:24px 24px;"></div>
 
                 <div style="position:relative;">
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-                        <div style="width:36px;height:36px;border-radius:9px;background:#1E90FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(30,144,255,0.5);">
-                            <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M9 2L11.5 7H16.5L12.5 10.5L14 16L9 13L4 16L5.5 10.5L1.5 7H6.5L9 2Z" fill="white"/></svg>
-                        </div>
-                        <span style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.02em;">Sports<span style="color:#1E90FF;">handicapper</span></span>
+                    <div style="margin-bottom:4px;">
+                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:56px;width:auto;object-fit:contain;">
                     </div>
                     <div style="margin-top:32px;">
                         <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#CBD5E1;margin-bottom:20px;">
