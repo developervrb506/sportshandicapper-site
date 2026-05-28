@@ -589,7 +589,7 @@
         <nav class="pill-nav">
             {{-- Logo --}}
             <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
-                <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
+                <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:110px;width:auto;object-fit:contain;margin:-32px 0;">
             </a>
 
             {{-- Pill-grouped nav links --}}
