@@ -24,17 +24,33 @@ class PublicController extends Controller
 
     public function home()
     {
-        $expertPicks = Pick::where('is_active', true)
-            ->where('result', 'pending')
-            ->orderBy('game_date', 'asc')
-            ->orderBy('game_time', 'asc')
-            ->limit(4)
-            ->get();
+        try {
+            $expertPicks = Pick::where('is_active', true)
+                ->where('result', 'pending')
+                ->orderBy('game_date', 'asc')
+                ->orderBy('game_time', 'asc')
+                ->limit(4)
+                ->get();
+        } catch (\Exception $e) {
+            $expertPicks = collect();
+        }
+
+        try {
+            $articles = Article::published()->latest()->limit(3)->get();
+        } catch (\Exception $e) {
+            $articles = collect();
+        }
+
+        try {
+            $hotStreaks = $this->streakService->getHotStreaks();
+        } catch (\Exception $e) {
+            $hotStreaks = collect();
+        }
 
         return view('public.home', [
-            'articles' => Article::published()->latest()->limit(3)->get(),
+            'articles' => $articles,
             'expertPicks' => $expertPicks,
-            'hotStreaks' => $this->streakService->getHotStreaks(),
+            'hotStreaks' => $hotStreaks,
             'packages' => Package::active()->get(),
             'whalePackages' => WhalePackage::active()->get(),
         ]);

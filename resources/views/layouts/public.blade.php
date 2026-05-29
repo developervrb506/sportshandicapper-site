@@ -11,7 +11,7 @@
     <meta name="description" content="@yield('meta', 'Sportshandicapper - Expert sports betting analysis, simulation models, daily picks, and trends for NFL, NBA, MLB, NHL.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ===== DESIGN TOKENS ===== */
         :root {
@@ -34,7 +34,8 @@
         /* ===== BASE ===== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow-x: hidden; background: #060818; color-scheme: dark; }
-        body { font-family: 'Inter', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Rajdhani', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5, h6, .section-h2 { font-family: 'Orbitron', sans-serif; letter-spacing: 0.02em; }
         a { color: var(--text); text-decoration: none; transition: color 0.15s; }
         a:hover { color: var(--gold); }
         img { max-width: 100%; }
@@ -407,6 +408,39 @@
         }
         @keyframes grid-pan { from{background-position:0 0,0 0} to{background-position:56px 56px,56px 56px} }
 
+        /* ===== AURORA BLOB ANIMATIONS ===== */
+        @keyframes aurora-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,-30px) scale(1.15)} }
+        @keyframes aurora-2 { 0%,100%{transform:translate(0,0) scale(1.1)} 50%{transform:translate(-50px,40px) scale(0.95)} }
+        .aurora-blob { position:absolute;border-radius:9999px;filter:blur(120px);will-change:transform; }
+        .aurora-1 { animation:aurora-1 18s ease-in-out infinite; }
+        .aurora-2 { animation:aurora-2 22s ease-in-out infinite; }
+
+        /* ===== CONIC SHIMMER ===== */
+        @keyframes conic-spin { to{transform:rotate(360deg)} }
+        .conic-shimmer { position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(30,144,255,0.08),transparent,rgba(168,85,247,0.08),transparent);animation:conic-spin 40s linear infinite;opacity:0.6; }
+
+        /* ===== SCAN BEAM ===== */
+        @keyframes scan-beam-anim { 0%{transform:translateY(-100%);opacity:0} 10%{opacity:0.7} 90%{opacity:0.7} 100%{transform:translateY(100vh);opacity:0} }
+        .scan-beam { position:absolute;left:0;right:0;height:200px;background:linear-gradient(180deg,transparent,rgba(34,211,238,0.08),transparent);transform:skewY(-8deg);animation:scan-beam-anim 9s ease-in-out infinite;animation-delay:3s; }
+
+        /* ===== TICKER ===== */
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ===== PING SOFT (live dot) ===== */
+        @keyframes ping-soft { 75%,100%{transform:scale(2.2);opacity:0} }
+        .ping-soft { position:relative; }
+        .ping-soft::after { content:'';position:absolute;inset:0;border-radius:9999px;background:inherit;animation:ping-soft 1.8s cubic-bezier(0,0,0.2,1) infinite; }
+
+        /* ===== SPRINT LINE (Final CTA) ===== */
+        @keyframes sprintLine { 0%{width:0;opacity:0} 25%{opacity:1} 90%{width:100%;opacity:1} 100%{width:100%;opacity:0} }
+        @keyframes sprintDot { 0%{left:0;opacity:0} 15%{opacity:1} 90%{left:calc(100% - 8px);opacity:1} 100%{left:calc(100% - 8px);opacity:0} }
+        .sprint-line { animation:sprintLine 3.2s cubic-bezier(.5,.05,.2,1) infinite; }
+        .sprint-dot { animation:sprintDot 3.2s cubic-bezier(.5,.05,.2,1) infinite; }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal { opacity:0;transform:translateY(24px);transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+        .reveal.is-visible { opacity:1;transform:translateY(0); }
+
         /* ===== FLOATING PILL NAV ===== */
         .site-header { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 1280px; z-index: 150; }
         .pill-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 10px 40px -10px rgba(99,102,241,0.25); }
@@ -454,7 +488,7 @@
             color:white;font-weight:600;font-size:0.95rem;
             box-shadow:0 8px 24px -12px rgba(30,144,255,0.5);
             transition:transform 0.2s ease,background 0.2s ease;
-            text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;
+            text-decoration:none;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;
         }
         .btn-primary:hover { transform:translateY(-1px);background:#1873cc;color:white; }
         .btn-secondary {
@@ -462,7 +496,7 @@
             padding:0.75rem 1.5rem;border-radius:9999px;
             background:transparent;border:1px solid rgba(255,255,255,0.15);
             color:white;font-weight:600;font-size:0.95rem;
-            transition:all 0.2s ease;text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;
+            transition:all 0.2s ease;text-decoration:none;cursor:pointer;font-family:'Rajdhani',sans-serif;
         }
         .btn-secondary:hover { background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);color:white; }
         /* Cards */
@@ -568,18 +602,16 @@
     </div>
     <script>setTimeout(function(){var t=document.getElementById('flash-error');if(t){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},400);}},5000);</script>
     @endif
-    {{-- ═══ GLOBAL AURORA BACKGROUND ═══ --}}
+    {{-- ═══ GLOBAL BACKGROUND ═══ --}}
     <div id="aurora-bg" style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#060818;">
-        {{-- Blob 1: top-left blue --}}
-        <div style="position:absolute;top:-20%;left:-10%;width:60vw;height:60vw;border-radius:9999px;background:#1E90FF;filter:blur(160px);opacity:0.12;"></div>
-        {{-- Blob 2: bottom-right cyan --}}
-        <div style="position:absolute;bottom:-20%;right:-10%;width:55vw;height:55vw;border-radius:9999px;background:#0EA5E9;filter:blur(160px);opacity:0.10;"></div>
+        {{-- Stadium background image --}}
+        <div style="position:absolute;inset:0;background-image:url('{{ asset('images/background.jpg') }}');background-size:cover;background-position:center;opacity:0.75;"></div>
+        {{-- Gradient overlay --}}
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,8,24,0.35) 0%,rgba(6,8,24,0.55) 60%,rgba(6,8,24,0.85) 100%);"></div>
         {{-- Noise overlay --}}
         <div class="noise-overlay"></div>
         {{-- Vignette --}}
         <div class="vignette"></div>
-        {{-- Particles --}}
-        <canvas id="particleCanvas" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.5;"></canvas>
     </div>
 
     <div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
@@ -767,8 +799,8 @@
                 <!-- Sliding tab switcher -->
                 <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);margin-bottom:24px;">
                     <span id="tabSlider" style="position:absolute;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:9999px;background:#1E90FF;box-shadow:0 8px 24px -8px rgba(30,144,255,0.7);transition:transform 0.25s ease;transform:translateX(4px);"></span>
-                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Inter',sans-serif;transition:color .2s;">Log In</button>
-                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Inter',sans-serif;transition:color .2s;">Join Now</button>
+                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Rajdhani',sans-serif;transition:color .2s;">Log In</button>
+                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Rajdhani',sans-serif;transition:color .2s;">Join Now</button>
                 </div>
 
                 <!-- Login Form -->
