@@ -45,7 +45,12 @@
     @endif
 
     @if($article->featured_image)
-    <img src="{{ asset('storage/'.$article->featured_image) }}" alt="{{ $article->title }}" style="width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:28px;border:1px solid rgba(255,252,238,.08);">
+    @php $sportGrads=['NHL'=>'linear-gradient(135deg,#0d2137,#0a3d6b)','NBA'=>'linear-gradient(135deg,#1a0d37,#3b1a6b)','MLB'=>'linear-gradient(135deg,#1a0d0d,#6b1a1a)','NFL'=>'linear-gradient(135deg,#1a1a0d,#5c4a0a)']; @endphp
+    <div id="artHero" style="position:relative;border-radius:12px;margin-bottom:28px;overflow:hidden;background:{{ $sportGrads[$article->sport] ?? 'linear-gradient(135deg,#0d1224,#0a1a3d)' }};">
+        <img src="{{ asset('storage/'.$article->featured_image) }}" alt="{{ $article->title }}"
+             style="width:100%;max-height:420px;object-fit:cover;display:block;"
+             onerror="this.style.display='none';document.getElementById('artHero').style.minHeight='180px'">
+    </div>
     @endif
 
     @if($article->is_premium && (!auth()->check() || auth()->user()->role === 'free'))

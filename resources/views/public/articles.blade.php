@@ -106,15 +106,30 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
             </div>
         </div>
 
-        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,#0A0C1C,#0d1024,rgba(30,144,255,0.08));">
+        @php
+        $sportGradients = [
+            'NHL' => 'linear-gradient(135deg,#0d2137,#0a3d6b)',
+            'NBA' => 'linear-gradient(135deg,#1a0d37,#3b1a6b)',
+            'MLB' => 'linear-gradient(135deg,#1a0d0d,#6b1a1a)',
+            'NFL' => 'linear-gradient(135deg,#0d1a0d,#1a6b2a)',
+            'NFL' => 'linear-gradient(135deg,#1a1a0d,#5c4a0a)',
+        ];
+        $sportAccents = ['NHL'=>'#38BDF8','NBA'=>'#A855F7','MLB'=>'#F87171','NFL'=>'#FBBF24'];
+        $grad = $sportGradients[$featured->sport] ?? 'linear-gradient(135deg,#0d1224,#0a1a3d)';
+        $accent = $sportAccents[$featured->sport] ?? '#1E90FF';
+        @endphp
+        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:{{ $grad }};">
             @if(!empty($featured->featured_image))
-            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
+            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.8;" onerror="this.style.display='none'">
             @endif
-            <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 80px);"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,144,255,0.08),transparent 60%);"></div>
+            {{-- Grid lines overlay --}}
+            <div style="position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px);"></div>
+            {{-- Glow --}}
+            <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:{{ $accent }};filter:blur(60px);opacity:0.15;"></div>
+            <div style="position:absolute;bottom:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:#1E90FF;filter:blur(60px);opacity:0.12;"></div>
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
-                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.06);font-family:monospace;line-height:1;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
-                <span style="padding:4px 10px;border-radius:4px;border:1px solid rgba(30,144,255,0.4);background:rgba(30,144,255,0.1);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;">Featured</span>
+                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.07);font-family:monospace;line-height:1;letter-spacing:-0.05em;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
+                <span style="padding:4px 10px;border-radius:4px;border:1px solid {{ $accent }}66;background:{{ $accent }}1A;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:{{ $accent }};">Featured</span>
             </div>
         </div>
     </div>
