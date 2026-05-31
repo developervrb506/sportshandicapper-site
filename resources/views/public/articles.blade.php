@@ -108,11 +108,12 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
 
         <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,#0A0C1C,#0d1024,rgba(30,144,255,0.08));">
             @if(!empty($featured->featured_image))
-            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="{{ $featured->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
+            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;" onerror="this.style.display='none'">
             @endif
             <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 80px);"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,144,255,0.08),transparent 60%);"></div>
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
-                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.05);font-family:monospace;line-height:1;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
+                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.06);font-family:monospace;line-height:1;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
                 <span style="padding:4px 10px;border-radius:4px;border:1px solid rgba(30,144,255,0.4);background:rgba(30,144,255,0.1);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;">Featured</span>
             </div>
         </div>
@@ -155,7 +156,38 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
 
     {{-- PAGINATION --}}
     @if($hasReal && $articles->hasPages())
-    <div style="margin-top:48px;display:flex;justify-content:center;">{{ $articles->links() }}</div>
+    <div style="margin-top:48px;display:flex;align-items:center;justify-content:center;gap:6px;">
+        {{-- Prev --}}
+        @if($articles->onFirstPage())
+        <span style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;color:#475569;cursor:not-allowed;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </span>
+        @else
+        <a href="{{ $articles->previousPageUrl() }}" style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;color:#94A3B8;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#1E90FF';this.style.color='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#94A3B8'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </a>
+        @endif
+
+        {{-- Page numbers --}}
+        @foreach($articles->getUrlRange(1, $articles->lastPage()) as $page => $url)
+        @if($page == $articles->currentPage())
+        <span style="width:36px;height:36px;border-radius:6px;border:1px solid #1E90FF;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;font-family:monospace;">{{ $page }}</span>
+        @else
+        <a href="{{ $url }}" style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#94A3B8;text-decoration:none;font-family:monospace;transition:all .15s;" onmouseover="this.style.borderColor='#1E90FF';this.style.color='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#94A3B8'">{{ $page }}</a>
+        @endif
+        @endforeach
+
+        {{-- Next --}}
+        @if($articles->hasMorePages())
+        <a href="{{ $articles->nextPageUrl() }}" style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;color:#94A3B8;text-decoration:none;transition:all .15s;" onmouseover="this.style.borderColor='#1E90FF';this.style.color='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#94A3B8'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+        @else
+        <span style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;color:#475569;cursor:not-allowed;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+        @endif
+    </div>
     @endif
 
     {{-- CTA --}}

@@ -65,9 +65,9 @@ class PublicController extends Controller
             $articles = Article::published()
                 ->when($category, fn($q) => $q->category($category))
                 ->when($sport, fn($q) => $q->sport($sport))
-                ->paginate(12);
+                ->paginate(7);
         } catch (\Exception $e) {
-            $articles = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 12);
+            $articles = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 7);
         }
 
         return view('public.articles', [
