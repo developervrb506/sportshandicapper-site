@@ -621,7 +621,7 @@
         <nav class="pill-nav">
             {{-- Logo --}}
             <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
-                <img src="{{ asset('images/Sports-Handicappers-3.png') }}" alt="Sportshandicapper" style="height:110px;width:auto;object-fit:contain;margin:-32px 0;">
+                <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:110px;width:auto;object-fit:contain;margin:-32px 0;">
             </a>
 
             {{-- Pill-grouped nav links --}}
@@ -710,7 +710,7 @@
                 {{-- Brand column --}}
                 <div>
                     <div style="margin-bottom:16px;">
-                        <img src="{{ asset('images/Sports-Handicappers-3.png') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
+                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
                 </div>
@@ -761,7 +761,7 @@
 
                 <div style="position:relative;">
                     <div style="margin-bottom:4px;">
-                        <img src="{{ asset('images/Sports-Handicappers-3.png') }}" alt="Sportshandicapper" style="height:56px;width:auto;object-fit:contain;">
+                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:56px;width:auto;object-fit:contain;">
                     </div>
                     <div style="margin-top:32px;">
                         <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#CBD5E1;margin-bottom:20px;">
