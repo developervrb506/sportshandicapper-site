@@ -61,10 +61,14 @@ class PublicController extends Controller
         $category = request('category');
         $sport = request('sport');
 
-        $articles = Article::published()
-            ->when($category, fn($q) => $q->category($category))
-            ->when($sport, fn($q) => $q->sport($sport))
-            ->paginate(12);
+        try {
+            $articles = Article::published()
+                ->when($category, fn($q) => $q->category($category))
+                ->when($sport, fn($q) => $q->sport($sport))
+                ->paginate(12);
+        } catch (\Exception $e) {
+            $articles = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 12);
+        }
 
         return view('public.articles', [
             'articles' => $articles,
@@ -96,10 +100,14 @@ class PublicController extends Controller
     public function consensus()
     {
         $sport = request('sport');
-        $consensus = BettingConsensus::query()
-            ->when($sport, fn($q) => $q->sport($sport))
-            ->orderBy('game_date')
-            ->paginate(15);
+        try {
+            $consensus = BettingConsensus::query()
+                ->when($sport, fn($q) => $q->sport($sport))
+                ->orderBy('game_date')
+                ->paginate(15);
+        } catch (\Exception $e) {
+            $consensus = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 15);
+        }
 
         return view('public.consensus', [
             'consensus' => $consensus,
@@ -109,16 +117,26 @@ class PublicController extends Controller
 
     public function odds()
     {
-        return view('public.odds', [
-            'consensus' => BettingConsensus::orderBy('game_date')->limit(10)->get(),
-        ]);
+        try {
+            $consensus = BettingConsensus::orderBy('game_date')->limit(10)->get();
+        } catch (\Exception $e) {
+            $consensus = collect();
+        }
+        return view('public.odds', ['consensus' => $consensus]);
     }
 
     public function about()
     {
+        try {
+            $aboutContent = SiteSetting::get('about_content', '');
+            $experts = Expert::where('is_active', true)->get();
+        } catch (\Exception $e) {
+            $aboutContent = '';
+            $experts = collect();
+        }
         return view('public.about', [
-            'aboutContent' => SiteSetting::get('about_content', ''),
-            'experts'      => Expert::where('is_active', true)->get(),
+            'aboutContent' => $aboutContent,
+            'experts'      => $experts,
         ]);
     }
 
@@ -134,11 +152,15 @@ class PublicController extends Controller
     public function picks()
     {
         $sport = request('sport');
-        $picks = Pick::where('is_active', true)
-            ->when($sport, fn($q) => $q->where('sport', $sport))
-            ->orderBy('game_date', 'desc')
-            ->orderBy('game_time', 'asc')
-            ->paginate(10);
+        try {
+            $picks = Pick::where('is_active', true)
+                ->when($sport, fn($q) => $q->where('sport', $sport))
+                ->orderBy('game_date', 'desc')
+                ->orderBy('game_time', 'asc')
+                ->paginate(10);
+        } catch (\Exception $e) {
+            $picks = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 10);
+        }
 
         return view('public.picks', [
             'picks' => $picks,
