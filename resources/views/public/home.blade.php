@@ -277,7 +277,7 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
     <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:40px;">
         <div style="display:flex;flex-wrap:wrap;gap:6px;" id="artLeagueFilters">
             @foreach(['ALL','NFL','NBA','MLB','NHL'] as $l)
-            <button onclick="filterArticles('{{ $l }}')" data-league="{{ $l }}" class="art-filter-btn {{ $l==='ALL'?'art-active':'' }}" style="padding:6px 12px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:1px solid {{ $l==='ALL'?'#1E90FF':'rgba(255,255,255,0.1)' }};background:{{ $l==='ALL'?'#1E90FF':'rgba(255,255,255,0.04)' }};color:{{ $l==='ALL'?'white':'#94A3B8' }};cursor:pointer;transition:all .15s;font-family:Rajdhani,sans-serif;">{{ $l }}</button>
+            <button onclick="filterArticles('{{ $l }}')" data-league="{{ $l }}" class="art-filter-btn {{ $l==='ALL'?'art-active':'' }}" style="padding:6px 12px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:1px solid {{ $l==='ALL'?'#1E90FF':'rgba(255,255,255,0.1)' }};background:{{ $l==='ALL'?'#1E90FF':'rgba(255,255,255,0.04)' }};color:{{ $l==='ALL'?'white':'#94A3B8' }};cursor:pointer;transition:all .15s;font-family:Inter,sans-serif;">{{ $l }}</button>
             @endforeach
         </div>
         <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#64748B;">

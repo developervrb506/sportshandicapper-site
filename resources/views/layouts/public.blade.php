@@ -11,7 +11,7 @@
     <meta name="description" content="@yield('meta', 'Sportshandicapper - Expert sports betting analysis, simulation models, daily picks, and trends for NFL, NBA, MLB, NHL.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ===== DESIGN TOKENS ===== */
         :root {
@@ -34,8 +34,9 @@
         /* ===== BASE ===== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow-x: hidden; background: #060818; color-scheme: dark; }
-        body { font-family: 'Rajdhani', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; }
-        h1, h2, h3, h4, h5, h6, .section-h2 { font-family: 'Orbitron', sans-serif; letter-spacing: 0.02em; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; font-size: 16px; }
+        h1, h2, h3, h4, h5, h6, .section-h2 { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.01em; text-transform: uppercase; }
+        p, li, span, a, button, input, label, td, th { font-family: 'Inter', system-ui, sans-serif; }
         a { color: var(--text); text-decoration: none; transition: color 0.15s; }
         a:hover { color: var(--gold); }
         img { max-width: 100%; }
@@ -488,7 +489,7 @@
             color:white;font-weight:600;font-size:0.95rem;
             box-shadow:0 8px 24px -12px rgba(30,144,255,0.5);
             transition:transform 0.2s ease,background 0.2s ease;
-            text-decoration:none;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;
+            text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;
         }
         .btn-primary:hover { transform:translateY(-1px);background:#1873cc;color:white; }
         .btn-secondary {
@@ -496,7 +497,7 @@
             padding:0.75rem 1.5rem;border-radius:9999px;
             background:transparent;border:1px solid rgba(255,255,255,0.15);
             color:white;font-weight:600;font-size:0.95rem;
-            transition:all 0.2s ease;text-decoration:none;cursor:pointer;font-family:'Rajdhani',sans-serif;
+            transition:all 0.2s ease;text-decoration:none;cursor:pointer;font-family:'Inter',sans-serif;
         }
         .btn-secondary:hover { background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.3);color:white; }
         /* Cards */
@@ -799,8 +800,8 @@
                 <!-- Sliding tab switcher -->
                 <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);margin-bottom:24px;">
                     <span id="tabSlider" style="position:absolute;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:9999px;background:#1E90FF;box-shadow:0 8px 24px -8px rgba(30,144,255,0.7);transition:transform 0.25s ease;transform:translateX(4px);"></span>
-                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Rajdhani',sans-serif;transition:color .2s;">Log In</button>
-                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Rajdhani',sans-serif;transition:color .2s;">Join Now</button>
+                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Inter',sans-serif;transition:color .2s;">Log In</button>
+                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Inter',sans-serif;transition:color .2s;">Join Now</button>
                 </div>
 
                 <!-- Login Form -->
