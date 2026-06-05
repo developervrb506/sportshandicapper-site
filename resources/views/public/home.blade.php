@@ -417,57 +417,76 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
 {{-- ══════════════════════════════════════════════ --}}
 {{--  TODAY'S BOARD                                 --}}
 {{-- ══════════════════════════════════════════════ --}}
+@php
+$usingRealPicks = $expertPicks->count() > 0;
+$sportColors = ['MLB'=>'#c0392b','NBA'=>'#e67e22','NHL'=>'#2980b9','NFL'=>'#27ae60','CFB'=>'#8e44ad','CBB'=>'#1E90FF'];
+$staticBoardRows = [
+    ['MLB','Yankees','Red Sox','7:05 PM','DraftKings',92,3,'M. Rinner','NYY -1.5 (-115)'],
+    ['NBA','Thunder','Spurs','8:30 PM','FanDuel',87,2,'M. Davis','OKC -4.5 (-110)'],
+    ['NHL','Oilers','Kings','10:00 PM','BetMGM',81,2,'K. Pratt','EDM ML (+120)'],
+    ['NFL','Chiefs','Chargers','8:20 PM','DraftKings',76,3,'M. Rinner','KC -3 (-115)'],
+];
+@endphp
+
 <section class="container-x" style="padding:80px 0;">
     <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:32px;">
         <div>
-            <p class="eyebrow" style="color:#1E90FF;margin-bottom:8px;">{{ $expertPicks->count() > 0 ? 'Live Board' : 'Expert Board' }}</p>
+            <p class="eyebrow" style="color:#1E90FF;margin-bottom:8px;">{{ $usingRealPicks ? 'Live Board' : 'Expert Board' }}</p>
             <h2 class="section-h2">Today's Picks.</h2>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:6px;" id="leagueFilters">
             @foreach(['ALL','MLB','NBA','NFL','NHL','CFB','CBB'] as $l)
-            <button onclick="filterLeague('{{ $l }}')" data-league="{{ $l }}" class="league-btn {{ $l==='ALL'?'active':'' }}" style="padding:6px 12px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:1px solid {{ $l==='ALL' ? '#1E90FF' : 'rgba(255,255,255,0.1)' }};background:{{ $l==='ALL' ? '#1E90FF' : 'rgba(255,255,255,0.04)' }};color:{{ $l==='ALL' ? 'white' : '#94A3B8' }};cursor:pointer;transition:all .15s;font-family:Inter,sans-serif;">{{ $l }}</button>
+            <button onclick="filterLeague('{{ $l }}')" data-league="{{ $l }}" class="league-btn {{ $l==='ALL'?'lb-active':'' }}" style="padding:6px 12px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;border:1px solid {{ $l==='ALL' ? '#1E90FF' : 'rgba(255,255,255,0.1)' }};background:{{ $l==='ALL' ? '#1E90FF' : 'rgba(255,255,255,0.04)' }};color:{{ $l==='ALL' ? 'white' : '#94A3B8' }};cursor:pointer;transition:all .15s;font-family:Inter,sans-serif;">{{ $l }}</button>
             @endforeach
         </div>
     </div>
 
-    <div class="card-premium reveal" style="overflow:hidden;">
+    <div class="card-premium" style="overflow:hidden;">
         {{-- Header row --}}
-        <div style="display:grid;grid-template-columns:70px 1fr 160px 80px 110px 100px;gap:12px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.4);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;" class="board-header">
-            <div>League</div><div>Matchup</div><div>Pick</div><div style="text-align:center;">Units</div><div style="text-align:right;">Confidence</div><div style="text-align:right;">Expert</div>
+        <div class="board-header" style="display:grid;grid-template-columns:80px 1fr 180px 90px 120px 110px;gap:12px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.4);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#64748B;">
+            <div>League</div>
+            <div>Matchup</div>
+            <div>Pick</div>
+            <div style="text-align:center;">Units</div>
+            <div style="text-align:right;">Confidence</div>
+            <div style="text-align:right;">Expert</div>
         </div>
-        {{-- Rows --}}
-        @php
-        $staticBoardRows = [
-            ['MLB','Yankees vs Red Sox','7:05 PM','Sample',92,3,'M. Rinner'],
-            ['NBA','Celtics vs Heat','8:00 PM','Sample',88,2,'M. Davis'],
-            ['NHL','Oilers vs Kings','10:00 PM','Sample',81,2,'K. Pratt'],
-        ];
-        $usingRealPicks = $expertPicks->count() > 0;
-        @endphp
 
+        {{-- Rows --}}
         @if($usingRealPicks)
             @foreach($expertPicks->take(4) as $i=>$pick)
-            <div class="board-row reveal" data-league="{{ $pick->sport }}" style="display:grid;grid-template-columns:70px 1fr 160px 80px 110px 100px;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);align-items:center;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
-                <div><span style="padding:2px 7px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#cbd5e1;">{{ $pick->sport }}</span></div>
+            @php $sc = $sportColors[$pick->sport] ?? '#1E90FF'; @endphp
+            <div class="board-row reveal" data-league="{{ $pick->sport }}" style="display:grid;grid-template-columns:80px 1fr 180px 90px 120px 110px;gap:12px;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);align-items:center;transition:background .15s;transition-delay:{{ $i*80 }}ms;" onmouseover="this.style.background='rgba(255,255,255,0.025)'" onmouseout="this.style.background='transparent'">
                 <div>
-                    <div style="font-size:13px;font-weight:700;color:white;">{{ $pick->team1_name }} vs {{ $pick->team2_name }}</div>
-                    <div style="font-size:10px;color:#64748B;font-family:monospace;margin-top:2px;">
+                    <span style="padding:3px 7px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#cbd5e1;">{{ $pick->sport }}</span>
+                </div>
+                <div style="min-width:0;">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+                        <div style="display:flex;align-items:center;flex-shrink:0;">
+                            <div style="width:22px;height:22px;border-radius:50%;background:{{ $sc }};display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:white;border:1px solid rgba(255,255,255,0.2);">{{ strtoupper(substr($pick->team1_name??'?',0,2)) }}</div>
+                            <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#94A3B8;border:1px solid rgba(255,255,255,0.12);margin-left:-6px;">{{ strtoupper(substr($pick->team2_name??'?',0,2)) }}</div>
+                        </div>
+                        <span style="font-size:13px;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $pick->team1_name }} vs {{ $pick->team2_name }}</span>
+                    </div>
+                    <div style="font-size:10px;color:#64748B;font-family:monospace;padding-left:38px;">
                         {{ $pick->game_date?->format('M d') }}{{ $pick->game_time ? ' · '.date('g:i A', strtotime($pick->game_time)) : '' }}
                     </div>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#94A3B8;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                    <span style="font-size:11px;">Members only</span>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <span style="font-size:11px;font-weight:600;color:#64748B;">Members only</span>
                 </div>
                 <div style="text-align:center;">
-                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.25);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $pick->stars ?? '?' }}u</span>
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $pick->stars ?? 2 }}u</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
                     @if($pick->team1_percent)
-                    <div class="conf-bar" style="width:60px;"><div style="height:4px;border-radius:9999px;background:#22c55e;width:{{ $pick->team1_percent }}%;"></div></div>
-                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;">{{ $pick->team1_percent }}%</span>
+                    <div style="flex:1;max-width:60px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.06);overflow:hidden;">
+                        <div style="height:100%;border-radius:9999px;background:#4ade80;width:{{ $pick->team1_percent }}%;"></div>
+                    </div>
+                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;min-width:30px;text-align:right;">{{ $pick->team1_percent }}%</span>
                     @else
-                    <span style="font-size:11px;color:#64748B;">–</span>
+                    <span style="font-size:11px;color:#475569;font-family:monospace;">–</span>
                     @endif
                 </div>
                 <div style="text-align:right;font-size:12px;font-weight:600;color:#94A3B8;">{{ $pick->analyst ?? '–' }}</div>
@@ -475,38 +494,56 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
             @endforeach
         @else
             @foreach($staticBoardRows as $i=>$row)
-            <div class="board-row reveal" data-league="{{ $row[0] }}" style="display:grid;grid-template-columns:70px 1fr 160px 80px 110px 100px;gap:12px;padding:16px 20px;border-bottom:{{ $i<count($staticBoardRows)-1?'1px solid rgba(255,255,255,0.04)':'none' }};align-items:center;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
-                <div><span style="padding:2px 7px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#cbd5e1;">{{ $row[0] }}</span></div>
+            @php $sc = $sportColors[$row[0]] ?? '#1E90FF'; @endphp
+            <div class="board-row reveal" data-league="{{ $row[0] }}" style="display:grid;grid-template-columns:80px 1fr 180px 90px 120px 110px;gap:12px;padding:16px 20px;border-bottom:{{ $i < count($staticBoardRows)-1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }};align-items:center;transition:background .15s;transition-delay:{{ $i*80 }}ms;" onmouseover="this.style.background='rgba(255,255,255,0.025)'" onmouseout="this.style.background='transparent'">
                 <div>
-                    <div style="font-size:13px;font-weight:700;color:white;">{{ $row[1] }}</div>
-                    <div style="font-size:10px;color:#64748B;font-family:monospace;margin-top:2px;">{{ $row[2] }}</div>
+                    <span style="padding:3px 7px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#cbd5e1;">{{ $row[0] }}</span>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#94A3B8;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                    <span style="font-size:11px;">Members only</span>
+                <div style="min-width:0;">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+                        <div style="display:flex;align-items:center;flex-shrink:0;">
+                            <div style="width:22px;height:22px;border-radius:50%;background:{{ $sc }};display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:white;border:1px solid rgba(255,255,255,0.2);">{{ strtoupper(substr($row[1],0,2)) }}</div>
+                            <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#94A3B8;border:1px solid rgba(255,255,255,0.12);margin-left:-6px;">{{ strtoupper(substr($row[2],0,2)) }}</div>
+                        </div>
+                        <span style="font-size:13px;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $row[1] }} vs {{ $row[2] }}</span>
+                    </div>
+                    <div style="font-size:10px;color:#64748B;font-family:monospace;padding-left:38px;">{{ $row[3] }} &middot; {{ $row[4] }}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                    <span style="font-size:11px;font-weight:600;font-family:monospace;color:#94A3B8;">{{ $row[8] }}</span>
                 </div>
                 <div style="text-align:center;">
-                    <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.25);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $row[5] }}u</span>
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $row[6] }}u</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
-                    <div class="conf-bar" style="width:60px;"><div style="height:4px;border-radius:9999px;background:#22c55e;width:{{ $row[4] }}%;"></div></div>
-                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;">{{ $row[4] }}%</span>
+                    <div style="flex:1;max-width:60px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.06);overflow:hidden;">
+                        <div style="height:100%;border-radius:9999px;background:#4ade80;width:{{ $row[5] }}%;"></div>
+                    </div>
+                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;min-width:30px;text-align:right;">{{ $row[5] }}%</span>
                 </div>
-                <div style="text-align:right;font-size:12px;font-weight:600;color:#94A3B8;">{{ $row[6] }}</div>
+                <div style="text-align:right;font-size:12px;font-weight:600;color:#94A3B8;">{{ $row[7] }}</div>
             </div>
             @endforeach
         @endif
 
-        <div style="padding:12px 20px;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:space-between;">
+        <div style="padding:12px 20px;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.04);">
             <span style="font-size:12px;color:#64748B;">
-                {{ $usingRealPicks ? 'More picks behind paywall' : 'Subscribe to see real picks' }}
+                {{ $usingRealPicks ? max(0, $expertPicks->count() - 4).' more picks behind paywall' : '9 more picks behind paywall' }}
             </span>
-            <a href="{{ route('picks') }}" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#22D3EE;text-decoration:none;display:flex;align-items:center;gap:4px;">Unlock board <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
+            <a href="{{ route('picks') }}" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#22D3EE;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#22D3EE'">
+                Unlock board
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
         </div>
     </div>
 </section>
 <style>
-@media(max-width:900px){ .board-header{display:none!important} .board-row{grid-template-columns:60px 1fr 80px 80px!important} .board-row>div:nth-child(3),.board-row>div:nth-child(6){display:none!important} }
+@media(max-width:900px){
+    .board-header { display:none!important; }
+    .board-row { grid-template-columns:60px 1fr 80px 80px!important; }
+    .board-row>div:nth-child(3),.board-row>div:nth-child(6) { display:none!important; }
+}
 </style>
 
 {{-- ══════════════════════════════════════════════ --}}
