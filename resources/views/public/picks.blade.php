@@ -101,12 +101,6 @@ $staticPicks = [
     <div class="container-x" style="padding:48px 0 40px;">
         <div class="reveal" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;">
             <div>
-                <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:6px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.05);margin-bottom:20px;">
-                    <span class="ping-soft" style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:50%;background:#22c55e;"></span>
-                    <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#86efac;">
-                        {{ $usingRealPicks ? $picks->total().' live picks today' : '10 live picks today' }}
-                    </span>
-                </div>
                 <h1 style="font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:0.95;letter-spacing:-0.03em;color:white;margin:0 0 16px;">Expert Picks.</h1>
                 <p style="font-size:14px;color:#64748B;line-height:1.7;max-width:480px;margin:0;">Timestamped before lines move, graded after the final whistle. Coverage across MLB, NBA, NFL, NHL, CFB and CBB.</p>
             </div>
