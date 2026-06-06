@@ -1,113 +1,49 @@
-@extends('layouts.public')
-@section('title', 'Betting Trends - INSPIN')
+﻿@extends('layouts.public')
+@section('title', 'Trends | Sportshandicapper')
+@section('meta', 'Situational and ATS trends. Launching soon.')
+
+@push('styles')
+<style>
+.cs-grad-text {
+    background: linear-gradient(to right, #67e8f9, #7dd3fc, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+</style>
+@endpush
 
 @section('content')
-<div class="section">
-    <div class="container">
-        <h1 class="section-title">Betting Trends & Hot Streaks</h1>
-        <p class="section-sub">Track betting trends, winning streaks, and performance by sport</p>
+<div class="container-x" style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding-top:96px;padding-bottom:96px;">
+    <div style="position:relative;max-width:576px;width:100%;text-align:center;">
+        <div style="position:absolute;inset:-80px;background:radial-gradient(ellipse at 40% 40%,rgba(34,211,238,0.1) 0%,transparent 55%,rgba(99,102,241,0.1) 100%);filter:blur(64px);border-radius:9999px;pointer-events:none;"></div>
 
-        {{-- Hot Streaks --}}
-        @if(!empty($hotStreaks) && count($hotStreaks) > 0)
-        <div style="margin-bottom:48px;">
-            <h2 style="font-family:'Clash Display',sans-serif;font-size:1.3rem;font-weight:500;color:#FFFCEE;margin-bottom:6px;">🔥 Hot Streaks</h2>
-            <p style="color:#6e6e6e;font-size:14px;margin-bottom:24px;">Current winning streaks across all sports</p>
-            <div class="grid grid-3" style="gap:16px;">
-                @foreach($hotStreaks as $hot)
-                <div style="background:#212121;border:1px solid rgba(255,252,238,.08);border-left:3px solid #00D15B;border-radius:12px;padding:20px;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(253,181,21,.3)'" onmouseout="this.style.borderColor='rgba(255,252,238,.08)'">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-                        <span style="font-weight:600;font-size:1rem;color:#FFFCEE;font-family:'Clash Display',sans-serif;">{{ $hot['sport'] }}</span>
-                        <span style="background:rgba(0,209,91,.15);color:#00D15B;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #00D15B;">🔥 {{ $hot['streak'] }}W</span>
-                    </div>
-                    <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;">
-                        <div style="display:flex;justify-content:space-between;"><span style="color:#6e6e6e;">Period</span><span style="color:#9a9a9a;">{{ str_replace('_',' ',ucfirst($hot['period'])) }}</span></div>
-                        <div style="display:flex;justify-content:space-between;"><span style="color:#6e6e6e;">Win Rate</span><span style="color:#00D15B;font-weight:700;">{{ $hot['win_rate'] }}%</span></div>
-                        <div style="display:flex;justify-content:space-between;"><span style="color:#6e6e6e;">Record</span><span style="color:#9a9a9a;">{{ $hot['total_wins'] }}W-{{ $hot['total_losses'] }}L-{{ $hot['total_pushes'] }}P</span></div>
-                        <div style="display:flex;justify-content:space-between;"><span style="color:#6e6e6e;">Units</span><span style="color:{{ $hot['units']>=0?'#00D15B':'#ef4444' }};font-weight:700;">{{ $hot['units']>=0?'+':'' }}{{ number_format($hot['units'],1) }}</span></div>
-                    </div>
-                </div>
-                @endforeach
+        <div style="position:relative;">
+            <div style="margin:0 auto;width:64px;height:64px;border-radius:16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2);display:flex;align-items:center;justify-content:center;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                </svg>
             </div>
-        </div>
-        @endif
 
-        {{-- Streak Table --}}
-        @if(!empty($streaks))
-        <div style="margin-bottom:48px;">
-            <h2 style="font-family:'Clash Display',sans-serif;font-size:1.3rem;font-weight:500;color:#FFFCEE;margin-bottom:20px;">📊 Streak Details by Sport</h2>
-            <div style="overflow-x:auto;">
-                <table class="c-table">
-                    <thead>
-                        <tr>
-                            <th>Sport</th>
-                            <th>Period</th>
-                            <th>Current Streak</th>
-                            <th>Best Streak</th>
-                            <th>Win Rate</th>
-                            <th>Record</th>
-                            <th>Units</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($streaks as $sport => $periods)
-                            @foreach($periods as $period => $data)
-                            <tr>
-                                <td><strong style="color:#FFFCEE;">{{ $sport }}</strong></td>
-                                <td style="color:#9a9a9a;">{{ str_replace('_',' ',ucfirst($period)) }}</td>
-                                <td style="color:#9a9a9a;">{{ $data['current_streak'] }}W</td>
-                                <td style="color:#9a9a9a;">{{ $data['best_streak'] }}W</td>
-                                <td><span style="color:{{ $data['win_rate']>=50?'#00D15B':'#ef4444' }};font-weight:700;">{{ $data['win_rate'] }}%</span></td>
-                                <td style="color:#9a9a9a;">{{ $data['total_wins'] }}-{{ $data['total_losses'] }}-{{ $data['total_pushes'] }}</td>
-                                <td><span style="color:{{ $data['total_units']>=0?'#00D15B':'#ef4444' }};font-weight:600;">{{ $data['total_units']>=0?'+':'' }}{{ number_format($data['total_units'],1) }}</span></td>
-                                <td>
-                                    @if($data['is_hot'])
-                                        <span style="background:rgba(0,209,91,.15);color:#00D15B;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid #00D15B;">🔥 HOT</span>
-                                    @else
-                                        <span style="background:rgba(74,74,74,.3);color:#6e6e6e;padding:3px 10px;border-radius:20px;font-size:11px;">—</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
+            <div style="display:inline-flex;align-items:center;margin-top:32px;padding:4px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-size:10px;text-transform:uppercase;letter-spacing:0.3em;color:#94a3b8;font-weight:600;font-family:'Inter',sans-serif;">
+                Trends
             </div>
-        </div>
-        @endif
 
-        {{-- Info Cards --}}
-        <div class="grid grid-2" style="gap:20px;margin-bottom:36px;">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Public Betting Splits</h3>
-                    <p>See what percentage of the public is betting on each side. Heavy public action can indicate sharp movement or public bias.</p>
-                    <a href="{{ route('consensus') }}" style="display:inline-block;margin-top:14px;padding:9px 22px;border:1px solid #FDB515;color:#FDB515;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:background .18s;" onmouseover="this.style.background='rgba(253,181,21,.1)'" onmouseout="this.style.background='transparent'">View Consensus →</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Sharp vs Public</h3>
-                    <p>When the money percentage differs significantly from the public percentage, sharps may be on the opposite side.</p>
-                    <a href="{{ route('consensus') }}" style="display:inline-block;margin-top:14px;padding:9px 22px;border:1px solid #FDB515;color:#FDB515;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:background .18s;" onmouseover="this.style.background='rgba(253,181,21,.1)'" onmouseout="this.style.background='transparent'">View Consensus →</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>ATS Trends</h3>
-                    <p>Against-the-spread records for teams and situations. Our simulation model tracks thousands of data points.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3>Over/Under Trends</h3>
-                    <p>Total betting trends and scoring patterns. Identify games where the total may be mispriced.</p>
-                </div>
-            </div>
-        </div>
+            <h1 style="margin-top:24px;font-size:clamp(2.8rem,7vw,3.75rem);font-weight:900;color:white;line-height:1.05;font-family:'Exo 2',sans-serif;letter-spacing:-0.01em;">
+                Trends<br>
+                <span class="cs-grad-text">Coming Soon</span>
+            </h1>
 
-        <div style="text-align:center;">
-            <a href="{{ route('join') }}" style="display:inline-block;padding:13px 40px;background:#FDB515;color:#171818;border-radius:50px;font-weight:700;text-decoration:none;font-size:15px;box-shadow:0 0 20px rgba(253,181,21,.3);">Get Full Access to Trends Data</a>
+            <p style="margin-top:24px;color:#94a3b8;line-height:1.7;font-size:15px;">
+                Situational splits, ATS records and matchup patterns you can act on. Coming soon.
+            </p>
+
+            <div style="margin-top:40px;">
+                <a href="{{ route('home') }}" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#cbd5e1;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#cbd5e1'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Back to home
+                </a>
+            </div>
         </div>
     </div>
 </div>

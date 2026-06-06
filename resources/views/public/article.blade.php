@@ -1,4 +1,4 @@
-@extends('layouts.public')
+﻿@extends('layouts.public')
 @section('title', $article->title . ' - INSPIN')
 
 @push('styles')
@@ -56,7 +56,7 @@
     @if($article->is_premium && (!auth()->check() || auth()->user()->role === 'free'))
         <div style="background:#212121;border:1px solid rgba(253,181,21,.2);border-radius:12px;padding:36px;text-align:center;margin:24px 0;">
             <div style="font-size:2.5rem;margin-bottom:14px;">🔒</div>
-            <h3 style="color:#FFFCEE;margin-bottom:8px;font-family:'Clash Display',sans-serif;font-weight:500;">Premium Content</h3>
+            <h3 style="color:#FFFCEE;margin-bottom:8px;font-family:'Exo 2',sans-serif;font-weight:500;">Premium Content</h3>
             <p style="color:#6e6e6e;margin-bottom:20px;">This article requires an active subscription to read.</p>
             <a href="{{ route('join') }}" style="display:inline-block;padding:12px 32px;background:#FDB515;color:#171818;border-radius:50px;font-weight:700;text-decoration:none;box-shadow:0 0 20px rgba(253,181,21,.3);">View Packages</a>
             @guest
@@ -71,7 +71,7 @@
         @php $linkedPick = $article->relatedPicks->where('is_active', true)->first(); @endphp
         @if($linkedPick)
         <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(253,181,21,.2);">
-            <h2 style="color:#FFFCEE;margin-bottom:16px;font-size:1.2rem;font-family:'Clash Display',sans-serif;font-weight:500;">Today's Pick for This Game</h2>
+            <h2 style="color:#FFFCEE;margin-bottom:16px;font-size:1.2rem;font-family:'Exo 2',sans-serif;font-weight:500;">Today's Pick for This Game</h2>
             <div style="background:#212121;border-radius:12px;padding:24px;border:1px solid rgba(253,181,21,.15);">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
                     <div style="display:flex;gap:8px;align-items:center;">
@@ -91,7 +91,7 @@
                         @else{{ str_repeat('★',$linkedPick->stars) }}@endif
                     </div>
                 </div>
-                <div style="font-size:1.1rem;font-weight:600;color:#FFFCEE;margin-bottom:6px;font-family:'Clash Display',sans-serif;">
+                <div style="font-size:1.1rem;font-weight:600;color:#FFFCEE;margin-bottom:6px;font-family:'Exo 2',sans-serif;">
                     {{ $linkedPick->team1_name }} <span style="color:#4a4a4a;font-size:13px;margin:0 6px;">vs</span> {{ $linkedPick->team2_name }}
                 </div>
                 <div style="color:#6e6e6e;font-size:13px;margin-bottom:16px;">
@@ -114,13 +114,13 @@
 
     @if($related->count() > 0)
     <div style="margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,252,238,.06);">
-        <h2 style="color:#FFFCEE;margin-bottom:20px;font-family:'Clash Display',sans-serif;font-weight:500;">Related Articles</h2>
+        <h2 style="color:#FFFCEE;margin-bottom:20px;font-family:'Exo 2',sans-serif;font-weight:500;">Related Articles</h2>
         <div class="grid grid-3" style="gap:16px;">
             @foreach($related as $r)
             <a href="{{ route('article.show', $r) }}" style="text-decoration:none;background:#212121;border:1px solid rgba(255,252,238,.08);border-radius:10px;padding:16px;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(253,181,21,.3)'" onmouseout="this.style.borderColor='rgba(255,252,238,.08)'">
                 @php $sp2=strtolower($r->sport??'');$bc2=$sp2==='mlb'?'rgba(22,163,74,.15)':($sp2==='nba'?'rgba(220,38,38,.15)':($sp2==='nfl'?'rgba(29,78,216,.15)':'rgba(253,181,21,.12)'));$tc2=$sp2==='mlb'?'#4ade80':($sp2==='nba'?'#f87171':($sp2==='nfl'?'#93c5fd':'#FDB515')); @endphp
                 <span style="background:{{ $bc2 }};color:{{ $tc2 }};padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;">{{ $r->sport }}</span>
-                <h3 style="margin-top:8px;font-size:13px;color:#FFFCEE;line-height:1.4;font-weight:500;font-family:'Clash Display',sans-serif;">{{ Str::limit($r->title, 60) }}</h3>
+                <h3 style="margin-top:8px;font-size:13px;color:#FFFCEE;line-height:1.4;font-weight:500;font-family:'Exo 2',sans-serif;">{{ Str::limit($r->title, 60) }}</h3>
             </a>
             @endforeach
         </div>
@@ -133,7 +133,7 @@
 <aside class="art-sidebar" style="width:300px;flex-shrink:0;">
     <div style="position:sticky;top:90px;display:flex;flex-direction:column;gap:16px;">
         <div style="padding-bottom:12px;border-bottom:1px solid rgba(255,252,238,.08);margin-bottom:4px;">
-            <div style="font-family:'Clash Display',sans-serif;font-size:1rem;font-weight:500;color:#FFFCEE;">Game Analysis</div>
+            <div style="font-family:'Exo 2',sans-serif;font-size:1rem;font-weight:500;color:#FFFCEE;">Game Analysis</div>
             <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">AI-powered breakdown · Audio · Flashcards</div>
         </div>
         @foreach($article->supplements as $sup)

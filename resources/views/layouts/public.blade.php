@@ -11,11 +11,11 @@
     <meta name="description" content="@yield('meta', 'Sportshandicapper - Expert sports betting analysis, simulation models, daily picks, and trends for NFL, NBA, MLB, NHL.')">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* ===== DESIGN TOKENS ===== */
         :root {
-            --black:       #060818;
+            --black:       #0A0F1E;
             --black-soft:  #0D1224;
             --black-border:#1E2640;
             --black-hover: #2A3556;
@@ -33,17 +33,19 @@
 
         /* ===== BASE ===== */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { overflow-x: hidden; background: #060818; color-scheme: dark; }
+        html { overflow-x: hidden; background: #0A0F1E; color-scheme: dark; }
         body { font-family: 'Inter', system-ui, sans-serif; background: transparent; color: #F0F0FF; line-height: 1.6; overflow-x: hidden; max-width: 100vw; -webkit-font-smoothing: antialiased; font-size: 16px; }
-        h1, h2, h3, h4, h5, h6, .section-h2 { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.01em; text-transform: uppercase; }
+        h1, h2, h3, h4, h5, h6, .section-h2 { font-family: 'Exo 2', sans-serif; letter-spacing: -0.02em; text-transform: uppercase; }
         p, li, span, a, button, input, label, td, th { font-family: 'Inter', system-ui, sans-serif; }
+        /* Numbers, stats, odds — monospace for precision */
+        .stat-num, .mono, [class*="counter"], code, pre { font-family: 'JetBrains Mono', monospace; }
         a { color: var(--text); text-decoration: none; transition: color 0.15s; }
         a:hover { color: var(--gold); }
         img { max-width: 100%; }
 
         /* ===== HEADER AUTH (right side) ===== */
         .header-auth { display: flex; gap: 18px; align-items: center; flex-shrink: 0; }
-        .header-login { color: #F0F0FF; font-size: 13.5px; font-weight: 500; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: color 0.15s; cursor: pointer; background: none; border: none; padding: 0; opacity: 0.75; }
+        .header-login { color: #F0F0FF; font-size: 13.5px; font-weight: 500; font-family: 'Inter', sans-serif; text-decoration: none; transition: color 0.15s; cursor: pointer; background: none; border: none; padding: 0; opacity: 0.75; }
         .header-login:hover { color: #F0F0FF; opacity: 1; }
         .header-signup { display: inline-block; padding: 8px 22px; border: 1px solid rgba(99,102,241,0.5); border-radius: 50px; color: #6366F1; font-size: 13.5px; font-weight: 600; text-decoration: none; transition: background 0.18s, border-color 0.18s; white-space: nowrap; background: rgba(99,102,241,0.08); }
         .header-signup:hover { background: rgba(99,102,241,0.16); border-color: #6366F1; color: #6366F1; }
@@ -63,7 +65,7 @@
         /* ===== NAV ===== */
         .nav { display: flex; gap: 0; list-style: none; flex-wrap: wrap; transform: none; visibility: visible; align-items: stretch; }
         .nav > li { display: flex; align-items: stretch; }
-        .nav a { display: flex; align-items: center; padding: 0 13px; color: #9a9a9a; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; text-transform: none; letter-spacing: 0.1px; transition: all 0.18s; border-bottom: 2px solid transparent; position: relative; height: 60px; }
+        .nav a { display: flex; align-items: center; padding: 0 13px; color: #9a9a9a; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0.1px; transition: all 0.18s; border-bottom: 2px solid transparent; position: relative; height: 60px; }
         .nav a:hover { color: #F0F0FF; }
         .nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
         .nav a.active::after, .nav a:hover::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 60%; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); border-radius: 2px; }
@@ -98,7 +100,7 @@
         .nav-dropdown-item:hover { background: rgba(99,102,241,.05) !important; color: #F0F0FF !important; }
         .ndi-icon { font-size: 18px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(99,102,241,.05); border-radius: 8px; flex-shrink: 0; }
         .ndi-text { flex: 1; display: flex; flex-direction: column; gap: 1px; }
-        .ndi-label { font-size: 13px; font-weight: 600; color: #F0F0FF; font-family: 'DM Sans', sans-serif; }
+        .ndi-label { font-size: 13px; font-weight: 600; color: #F0F0FF; font-family: 'Inter', sans-serif; }
         .ndi-sub { font-size: 11px; color: #6e6e6e; }
         .ndi-badge { font-size: 9px; font-weight: 700; background: rgba(99,102,241,.12); color: #6366F1; border: 1px solid rgba(99,102,241,.25); padding: 2px 7px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; }
 
@@ -130,9 +132,9 @@
         .btn-outline-dark:hover { background: var(--surface-2); color: var(--text); }
 
         /* ===== SECTIONS ===== */
-        .section { padding: 60px 0; background: #060818; }
+        .section { padding: 60px 0; background: #0A0F1E; }
         .section-alt { background: #0A0F1E; }
-        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.85rem; color: #F0F0FF; margin-bottom: 8px; font-weight: 500; padding-left: 16px; border-left: 4px solid #6366F1; letter-spacing: -0.2px; }
+        .section-title { font-family: 'Exo 2', sans-serif; font-size: 1.85rem; color: #F0F0FF; margin-bottom: 8px; font-weight: 500; padding-left: 16px; border-left: 4px solid #6366F1; letter-spacing: -0.2px; }
         .section-sub { color: #6e6e6e; margin-bottom: 36px; font-size: 15px; padding-left: 20px; }
 
         /* ===== GRID ===== */
@@ -145,7 +147,7 @@
         .card { background: #0D1224; border: 1px solid rgba(99,102,241,.08); border-radius: 12px; overflow: hidden; transition: box-shadow 0.25s, transform 0.2s, border-color 0.25s; }
         .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.5); transform: translateY(-3px); border-color: rgba(99,102,241,0.3); }
         .card-body { padding: 24px; }
-        .card h3 { color: #F0F0FF; margin-bottom: 8px; font-size: 1.05rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+        .card h3 { color: #F0F0FF; margin-bottom: 8px; font-size: 1.05rem; font-weight: 600; font-family: 'Exo 2', sans-serif; }
         .card p { color: #9a9a9a; font-size: 14px; }
         .card-meta { display: flex; gap: 12px; font-size: 12px; color: #6e6e6e; margin-top: 12px; }
         .card-meta span { display: flex; align-items: center; gap: 4px; }
@@ -203,7 +205,7 @@
         .cta .btn:hover { background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%); box-shadow: 0 6px 24px rgba(99,102,241,0.45); transform: translateY(-2px); }
 
         /* ===== FOOTER ===== */
-        .footer { background: #060818; padding: 40px 0; margin-top: 0; border-top: 1px solid rgba(99,102,241,.06); position: relative; }
+        .footer { background: #0A0F1E; padding: 40px 0; margin-top: 0; border-top: 1px solid rgba(99,102,241,.06); position: relative; }
         .footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent 0%, var(--gold-dark) 25%, var(--gold) 50%, var(--gold-dark) 75%, transparent 100%); }
         .footer .wrap { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
@@ -216,18 +218,18 @@
         .social-icons img { width: 18px; height: 18px; }
 
         /* ===== PAGE ===== */
-        .page { max-width: 900px; margin: 0 auto; padding: 52px 20px; background: #060818; min-height: 60vh; }
-        .page h1 { font-family: 'Space Grotesk', sans-serif; color: #F0F0FF; font-size: 2rem; margin-bottom: 24px; font-weight: 500; }
-        .page h2 { font-family: 'Space Grotesk', sans-serif; color: #F0F0FF; font-size: 1.4rem; margin: 32px 0 12px; font-weight: 500; }
+        .page { max-width: 900px; margin: 0 auto; padding: 52px 20px; background: #0A0F1E; min-height: 60vh; }
+        .page h1 { font-family: 'Exo 2', sans-serif; color: #F0F0FF; font-size: 2rem; margin-bottom: 24px; font-weight: 500; }
+        .page h2 { font-family: 'Exo 2', sans-serif; color: #F0F0FF; font-size: 1.4rem; margin: 32px 0 12px; font-weight: 500; }
         .page p { color: #9a9a9a; margin-bottom: 16px; line-height: 1.8; }
 
         /* ===== ARTICLE DETAIL ===== */
-        .article-detail { max-width: 800px; margin: 0 auto; padding: 52px 20px; background: #060818; min-height: 60vh; }
-        .article-detail h1 { font-family: 'Space Grotesk', sans-serif; color: #F0F0FF; font-size: 2rem; margin-bottom: 16px; line-height: 1.3; font-weight: 500; }
+        .article-detail { max-width: 800px; margin: 0 auto; padding: 52px 20px; background: #0A0F1E; min-height: 60vh; }
+        .article-detail h1 { font-family: 'Exo 2', sans-serif; color: #F0F0FF; font-size: 2rem; margin-bottom: 16px; line-height: 1.3; font-weight: 500; }
         .article-detail .meta { display: flex; gap: 16px; font-size: 13px; color: #6e6e6e; margin-bottom: 28px; }
         .article-detail .content { color: #c0c0c0; line-height: 1.85; }
         .article-detail .content p { margin-bottom: 16px; }
-        .article-detail .content h2, .article-detail .content h3 { color: #F0F0FF; font-family: 'Space Grotesk', sans-serif; font-weight: 500; margin: 28px 0 14px; }
+        .article-detail .content h2, .article-detail .content h3 { color: #F0F0FF; font-family: 'Exo 2', sans-serif; font-weight: 500; margin: 28px 0 14px; }
         .article-detail .content a { color: #6366F1; }
         .article-detail .content strong { color: #F0F0FF; }
         .article-detail .content ul, .article-detail .content ol { padding-left: 20px; margin-bottom: 16px; }
@@ -253,7 +255,7 @@
 
         /* ===== SPORT FILTER ===== */
         .sport-filter { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
-        .sport-filter a { padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; background: #0D1224; border: 1px solid #1E2640; color: #9a9a9a; transition: all 0.18s; }
+        .sport-filter a { padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; background: #0D1224; border: 1px solid #1E2640; color: #9a9a9a; transition: all 0.18s; }
         .sport-filter a:hover { background: #2a2a2a; border-color: #2A3556; color: #F0F0FF; }
         .sport-filter a.active { background: transparent; border-color: #6366F1; color: #6366F1; box-shadow: 0 0 12px rgba(99,102,241,0.15); }
 
@@ -382,12 +384,12 @@
         /* ===== GLOBAL AURORA — exact from reference ===== */
         .aurora {
             position: absolute; border-radius: 9999px;
-            filter: blur(90px); opacity: 0.55; will-change: transform; pointer-events: none;
+            filter: blur(90px); opacity: 0.35; will-change: transform; pointer-events: none;
         }
         .aurora-1 { width:720px;height:720px;top:-200px;left:-160px;background:radial-gradient(circle,#1E90FF 0%,transparent 60%);animation:aurora-float-1 22s ease-in-out infinite; }
-        .aurora-2 { width:640px;height:640px;top:20%;right:-180px;background:radial-gradient(circle,#22D3EE 0%,transparent 60%);animation:aurora-float-2 26s ease-in-out infinite;opacity:0.45; }
-        .aurora-3 { width:560px;height:560px;bottom:-180px;left:30%;background:radial-gradient(circle,#A855F7 0%,transparent 60%);animation:aurora-float-3 30s ease-in-out infinite;opacity:0.40; }
-        .aurora-4 { width:480px;height:480px;top:55%;left:-120px;background:radial-gradient(circle,#22D3EE 0%,transparent 60%);animation:aurora-float-1 34s ease-in-out infinite reverse;opacity:0.28; }
+        .aurora-2 { width:640px;height:640px;top:20%;right:-180px;background:radial-gradient(circle,#22D3EE 0%,transparent 60%);animation:aurora-float-2 26s ease-in-out infinite;opacity:0.28; }
+        .aurora-3 { width:560px;height:560px;bottom:-180px;left:30%;background:radial-gradient(circle,#A855F7 0%,transparent 60%);animation:aurora-float-3 30s ease-in-out infinite;opacity:0.22; }
+        .aurora-4 { width:480px;height:480px;top:55%;left:-120px;background:radial-gradient(circle,#22D3EE 0%,transparent 60%);animation:aurora-float-1 34s ease-in-out infinite reverse;opacity:0.15; }
         @keyframes aurora-float-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(80px,60px) scale(1.15)} }
         @keyframes aurora-float-2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-100px,80px) scale(1.1)} }
         @keyframes aurora-float-3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(60px,-80px) scale(1.2)} }
@@ -457,10 +459,14 @@
         .nav-pdrop-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.7); border-radius: 50px; transition: all 0.15s; background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
         .nav-pdrop-btn:hover { color: #a5b4fc; background: rgba(99,102,241,0.1); }
         .nav-pdrop-btn .caret { transition: transform 0.2s; }
-        .nav-pdrop:hover .nav-pdrop-btn .caret { transform: rotate(180deg); }
-        .nav-pdrop-menu { display: none; position: absolute; right: 0; top: calc(100% + 12px); width: 260px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(10,10,20,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); z-index: 10; }
-        .nav-pdrop:hover .nav-pdrop-menu { display: block; animation: ddFadeIn .15s ease; }
-        .nav-pdrop-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; cursor: default; transition: background 0.12s; }
+        .nav-pdrop.open .nav-pdrop-btn .caret { transform: rotate(180deg); }
+        .nav-pdrop.open .nav-pdrop-btn { color: #a5b4fc; background: rgba(99,102,241,0.1); }
+        /* Bridge: transparent padding keeps hover alive crossing the gap */
+        .nav-pdrop-menu { display: none; position: absolute; right: 0; top: 100%; padding-top: 10px; width: 260px; z-index: 200; }
+        .nav-pdrop-menu-inner { border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(10,10,20,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .nav-pdrop.open .nav-pdrop-menu { display: block; animation: pillDropIn .15s ease; }
+        @keyframes pillDropIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+        .nav-pdrop-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 10px; cursor: pointer; transition: background 0.12s; text-decoration: none; }
         .nav-pdrop-item:hover { background: rgba(255,255,255,0.05); }
         .nav-pdrop-label { font-size: 13.5px; font-weight: 600; color: white; margin-bottom: 1px; }
         .nav-pdrop-sub { font-size: 11px; color: #94A3B8; }
@@ -477,7 +483,7 @@
         .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         .nav-drawer { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: rgba(7,9,26,0.98); border-left: 1px solid rgba(255,255,255,0.08); flex-direction: column; z-index: 201; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); padding-top: 80px; display: flex; backdrop-filter: blur(20px); overflow-y: auto; }
         .nav-drawer.open { transform: translateX(0); }
-        .nav-drawer a, .nav-drawer button { padding: 16px 24px; color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; display: block; background: none; border-right: none; border-top: none; border-left: none; text-align: left; width: 100%; cursor: pointer; transition: color 0.15s; font-family: 'DM Sans', sans-serif; }
+        .nav-drawer a, .nav-drawer button { padding: 16px 24px; color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; display: block; background: none; border-right: none; border-top: none; border-left: none; text-align: left; width: 100%; cursor: pointer; transition: color 0.15s; font-family: 'Inter', sans-serif; }
         .nav-drawer a:hover, .nav-drawer button:hover { color: white; }
         /* ===== SITE DESIGN UTILITIES — exact from reference ===== */
         .site-content { padding-top: 5.5rem; position: relative; z-index: 1; }
@@ -524,6 +530,83 @@
         .eyebrow { font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#94A3B8; }
         .container-x { max-width:1200px;margin-inline:auto;padding-inline:1.5rem; }
         .divider-glow { height:1px;background:rgba(255,255,255,0.1); }
+        /* ===== AUTH MODAL ===== */
+        .am-overlay {
+            position:fixed;inset:0;z-index:1000;
+            display:none;align-items:center;justify-content:center;
+            padding:24px 16px;
+            background:rgba(3,5,15,0.85);
+            backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+            overflow-y:auto;
+        }
+        .am-overlay.open { display:flex; }
+        @keyframes amIn { from{opacity:0;transform:scale(0.95) translateY(12px)} to{opacity:1;transform:scale(1) translateY(0)} }
+        .am-card {
+            position:relative;width:100%;max-width:448px;
+            background:#0C1020;border:1px solid rgba(255,255,255,0.08);
+            border-radius:16px;overflow:hidden;
+            box-shadow:0 20px 50px -20px rgba(0,0,0,0.7);
+            animation:amIn 0.25s cubic-bezier(0.22,1,0.36,1);
+        }
+        .am-top-line { position:absolute;top:0;left:0;right:0;height:1px;background:rgba(30,144,255,0.5); }
+        .am-close {
+            position:absolute;top:16px;right:16px;
+            width:32px;height:32px;border-radius:8px;
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+            color:rgba(255,255,255,0.4);cursor:pointer;
+            display:flex;align-items:center;justify-content:center;
+            transition:all .15s;z-index:10;
+        }
+        .am-close:hover { background:rgba(255,255,255,0.1);color:white; }
+        .am-inner { padding:24px; }
+        .am-eyebrow { font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#1E90FF;margin-bottom:4px; }
+        .am-heading { font-family:'Exo 2',sans-serif;font-size:1.25rem;font-weight:900;color:white;letter-spacing:-0.02em;line-height:1.1;margin-bottom:4px;text-transform:none; }
+        .am-sub { font-size:12px;color:#64748B;line-height:1.5;margin-bottom:14px; }
+        .am-tabs { display:grid;grid-template-columns:1fr 1fr;padding:3px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.4);margin-bottom:14px; }
+        .am-tab { padding:8px 0;text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;border-radius:7px;border:none;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;background:transparent;color:#64748B; }
+        .am-tab.active { background:#1E90FF;color:white; }
+        .am-tab:not(.active):hover { color:white; }
+        .am-pane { display:none; }
+        .am-pane.active { display:block; }
+        .am-field { margin-bottom:10px; }
+        .am-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-bottom:4px; }
+        .am-input-wrap { position:relative; }
+        .am-input {
+            width:100%;height:40px;border-radius:8px;
+            background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);
+            padding:0 40px 0 12px;font-size:13px;color:white;
+            font-family:'Inter',sans-serif;outline:none;
+            transition:border-color .15s,background .15s;
+        }
+        .am-input:focus { border-color:rgba(30,144,255,0.6);background:rgba(0,0,0,0.4); }
+        .am-input::placeholder { color:#475569; }
+        .am-pw-btn { position:absolute;right:0;top:0;bottom:0;width:44px;background:none;border:none;cursor:pointer;color:#475569;display:flex;align-items:center;justify-content:center;transition:color .15s; }
+        .am-pw-btn:hover { color:white; }
+        .am-row { display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:12px; }
+        .am-check-label { display:flex;align-items:center;gap:8px;cursor:pointer;color:#64748B; }
+        .am-check-label input[type=checkbox] { display:none; }
+        .am-box { flex-shrink:0;width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;transition:all .15s; }
+        .am-box.on { background:#1E90FF;border-color:#1E90FF; }
+        .am-forgot { color:#22D3EE;font-weight:600;text-decoration:none;font-size:12px;transition:color .15s; }
+        .am-forgot:hover { color:white; }
+        .am-submit { display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px 20px;border-radius:9999px;background:#1E90FF;color:white;border:none;cursor:pointer;font-size:13px;font-weight:700;font-family:'Exo 2',sans-serif;text-transform:uppercase;letter-spacing:0.06em;box-shadow:0 8px 24px -12px rgba(30,144,255,0.5);transition:background .15s,transform .15s;margin-top:6px; }
+        .am-submit:hover { background:#1873cc;transform:translateY(-1px); }
+        .am-submit:disabled { opacity:0.45;cursor:not-allowed;transform:none; }
+        .am-or { display:flex;align-items:center;gap:12px;margin:16px 0;font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:0.25em;font-weight:700; }
+        .am-or::before,.am-or::after { content:'';flex:1;height:1px;background:rgba(255,255,255,0.08); }
+        .am-social { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px; }
+        .am-social-btn { height:40px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:#cbd5e1;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif; }
+        .am-social-btn:hover { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.2); }
+        .am-switch { text-align:center;font-size:12px;color:#64748B; }
+        .am-switch a { color:#22D3EE;font-weight:700;text-decoration:none;transition:color .15s; }
+        .am-switch a:hover { color:white; }
+        .am-error { border-radius:8px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:13px;padding:10px 14px;margin-bottom:12px;display:none; }
+        .am-input.invalid { border-color:rgba(239,68,68,0.6) !important; background:rgba(239,68,68,0.04) !important; }
+        .am-field-err { display:none;align-items:center;gap:5px;margin-top:5px;font-size:11px;font-weight:600;color:#f87171;font-family:'Inter',sans-serif; }
+        .am-field-err.show { display:flex; }
+        .am-field-err svg { flex-shrink:0; }
+        .am-terms-wrap { display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:11px;color:#64748B;line-height:1.5;margin-bottom:4px;user-select:none; }
+        .am-terms-wrap a { color:#22D3EE;text-decoration:none;font-weight:600; }
         /* ===== CHAT WIDGET MOBILE ===== */
         @media (max-width: 520px) {
             #chatPanel {
@@ -536,56 +619,7 @@
         }
     </style>
     @stack('styles')
-    <style>
-        /* ===== MODAL ===== */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(3,5,15,0.85); z-index: 1000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); overflow-y: auto; padding: 24px 16px; }
-        .modal-overlay.active { display: flex; }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(16px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        .modal-tab-content { display: none; }
-        .modal-tab-content.active { display: block; }
-        .modal-input {
-            width: 100%;
-            height: 48px;
-            padding: 0 44px 0 42px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-            background: rgba(255,255,255,0.04);
-            color: #F0F0FF;
-            box-sizing: border-box;
-        }
-        .modal-input::placeholder { color: #64748B; }
-        .modal-input:focus { outline: none; border-color: rgba(34,211,238,0.5); background: rgba(255,255,255,0.06); box-shadow: 0 0 0 4px rgba(34,211,238,0.1); }
-        .modal-btn {
-            width: 100%;
-            padding: 13px;
-            background: #1E90FF;
-            color: white;
-            border: none;
-            border-radius: 9999px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
-            box-shadow: 0 8px 24px -8px rgba(30,144,255,0.5);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .modal-btn:hover { transform: translateY(-1px); background: #1873cc; }
-        .modal-remember { display: flex; align-items: center; gap: 8px; }
-        .modal-remember input[type=checkbox] { width: 16px; height: 16px; accent-color: #1E90FF; cursor: pointer; flex-shrink: 0; }
-        .modal-remember label { font-size: 13px; color: #94A3B8; cursor: pointer; user-select: none; }
-        .modal-divider { display: flex; align-items: center; gap: 10px; margin: 16px 0; }
-        .modal-divider span { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: #64748B; white-space: nowrap; }
-        .modal-divider::before, .modal-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
-        .modal-error { color: #ef4444; font-size: 13px; margin-top: 4px; display: none; }
-        @media (max-width: 700px) {
-            .modal-overlay > div { grid-template-columns: 1fr !important; }
-            .modal-overlay > div > div:first-child { display: none !important; }
-        }
-    </style>
+
 </head>
 <body>
     {{-- Flash notifications --}}
@@ -604,7 +638,7 @@
     <script>setTimeout(function(){var t=document.getElementById('flash-error');if(t){t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(function(){t.remove()},400);}},5000);</script>
     @endif
     {{-- ═══ GLOBAL BACKGROUND ═══ --}}
-    <div id="aurora-bg" style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#060818;">
+    <div id="aurora-bg" style="position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#0A0F1E;">
         {{-- Stadium background image --}}
         <div style="position:absolute;inset:0;background-image:url('{{ asset('images/background.jpg') }}');background-size:cover;background-position:center;opacity:0.75;"></div>
         {{-- Gradient overlay --}}
@@ -639,18 +673,28 @@
                 </a>
                 <div class="nav-pdivider"></div>
                 <div class="nav-pdrop">
-                    <button class="nav-pdrop-btn">
+                    <button class="nav-pdrop-btn" onclick="toggleNavDrop(this)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                         Data &amp; Tools
                         <svg class="caret" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
                     <div class="nav-pdrop-menu">
-                        @foreach([['Betting Tools','Calculators &amp; trackers'],['Live Odds','Real-time odds comparison'],['Consensus','Public betting splits'],['Trends','Hot streaks &amp; patterns']] as $item)
-                        <div class="nav-pdrop-item">
-                            <div><p class="nav-pdrop-label">{{ $item[0] }}</p><p class="nav-pdrop-sub">{!! $item[1] !!}</p></div>
+                        <div class="nav-pdrop-menu-inner">
+                        @php
+                            $toolLinks = [
+                                ['Betting Tools',  'Calculators &amp; trackers',    'tools'],
+                                ['Live Odds',      'Real-time odds comparison',      'odds'],
+                                ['Consensus',      'Public betting splits',          'consensus'],
+                                ['Trends',         'Hot streaks &amp; patterns',     'trends'],
+                            ];
+                        @endphp
+                        @foreach($toolLinks as $tool)
+                        <a href="{{ route($tool[2]) }}" class="nav-pdrop-item">
+                            <div><p class="nav-pdrop-label">{{ $tool[0] }}</p><p class="nav-pdrop-sub">{!! $tool[1] !!}</p></div>
                             <span class="nav-pdrop-soon">Soon</span>
-                        </div>
+                        </a>
                         @endforeach
+                        </div>
                     </div>
                 </div>
                 <a href="{{ route('about') }}" class="nav-pitem {{ request()->routeIs('about') ? 'active' : '' }}">
@@ -668,12 +712,11 @@
                     @endif
                     <button type="button" onclick="doLogout()" class="nav-login-btn" style="color:#6e6e8a;">Logout</button>
                 @else
-                    <button onclick="openModal()" class="nav-login-btn" style="display:none;" id="desktopLogin">Log In</button>
-                    <button onclick="openModal()" class="nav-login-btn" id="desktopLoginShow">Log In</button>
-                    <a onclick="openModal('join');return false;" href="#" class="nav-join">
+                    <button onclick="openAuthModal('login')" class="nav-login-btn">Log In</button>
+                    <button onclick="openAuthModal('register')" class="nav-join">
                         Join Now
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
+                    </button>
                 @endauth
                 <button class="nav-ham" id="hamburger" onclick="toggleNav()">
                     <span></span><span></span><span></span>
@@ -696,8 +739,8 @@
             <a href="{{ Auth::user()->isAdmin() ? route('dashboard') : '/subscriber/dashboard' }}">My Account</a>
             <button type="button" onclick="doLogout()">Logout</button>
         @else
-            <button onclick="openModal();closeNav()">Log In</button>
-            <button onclick="openModal('join');closeNav()">Join Now</button>
+            <button onclick="openAuthModal('login');closeNav()">Log In</button>
+            <button onclick="openAuthModal('register');closeNav()">Join Now</button>
         @endauth
     </div>
 
@@ -705,7 +748,7 @@
         @yield('content')
     </div>
 
-    <footer style="background:#060818;border-top:1px solid rgba(255,255,255,0.05);padding:48px 0 0;position:relative;z-index:1;">
+    <footer style="background:#0A0F1E;border-top:1px solid rgba(255,255,255,0.05);padding:48px 0 0;position:relative;z-index:1;">
         <div class="container-x">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
                 {{-- Brand column --}}
@@ -748,163 +791,139 @@
     }
     </style>
 
-    <!-- Auth Modal — two-column design -->
-    <div id="authModal" class="modal-overlay" onclick="closeModal()">
-        <div onclick="event.stopPropagation()" style="position:relative;width:100%;max-width:900px;display:grid;grid-template-columns:1.05fr 1fr;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:rgba(10,12,28,0.92);box-shadow:0 40px 120px -20px rgba(30,144,255,0.35);animation:modalIn 0.25s cubic-bezier(0.22,1,0.36,1);">
-            <!-- Top cyan strip -->
-            <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(34,211,238,0.5);z-index:1;"></div>
+    {{-- Auth Modal --}}
+    <div id="authModal" class="am-overlay" onclick="if(event.target===this)closeAuthModal()">
+        <div class="am-card">
+            <div class="am-top-line"></div>
+            <button class="am-close" onclick="closeAuthModal()" aria-label="Close">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="am-inner">
+                <div class="am-eyebrow" id="amEyebrow">Member Access</div>
+                <h3 class="am-heading" id="amHeading">Sign in to your account</h3>
+                <p class="am-sub" id="amSub">Access today's board and your tracked bankroll.</p>
 
-            <!-- LEFT: Brand panel -->
-            <div style="position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:40px;background:#0A0F22;overflow:hidden;">
-                <div style="position:absolute;top:-20%;left:-15%;width:380px;height:380px;border-radius:9999px;background:#1E90FF;filter:blur(110px);opacity:0.5;pointer-events:none;"></div>
-                <div style="position:absolute;bottom:-20%;right:-10%;width:340px;height:340px;border-radius:9999px;background:#A855F7;filter:blur(110px);opacity:0.4;pointer-events:none;"></div>
-                <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle at 1px 1px,white 1px,transparent 0);background-size:24px 24px;"></div>
-
-                <div style="position:relative;">
-                    <div style="margin-bottom:4px;">
-                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:56px;width:auto;object-fit:contain;">
-                    </div>
-                    <div style="margin-top:32px;">
-                        <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#CBD5E1;margin-bottom:20px;">
-                            <span style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:9999px;background:#22c55e;"></span>
-                            Verified Picks · Live
-                        </div>
-                        <h2 style="font-size:clamp(1.5rem,2.5vw,2rem);font-weight:800;line-height:1.2;color:white;margin:0 0 16px;">Sharper picks.<br><span style="color:#22D3EE;">Smarter bankroll.</span></h2>
-                        <p style="color:#94A3B8;font-size:13px;line-height:1.7;max-width:280px;margin:0;">Join thousands of bettors winning with timestamped, graded picks from verified handicappers — across every major league.</p>
-                    </div>
+                <div class="am-tabs">
+                    <button class="am-tab active" id="amTabLogin" onclick="amSwitch('login')">Log In</button>
+                    <button class="am-tab" id="amTabReg" onclick="amSwitch('register')">Join</button>
                 </div>
 
-                <div style="position:relative;display:flex;flex-direction:column;gap:10px;margin-top:32px;">
-                    @foreach([['📈','+184u YTD verified profit'],['🛡️','100% timestamped &amp; graded'],['🏆','Top 1% capper leaderboard']] as $feat)
-                    <div style="display:flex;align-items:center;gap:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);padding:10px 14px;">
-                        <div style="width:32px;height:32px;border-radius:8px;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">{{ $feat[0] }}</div>
-                        <span style="font-size:13px;color:#CBD5E1;">{!! $feat[1] !!}</span>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <!-- RIGHT: Form panel -->
-            <div style="position:relative;padding:28px 32px 32px;overflow-y:auto;max-height:90vh;">
-                <button onclick="closeModal()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:9999px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:16px;line-height:1;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">&times;</button>
-
-                <div style="margin-bottom:20px;">
-                    <div class="eyebrow" style="color:#6366F1;display:flex;align-items:center;gap:6px;margin-bottom:6px;">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l3 6 6.5 1-4.7 4.6 1.1 6.4L12 16l-5.9 3 1.1-6.4L2.5 8 9 7z"/></svg>
-                        <span id="modalEyebrow">Welcome back</span>
-                    </div>
-                    <h3 id="modalTitle" style="font-size:1.6rem;font-weight:800;color:white;margin:0 0 6px;">Sign in to your account</h3>
-                    <p id="modalSubtitle" style="font-size:13px;color:#64748B;margin:0;">Access today's picks and your tracked bankroll.</p>
-                </div>
-
-                <!-- Sliding tab switcher -->
-                <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);margin-bottom:24px;">
-                    <span id="tabSlider" style="position:absolute;top:4px;bottom:4px;width:calc(50% - 4px);border-radius:9999px;background:#1E90FF;box-shadow:0 8px 24px -8px rgba(30,144,255,0.7);transition:transform 0.25s ease;transform:translateX(4px);"></span>
-                    <button id="tabLoginBtn" onclick="switchTab('login')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:white;font-family:'Inter',sans-serif;transition:color .2s;">Log In</button>
-                    <button id="tabRegisterBtn" onclick="switchTab('register')" style="position:relative;z-index:1;padding:10px;background:none;border:none;font-size:13.5px;font-weight:600;cursor:pointer;border-radius:9999px;color:#94A3B8;font-family:'Inter',sans-serif;transition:color .2s;">Join Now</button>
-                </div>
-
-                <!-- Login Form -->
-                <div id="loginTab" class="modal-tab-content active">
-                    <form id="loginForm" style="display:flex;flex-direction:column;gap:14px;">
-                        <div style="position:relative;">
-                            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                {{-- Login Pane --}}
+                <div class="am-pane active" id="amPaneLogin">
+                    <div class="am-error" id="amLoginErr"></div>
+                    <form id="amLoginForm" onsubmit="amSubmitLogin(event)" novalidate>
+                        @csrf
+                        <div class="am-field">
+                            <label class="am-label">Email</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="email" id="amLoginEmail" name="email" placeholder="you@email.com" autocomplete="email" required>
                             </div>
-                            <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email" style="padding-left:42px;">
+                            <div class="am-field-err" id="amLoginEmailErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
                         </div>
-                        <div style="position:relative;">
-                            <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        <div class="am-field">
+                            <label class="am-label">Password</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="password" id="amLoginPw" name="password" placeholder="••••••••" autocomplete="current-password" required>
+                                <button type="button" class="am-pw-btn" onclick="amTogglePw('amLoginPw',this)" tabindex="-1">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </button>
                             </div>
-                            <input type="password" id="loginPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="current-password" style="padding-left:42px;padding-right:44px;margin-bottom:0;">
-                            <button type="button" onclick="togglePw('loginPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                            </button>
+                            <div class="am-field-err" id="amLoginPwErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
                         </div>
-                        <div style="display:flex;align-items:center;justify-content:space-between;">
-                            <div class="modal-remember">
-                                <input type="checkbox" id="rememberMe" name="remember">
-                                <label for="rememberMe">Remember me</label>
-                            </div>
-                            <a href="{{ route('password.request') }}" style="font-size:12.5px;color:#22D3EE;text-decoration:none;" onmouseover="this.style.color='#7DD3FC'" onmouseout="this.style.color='#22D3EE'">Forgot password?</a>
+                        <div class="am-row">
+                            <label class="am-check-label" onclick="amToggleBox('amRemBox','amRemInp')">
+                                <span class="am-box on" id="amRemBox"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                                <input type="checkbox" id="amRemInp" name="remember" checked>
+                                Remember me
+                            </label>
+                            <a href="{{ route('password.request') }}" class="am-forgot">Forgot password?</a>
                         </div>
-                        <button type="submit" class="modal-btn" style="margin-top:0;">Log In</button>
-                        <div id="loginError" class="modal-error"></div>
-                        <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Don't have an account? <a href="#" onclick="switchTab('register');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Join Now</a></p>
+                        <button type="submit" class="am-submit">
+                            Log In
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
                     </form>
+                    <div class="am-switch" style="margin-top:16px;">No account? <a href="#" onclick="amSwitch('register');return false;">Join now</a></div>
                 </div>
 
-                <!-- Register Form -->
-                <div id="registerTab" class="modal-tab-content">
-                    {{-- Step 1: Disclaimer --}}
-                    <div id="registerDisclaimer">
-                        <div style="border-radius:12px;border:1px solid rgba(251,191,36,0.2);background:rgba(251,191,36,0.04);padding:14px 16px;margin-bottom:16px;">
-                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#FCD34D;margin-bottom:6px;">This is not a gambling site</div>
-                            <p style="font-size:12px;color:#94A3B8;line-height:1.6;margin:0 0 12px;">Information is for entertainment purposes only. Past performance is not a guarantee of future results.</p>
-                            <div style="display:flex;flex-direction:column;gap:8px;">
-                                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
-                                    <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:#1E90FF;flex-shrink:0;margin-top:2px;">
-                                    <span style="font-size:12px;color:#94A3B8;line-height:1.5;">I agree to the <a href="{{ route('terms') }}" target="_blank" style="color:#22D3EE;text-decoration:none;">Terms of Service</a></span>
-                                </label>
-                                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
-                                    <input type="checkbox" id="agreePrivacy" style="width:16px;height:16px;accent-color:#1E90FF;flex-shrink:0;margin-top:2px;">
-                                    <span style="font-size:12px;color:#94A3B8;line-height:1.5;">I agree to the <a href="{{ route('privacy') }}" target="_blank" style="color:#22D3EE;text-decoration:none;">Privacy Policy</a></span>
-                                </label>
+                {{-- Register Pane --}}
+                <div class="am-pane" id="amPaneReg">
+                    <div class="am-error" id="amRegErr"></div>
+                    <form id="amRegForm" onsubmit="amSubmitReg(event)" novalidate>
+                        @csrf
+                        <div class="am-field">
+                            <label class="am-label">Name</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="text" id="amRegName" name="name" placeholder="Full name" autocomplete="name" required>
                             </div>
+                            <div class="am-field-err" id="amRegNameErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
                         </div>
-                        <div id="checkboxError" style="color:#ef4444;font-size:12px;margin-bottom:10px;display:none;">Please agree to both the Terms of Service and Privacy Policy to continue.</div>
-                        <button type="button" onclick="checkAndContinue()" class="modal-btn">I Understand — Continue</button>
-                        <div class="modal-divider" style="margin-top:16px;"><span>or</span></div>
-                        <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Already have an account? <a href="#" onclick="switchTab('login');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Log In</a></p>
-                    </div>
-                    {{-- Step 2: Registration fields --}}
-                    <div id="registerFormFields" style="display:none;">
-                        <form id="registerForm" style="display:flex;flex-direction:column;gap:12px;">
-                            <div style="position:relative;">
-                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                                <input type="text" class="modal-input" placeholder="Full name" name="name" required autocomplete="name" style="margin-bottom:0;padding-left:42px;">
+                        <div class="am-field">
+                            <label class="am-label">Email</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="email" id="amRegEmail" name="email" placeholder="you@email.com" autocomplete="email" required>
                             </div>
-                            <div style="position:relative;">
-                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-                                <input type="email" class="modal-input" placeholder="Email address" name="email" required autocomplete="email" style="margin-bottom:0;padding-left:42px;">
+                            <div class="am-field-err" id="amRegEmailErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
+                        </div>
+                        <div class="am-field">
+                            <label class="am-label">Password</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="password" id="amRegPw" name="password" placeholder="••••••••" autocomplete="new-password" required minlength="8">
+                                <button type="button" class="am-pw-btn" onclick="amTogglePw('amRegPw',this)" tabindex="-1">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </button>
                             </div>
-                            <div style="position:relative;">
-                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-                                <input type="password" id="regPassword" class="modal-input" placeholder="Password" name="password" required autocomplete="new-password" style="margin-bottom:0;padding-left:42px;padding-right:44px;">
-                                <button type="button" onclick="togglePw('regPassword',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                            <div class="am-field-err" id="amRegPwErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
+                        </div>
+                        <div class="am-field">
+                            <label class="am-label">Confirm Password</label>
+                            <div class="am-input-wrap">
+                                <input class="am-input" type="password" id="amRegPwC" name="password_confirmation" placeholder="••••••••" autocomplete="new-password" required minlength="8">
+                                <button type="button" class="am-pw-btn" onclick="amTogglePw('amRegPwC',this)" tabindex="-1">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                </button>
                             </div>
-                            <div style="position:relative;">
-                                <div style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#64748B;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-                                <input type="password" id="regPasswordConfirm" class="modal-input" placeholder="Confirm password" name="password_confirmation" required autocomplete="new-password" style="margin-bottom:0;padding-left:42px;padding-right:44px;">
-                                <button type="button" onclick="togglePw('regPasswordConfirm',this)" tabindex="-1" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748B;line-height:1;padding:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
-                            </div>
-                            <button type="submit" class="modal-btn">Create Account</button>
-                            <div id="registerError" class="modal-error"></div>
-                            <p style="text-align:center;font-size:13px;color:#64748B;margin:0;">Already have an account? <a href="#" onclick="switchTab('login');return false;" style="color:#22D3EE;font-weight:600;text-decoration:none;">Log In</a></p>
-                        </form>
-                    </div>
+                            <div class="am-field-err" id="amRegPwCErr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span></span></div>
+                        </div>
+                        <div class="am-terms-wrap" onclick="amToggleBox('amTermsBox','amTermsInp');amCheckTerms()">
+                            <span class="am-box" id="amTermsBox"></span>
+                            <input type="checkbox" id="amTermsInp" name="terms" style="display:none;">
+                            <span>I agree to the <a href="{{ route('terms') }}" target="_blank" onclick="event.stopPropagation()">Terms</a> and <a href="{{ route('privacy') }}" target="_blank" onclick="event.stopPropagation()">Privacy Policy</a>.</span>
+                        </div>
+                        <button type="submit" class="am-submit" id="amRegSubmit" disabled>
+                            Create Account
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </form>
+                    <div class="am-switch" style="margin-top:16px;">Already a member? <a href="#" onclick="amSwitch('login');return false;">Log in</a></div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <script>
-        // Data & Tools dropdown
+        // nav-pdrop click toggle
+        function toggleNavDrop(btn) {
+            var wrap = btn.closest('.nav-pdrop');
+            var isOpen = wrap.classList.contains('open');
+            document.querySelectorAll('.nav-pdrop.open').forEach(function(el) { el.classList.remove('open'); });
+            if (!isOpen) wrap.classList.add('open');
+        }
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-pdrop')) {
+                document.querySelectorAll('.nav-pdrop.open').forEach(function(el) { el.classList.remove('open'); });
+            }
+        });
+
+        // Legacy nav-dropdown-wrap toggle (kept for any old dropdowns)
         function toggleDropdown(e) {
             e.preventDefault();
             var wrap = e.currentTarget.closest('.nav-dropdown-wrap');
             var isOpen = wrap.classList.contains('open');
-            // Close all other dropdowns
             document.querySelectorAll('.nav-dropdown-wrap.open').forEach(function(el) { el.classList.remove('open'); });
             if (!isOpen) wrap.classList.add('open');
         }
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.nav-dropdown-wrap')) {
-                document.querySelectorAll('.nav-dropdown-wrap.open').forEach(function(el) { el.classList.remove('open'); });
-            }
-        });
 
         function resendVerification(email) {
             var btn = document.getElementById('resendVerifyBtn');
@@ -970,170 +989,122 @@
             if (window.innerWidth > 768) closeNav();
         });
 
-        // Modal functions
-        function openModal(tab) {
-            document.getElementById('authModal').classList.add('active');
+        // ── Auth Modal ──
+        function openAuthModal(tab) {
+            document.getElementById('authModal').classList.add('open');
             document.body.style.overflow = 'hidden';
-            switchTab(tab === 'join' ? 'register' : 'login');
+            amSwitch(tab || 'login');
         }
-        
-        function closeModal() {
-            document.getElementById('authModal').classList.remove('active');
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('open');
             document.body.style.overflow = '';
         }
-        
-        function togglePw(id, btn) {
-            var el = document.getElementById(id);
-            el.type = el.type === 'password' ? 'text' : 'password';
-            btn.style.opacity = el.type === 'text' ? '1' : '0.5';
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeAuthModal();
+        });
+        function amSwitch(tab) {
+            var isLogin = tab === 'login';
+            document.getElementById('amPaneLogin').classList.toggle('active', isLogin);
+            document.getElementById('amPaneReg').classList.toggle('active', !isLogin);
+            document.getElementById('amTabLogin').classList.toggle('active', isLogin);
+            document.getElementById('amTabReg').classList.toggle('active', !isLogin);
+            document.getElementById('amEyebrow').textContent = isLogin ? 'Member Access' : 'Join the Edge';
+            document.getElementById('amHeading').textContent = isLogin ? 'Sign in to your account' : 'Create your account';
+            document.getElementById('amSub').textContent = isLogin ? 'Access today\'s board and your tracked bankroll.' : 'Start a free trial. Cancel anytime.';
         }
-
-        function showRegisterForm() {
-            document.getElementById('registerDisclaimer').style.display = 'none';
-            document.getElementById('registerFormFields').style.display = 'block';
+        function amTogglePw(id, btn) {
+            var inp = document.getElementById(id);
+            var show = inp.type === 'text';
+            inp.type = show ? 'password' : 'text';
+            btn.querySelector('svg').innerHTML = show
+                ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+                : '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19M1 1l22 22"/>';
         }
-
-        function checkAndContinue() {
-            var terms = document.getElementById('agreeTerms');
-            var privacy = document.getElementById('agreePrivacy');
-            var err = document.getElementById('checkboxError');
-            if (!terms.checked || !privacy.checked) {
-                err.style.display = 'block';
-                return;
-            }
-            err.style.display = 'none';
-            showRegisterForm();
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.modal-tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.modal-error').forEach(e => e.style.display = 'none');
-            // Reset register disclaimer on tab switch
-            var disc = document.getElementById('registerDisclaimer');
-            var fields = document.getElementById('registerFormFields');
-            if (disc) disc.style.display = 'block';
-            if (fields) fields.style.display = 'none';
-            var t = document.getElementById('agreeTerms'); if (t) t.checked = false;
-            var p = document.getElementById('agreePrivacy'); if (p) p.checked = false;
-            var e = document.getElementById('checkboxError'); if (e) e.style.display = 'none';
-
-            var slider = document.getElementById('tabSlider');
-            var loginBtn = document.getElementById('tabLoginBtn');
-            var registerBtn = document.getElementById('tabRegisterBtn');
-
-            if (tab === 'login') {
-                document.getElementById('loginTab').classList.add('active');
-                if (slider) slider.style.transform = 'translateX(4px)';
-                if (loginBtn) loginBtn.style.color = 'white';
-                if (registerBtn) registerBtn.style.color = '#94A3B8';
-                var eyebrow = document.getElementById('modalEyebrow');
-                if (eyebrow) eyebrow.textContent = 'Welcome back';
-                var title = document.getElementById('modalTitle');
-                if (title) title.textContent = 'Sign in to your account';
-                var sub = document.getElementById('modalSubtitle');
-                if (sub) sub.textContent = 'Access today\'s picks and your tracked bankroll.';
+        function amToggleBox(boxId, inpId) {
+            var box = document.getElementById(boxId);
+            var inp = document.getElementById(inpId);
+            inp.checked = !inp.checked;
+            if (inp.checked) {
+                box.classList.add('on');
+                box.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>';
             } else {
-                document.getElementById('registerTab').classList.add('active');
-                if (slider) slider.style.transform = 'translateX(calc(100% + 4px))';
-                if (loginBtn) loginBtn.style.color = '#94A3B8';
-                if (registerBtn) registerBtn.style.color = 'white';
-                var eyebrow = document.getElementById('modalEyebrow');
-                if (eyebrow) eyebrow.textContent = 'Join the edge';
-                var title = document.getElementById('modalTitle');
-                if (title) title.textContent = 'Create your account';
-                var sub = document.getElementById('modalSubtitle');
-                if (sub) sub.textContent = 'Start with a free trial — cancel anytime.';
+                box.classList.remove('on');
+                box.innerHTML = '';
             }
         }
-        
-        // Modal only closes via the X button — clicking outside does nothing
-        
-        // Handle login form
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            if (document.getElementById('rememberMe').checked) {
-                formData.set('remember', '1');
+        function amCheckTerms() {
+            var inp = document.getElementById('amTermsInp');
+            var btn = document.getElementById('amRegSubmit');
+            if (btn) btn.disabled = !inp.checked;
+        }
+        function amFieldErr(errId, inpId, msg) {
+            var err = document.getElementById(errId);
+            var inp = document.getElementById(inpId);
+            if (msg) {
+                err.querySelector('span').textContent = msg;
+                err.classList.add('show');
+                if (inp) inp.classList.add('invalid');
+            } else {
+                err.classList.remove('show');
+                if (inp) inp.classList.remove('invalid');
             }
-            const errorDiv = document.getElementById('loginError');
-            
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = data.redirect || '{{ route('dashboard') }}';
-                } else if (data.verified === false) {
-                    // Show email verification required message inside modal
-                    document.querySelector('#loginTab .modal-body, #loginTab form')?.closest('form')?.parentElement
-                    errorDiv.innerHTML = '📧 <strong>Email not verified.</strong> We just resent the link — check your inbox and spam folder, then try again.';
-                    errorDiv.style.display = 'block';
-                } else {
-                    errorDiv.textContent = data.message || 'Login failed. Please check your credentials.';
-                    errorDiv.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                errorDiv.textContent = 'An error occurred. Please try again.';
-                errorDiv.style.display = 'block';
-            });
-        });
-
-        // Handle register form
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        }
+        function amClearErrors(ids) {
+            ids.forEach(function(pair){ amFieldErr(pair[0], pair[1], ''); });
+        }
+        function amSubmitLogin(e) {
             e.preventDefault();
-            const formData = new FormData(this);
-            const errorDiv = document.getElementById('registerError');
-            
+            var email = document.getElementById('amLoginEmail');
+            var pw = document.getElementById('amLoginPw');
+            var valid = true;
+            amClearErrors([['amLoginEmailErr','amLoginEmail'],['amLoginPwErr','amLoginPw']]);
+            if (!email.value.trim()) { amFieldErr('amLoginEmailErr','amLoginEmail','Email is required.'); valid=false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { amFieldErr('amLoginEmailErr','amLoginEmail','Please enter a valid email address.'); valid=false; }
+            if (!pw.value) { amFieldErr('amLoginPwErr','amLoginPw','Password is required.'); valid=false; }
+            if (!valid) return;
+            var form = document.getElementById('amLoginForm');
+            var err = document.getElementById('amLoginErr');
+            var btn = form.querySelector('.am-submit');
+            btn.disabled=true; btn.innerHTML='Signing in…';
+            fetch('/login', {
+                method:'POST',
+                headers:{'X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},
+                body:new FormData(form)
+            }).then(function(r){return r.json();}).then(function(d){
+                if (d.success) { window.location.href = d.redirect||'/'; }
+                else { err.textContent = d.message||'Invalid email or password.'; err.style.display='block'; btn.disabled=false; btn.innerHTML='Log In <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
+            }).catch(function(){ err.textContent='An error occurred. Please try again.'; err.style.display='block'; btn.disabled=false; btn.innerHTML='Log In <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; });
+        }
+        function amSubmitReg(e) {
+            e.preventDefault();
+            var name = document.getElementById('amRegName');
+            var email = document.getElementById('amRegEmail');
+            var pw = document.getElementById('amRegPw');
+            var pwc = document.getElementById('amRegPwC');
+            var valid = true;
+            amClearErrors([['amRegNameErr','amRegName'],['amRegEmailErr','amRegEmail'],['amRegPwErr','amRegPw'],['amRegPwCErr','amRegPwC']]);
+            if (!name.value.trim()) { amFieldErr('amRegNameErr','amRegName','Full name is required.'); valid=false; }
+            if (!email.value.trim()) { amFieldErr('amRegEmailErr','amRegEmail','Email is required.'); valid=false; }
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { amFieldErr('amRegEmailErr','amRegEmail','Please enter a valid email address.'); valid=false; }
+            if (!pw.value) { amFieldErr('amRegPwErr','amRegPw','Password is required.'); valid=false; }
+            else if (pw.value.length < 8) { amFieldErr('amRegPwErr','amRegPw','Password must be at least 8 characters.'); valid=false; }
+            if (!pwc.value) { amFieldErr('amRegPwCErr','amRegPwC','Please confirm your password.'); valid=false; }
+            else if (pw.value !== pwc.value) { amFieldErr('amRegPwCErr','amRegPwC','Passwords do not match.'); valid=false; }
+            if (!valid) return;
+            var form = document.getElementById('amRegForm');
+            var err = document.getElementById('amRegErr');
+            var btn = document.getElementById('amRegSubmit');
+            btn.disabled=true; btn.innerHTML='Creating account…';
             fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Store registered email for resend
-                    var regEmail = formData.get('email');
-                    document.getElementById('registerFormFields').innerHTML =
-                        '<div style="text-align:center;padding:10px 0;">' +
-                        '<div style="font-size:3rem;margin-bottom:14px;">📧</div>' +
-                        '<h3 style="color:#fff;font-size:1.15rem;font-weight:700;margin-bottom:8px;">Check Your Email</h3>' +
-                        '<p style="color:rgba(255,255,255,.5);font-size:13px;line-height:1.7;margin-bottom:6px;">' +
-                        'We sent a verification link to<br><strong style="color:#6366F1;">' + regEmail + '</strong>' +
-                        '</p>' +
-                        '<p style="color:rgba(255,255,255,.4);font-size:12px;margin-bottom:18px;">Click the link in that email to activate your account and start your <strong style="color:#fff;">7-day free trial</strong>.</p>' +
-                        '<div style="background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);border-radius:10px;padding:14px;margin-bottom:16px;font-size:12px;color:rgba(255,255,255,.4);text-align:left;">' +
-                        '<strong style="color:#6366F1;display:block;margin-bottom:4px;">📬 Didn\'t receive it?</strong>' +
-                        'Check your <strong style="color:#fff;">spam or junk folder</strong> first. If it\'s not there, click the button below to resend.' +
-                        '</div>' +
-                        '<button id="resendVerifyBtn" onclick="resendVerification(\'' + regEmail + '\')" ' +
-                        'style="width:100%;padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:\'Inter\',sans-serif;margin-bottom:10px;">'+
-                        '↺ &nbsp;Resend Verification Email' +
-                        '</button>' +
-                        '<p style="font-size:11px;color:rgba(255,255,255,.2);">Already verified? <a href="/" onclick="openModal();switchTab(\'login\');return false;" style="color:rgba(255,255,255,.4);">Log in here →</a></p>' +
-                        '</div>';
-                    document.getElementById('registerDisclaimer').style.display = 'none';
-                } else {
-                    errorDiv.textContent = data.message || 'Registration failed. Please try again.';
-                    errorDiv.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                errorDiv.textContent = 'An error occurred. Please try again.';
-                errorDiv.style.display = 'block';
-            });
-        });
-        
+                method:'POST',
+                headers:{'X-CSRF-TOKEN':'{{ csrf_token() }}','Accept':'application/json'},
+                body:new FormData(form)
+            }).then(function(r){return r.json();}).then(function(d){
+                if (d.success) { window.location.href = d.redirect||'/'; }
+                else { err.textContent = d.message||'Registration failed. Please try again.'; err.style.display='block'; btn.disabled=false; btn.innerHTML='Create Account <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
+            }).catch(function(){ err.textContent='An error occurred. Please try again.'; err.style.display='block'; btn.disabled=false; btn.innerHTML='Create Account <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; });
+        }
+
     </script>
     @stack('scripts')
 
@@ -1332,7 +1303,7 @@
                 <img src="{{ asset('images/chat-bot.png') }}" alt="INSPIN Assistant" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
             </div>
             <div style="flex:1;">
-                <div style="font-size:13.5px;font-weight:700;color:#F0F0FF;font-family:'Space Grotesk',sans-serif;">SH Assistant</div>
+                <div style="font-size:13.5px;font-weight:700;color:#F0F0FF;font-family:'Exo 2',sans-serif;">SH Assistant</div>
                 <div style="font-size:10px;color:#00D15B;display:flex;align-items:center;gap:4px;">
                     <span style="width:6px;height:6px;border-radius:50%;background:#00D15B;display:inline-block;"></span> Online · Replies instantly
                 </div>

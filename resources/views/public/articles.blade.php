@@ -1,4 +1,4 @@
-@extends('layouts.public')
+﻿@extends('layouts.public')
 @section('title', 'Exclusive Articles | Sportshandicapper')
 @section('meta', 'Expert sports betting articles, consensus analysis, and betting trends across NBA, NFL, MLB, and NHL.')
 
@@ -53,7 +53,7 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center;">
             @foreach([[str_pad($totalCount,2,'0',STR_PAD_LEFT),'This week'],['4','Leagues'],['3','Writers']] as $s)
             <div>
-                <div style="font-size:2rem;font-weight:900;color:white;font-family:monospace;line-height:1;">{{ $s[0] }}</div>
+                <div style="font-size:2rem;font-weight:900;color:white;font-family:'JetBrains Mono',monospace;line-height:1;">{{ $s[0] }}</div>
                 <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#64748B;margin-top:4px;">{{ $s[1] }}</div>
             </div>
             @endforeach
@@ -91,7 +91,7 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
             <div style="display:flex;align-items:center;gap:16px;font-size:11px;color:#64748B;margin-bottom:24px;flex-wrap:wrap;">
                 <span style="font-weight:600;color:#cbd5e1;">{{ $featured->author }}</span>
                 <span>·</span>
-                <span style="font-family:monospace;">{{ $featured->published_at?->format('M d, Y') }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;">{{ $featured->published_at?->format('M d, Y') }}</span>
                 @if(isset($featured->read_time) && $featured->read_time)
                 <span>·</span>
                 <span style="display:flex;align-items:center;gap:4px;">
@@ -128,7 +128,7 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
             <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:{{ $accent }};filter:blur(60px);opacity:0.15;"></div>
             <div style="position:absolute;bottom:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:#1E90FF;filter:blur(60px);opacity:0.12;"></div>
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
-                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.07);font-family:monospace;line-height:1;letter-spacing:-0.05em;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
+                <span style="font-size:5rem;font-weight:900;color:rgba(255,255,255,0.07);font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-0.05em;">{{ strtoupper(substr($featured->sport ?? 'SPT',0,3)) }}</span>
                 <span style="padding:4px 10px;border-radius:4px;border:1px solid {{ $accent }}66;background:{{ $accent }}1A;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:{{ $accent }};">Featured</span>
             </div>
         </div>
@@ -150,7 +150,7 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
             <p style="font-size:13px;color:#64748B;line-height:1.65;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ $art->excerpt ?? '' }}</p>
             <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#64748B;">
                 <span style="font-weight:600;color:#94A3B8;">{{ $art->author }}</span>
-                <span style="display:flex;align-items:center;gap:4px;font-family:monospace;">
+                <span style="display:flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;">
                     @if(isset($art->read_time) && $art->read_time)
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     {{ $art->read_time }}
@@ -186,9 +186,9 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
         {{-- Page numbers --}}
         @foreach($articles->getUrlRange(1, $articles->lastPage()) as $page => $url)
         @if($page == $articles->currentPage())
-        <span style="width:36px;height:36px;border-radius:6px;border:1px solid #1E90FF;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;font-family:monospace;">{{ $page }}</span>
+        <span style="width:36px;height:36px;border-radius:6px;border:1px solid #1E90FF;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;font-family:'JetBrains Mono',monospace;">{{ $page }}</span>
         @else
-        <a href="{{ $url }}" style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#94A3B8;text-decoration:none;font-family:monospace;transition:all .15s;" onmouseover="this.style.borderColor='#1E90FF';this.style.color='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#94A3B8'">{{ $page }}</a>
+        <a href="{{ $url }}" style="width:36px;height:36px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#94A3B8;text-decoration:none;font-family:'JetBrains Mono',monospace;transition:all .15s;" onmouseover="this.style.borderColor='#1E90FF';this.style.color='white'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='#94A3B8'">{{ $page }}</a>
         @endif
         @endforeach
 

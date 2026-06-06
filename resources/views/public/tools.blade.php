@@ -1,15 +1,50 @@
-@extends('layouts.public')
-@section('title', 'Betting Tools - INSPIN')
+﻿@extends('layouts.public')
+@section('title', 'Betting Tools | Sportshandicapper')
+@section('meta', 'Pro grade betting calculators and tools. Launching soon.')
+
+@push('styles')
+<style>
+.cs-grad-text {
+    background: linear-gradient(to right, #67e8f9, #7dd3fc, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+</style>
+@endpush
 
 @section('content')
-<div class="page">
-    <h1>Betting Tools</h1>
-    <p>Free tools and calculators to help you make smarter betting decisions.</p>
-    <div class="grid grid-3" style="margin-top:24px;">
-        <div class="card"><div class="card-body"><h3>Odds Calculator</h3><p>Convert between American, Decimal, and Fractional odds formats.</p></div></div>
-        <div class="card"><div class="card-body"><h3>Parlay Calculator</h3><p>Calculate parlay payouts and implied probabilities.</p></div></div>
-        <div class="card"><div class="card-body"><h3>Unit Calculator</h3><p>Manage your bankroll with proper unit sizing.</p></div></div>
+<div class="container-x" style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding-top:96px;padding-bottom:96px;">
+    <div style="position:relative;max-width:576px;width:100%;text-align:center;">
+        <div style="position:absolute;inset:-80px;background:radial-gradient(ellipse at 40% 40%,rgba(34,211,238,0.1) 0%,transparent 55%,rgba(99,102,241,0.1) 100%);filter:blur(64px);border-radius:9999px;pointer-events:none;"></div>
+
+        <div style="position:relative;">
+            <div style="margin:0 auto;width:64px;height:64px;border-radius:16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2);display:flex;align-items:center;justify-content:center;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                </svg>
+            </div>
+
+            <div style="display:inline-flex;align-items:center;margin-top:32px;padding:4px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-size:10px;text-transform:uppercase;letter-spacing:0.3em;color:#94a3b8;font-weight:600;font-family:'Inter',sans-serif;">
+                Betting Tools
+            </div>
+
+            <h1 style="margin-top:24px;font-size:clamp(2.8rem,7vw,3.75rem);font-weight:900;color:white;line-height:1.05;font-family:'Exo 2',sans-serif;letter-spacing:-0.01em;">
+                Betting Tools<br>
+                <span class="cs-grad-text">Coming Soon</span>
+            </h1>
+
+            <p style="margin-top:24px;color:#94a3b8;line-height:1.7;font-size:15px;">
+                Calculators, hedgers and bankroll utilities are on the way. Sit tight.
+            </p>
+
+            <div style="margin-top:40px;">
+                <a href="{{ route('home') }}" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#cbd5e1;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#cbd5e1'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Back to home
+                </a>
+            </div>
+        </div>
     </div>
-    <p style="color:#64748b;margin-top:24px;text-align:center;">Full tools coming soon. Join now for access to our simulation model and consensus data.</p>
 </div>
 @endsection

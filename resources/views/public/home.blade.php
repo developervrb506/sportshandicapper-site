@@ -31,7 +31,7 @@
 @section('content')
 
 {{-- ══════════════════════════════════════════════ --}}
-{{--  TICKER                                        --}}
+{{--  TICKER data (rendered below hero)             --}}
 {{-- ══════════════════════════════════════════════ --}}
 @php
 $staticTicks = [
@@ -57,154 +57,107 @@ if($expertPicks->count() > 0) {
     $tickItems = array_merge($staticTicks, $staticTicks);
 }
 @endphp
-<div style="border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(0,0,0,0.4);overflow:hidden;">
-    <div style="display:flex;gap:40px;padding:10px 0;white-space:nowrap;animation:ticker 45s linear infinite;">
-        @foreach($tickItems as $t)
-        <div style="display:inline-flex;align-items:center;gap:10px;font-size:11px;font-family:monospace;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">
-            <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#cbd5e1;font-size:9px;font-weight:700;">{{ $t[0] }}</span>
-            <span style="color:#e2e8f0;">{{ $t[1] }}</span>
-            <span style="font-weight:700;color:{{ $t[3] }};">{{ $t[2] }}</span>
-            <span style="color:#334155;">•</span>
-        </div>
-        @endforeach
-    </div>
-</div>
 
 {{-- ══════════════════════════════════════════════ --}}
 {{--  HERO                                          --}}
 {{-- ══════════════════════════════════════════════ --}}
-<section class="container-x" style="padding:64px 0 80px;">
+<section class="container-x" style="padding:72px 0 88px;">
     <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:center;" class="hero-grid">
         <div class="reveal">
-            {{-- Live badge — real if picks exist, neutral if not --}}
-            @if($expertPicks->count() > 0)
-            <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:8px;border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.05);margin-bottom:24px;">
-                <span style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:9999px;background:#22c55e;" class="ping-soft"></span>
-                <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#86efac;">Live Slate &middot; {{ $expertPicks->count() }} picks released today</span>
-            </div>
-            @else
-            <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:8px;border:1px solid rgba(30,144,255,0.3);background:rgba(30,144,255,0.05);margin-bottom:24px;">
-                <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#7DD3FC;">Expert Picks &middot; 6 Sports Covered</span>
-            </div>
-            @endif
 
-            <h1 style="font-size:clamp(2.75rem,5vw,4.5rem);font-weight:900;line-height:0.95;letter-spacing:-0.03em;color:white;margin:0 0 24px;">
-                Sharper picks.<br>
-                <span style="color:#1E90FF;">Verified</span> records.
+            {{-- Live badge — neutral style, green dot only when live --}}
+            <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);margin-bottom:20px;">
+                @if($expertPicks->count() > 0)
+                <span style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:9999px;background:#22c55e;" class="ping-soft"></span>
+                <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#94A3B8;">{{ $expertPicks->count() }} picks live today</span>
+                @else
+                <span style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#94A3B8;">MLB · NBA · NFL · NHL · CFB · CBB</span>
+                @endif
+            </div>
+
+            <h1 style="font-size:clamp(2rem,3.5vw,3.25rem);font-weight:900;line-height:1.0;letter-spacing:-0.025em;color:white;margin:0 0 16px;">
+                Sharp picks.<br><span style="color:#1E90FF;">Proven</span> results.
             </h1>
 
-            <p style="font-size:clamp(15px,1.4vw,18px);color:#94A3B8;line-height:1.75;max-width:520px;margin:0 0 32px;">
-                We don't sell hype. Every pick is timestamped before line move, posted with reasoning, and graded after the final whistle. Coverage spans MLB, NBA, NFL, NHL, CFB and CBB.
+            <p style="font-size:15px;color:#64748B;line-height:1.65;max-width:420px;margin:0 0 28px;">
+                Every pick is tracked, timestamped, and publicly graded.
             </p>
 
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
                 <a href="{{ route('join') }}" class="btn-primary">
                     View Membership
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-                <a href="{{ route('picks') }}" class="btn-secondary">See Today's Picks</a>
+                <a href="{{ route('picks') }}" class="btn-secondary" style="border-color:rgba(255,255,255,0.1);">See the Record</a>
             </div>
 
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px;">
                 <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#64748B;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     3rd-party verified
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#64748B;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     Posted pre-market move
                 </div>
                 <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#64748B;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1E90FF" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                     Graded transparently
                 </div>
             </div>
         </div>
 
-        {{-- Scoreboard card --}}
+        {{-- Expert Board Preview card — clean, no progress bars --}}
         @php
         $hasLivePicks = $expertPicks->count() > 0;
         $scoreboardPicks = $hasLivePicks ? $expertPicks->take(3) : null;
         $staticBoard = [
-            ['MLB','NYY','BOS','NYY -1.5',92,'+6.4%'],
-            ['NBA','BOS','MIA','Over 218.5',88,'+4.1%'],
-            ['NHL','EDM','LAK','EDM ML',81,'+3.2%'],
+            ['MLB', 'NYY vs BOS', '+6.4% EV'],
+            ['NBA', 'BOS vs MIA', '+4.1% EV'],
+            ['NHL', 'EDM vs LAK', '+3.2% EV'],
         ];
         @endphp
         <div class="reveal" style="transition-delay:0.15s;">
             <div class="card-premium" style="overflow:hidden;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);">
-                    <div style="display:flex;align-items:center;gap:8px;">
-                        @if($hasLivePicks)
-                        <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
-                        <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#cbd5e1;">Tonight's Card</span>
-                        @else
-                        <div style="width:8px;height:8px;border-radius:50%;background:#1E90FF;"></div>
-                        <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#cbd5e1;">Expert Board Preview</span>
-                        @endif
-                    </div>
-                    @if($hasLivePicks)
-                    <span style="font-size:10px;font-family:monospace;color:#64748B;">{{ now()->format('M d') }} &middot; {{ now()->format('g:i A') }} ET</span>
-                    @else
-                    <span style="font-size:10px;font-family:monospace;color:#64748B;">SAMPLE DATA</span>
-                    @endif
+                {{-- Card header --}}
+                <div style="display:flex;align-items:center;gap:8px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.25);">
+                    <div style="width:7px;height:7px;border-radius:50%;background:{{ $hasLivePicks ? '#22c55e' : '#1E90FF' }};"></div>
+                    <span style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#94A3B8;">Expert Board Preview</span>
                 </div>
+
+                {{-- Pick rows --}}
                 <div>
                     @if($hasLivePicks)
                         @foreach($scoreboardPicks as $pick)
-                        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
-                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#94A3B8;">{{ $pick->sport }}</span>
-                                    <span style="font-weight:700;color:white;font-size:13px;">{{ $pick->team1_name }} <span style="color:#475569;">vs</span> {{ $pick->team2_name }}</span>
-                                </div>
-                                @if($pick->team1_percent)
-                                <span style="font-size:10px;font-family:monospace;color:#22c55e;font-weight:700;">+{{ round(($pick->team1_percent - 50) * 0.2, 1) }}% EV</span>
-                                @endif
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#64748B;">{{ $pick->sport }}</span>
+                                <span style="font-weight:600;color:white;font-size:13px;">{{ $pick->team1_name }} <span style="color:#334155;">vs</span> {{ $pick->team2_name }}</span>
                             </div>
-                            <div style="display:flex;align-items:center;justify-content:space-between;">
-                                <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                                    <span style="font-weight:600;color:#94A3B8;font-size:11px;">Members only</span>
-                                </div>
-                                @if($pick->team1_percent)
-                                <div style="display:flex;align-items:center;gap:8px;min-width:120px;">
-                                    <div class="conf-bar" style="flex:1;"><div class="conf-fill" style="width:{{ $pick->team1_percent }}%;"></div></div>
-                                    <span style="font-size:10px;font-family:monospace;color:#94A3B8;width:28px;text-align:right;">{{ $pick->team1_percent }}%</span>
-                                </div>
-                                @endif
-                            </div>
+                            @if($pick->team1_percent)
+                            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#22c55e;font-weight:700;white-space:nowrap;">+{{ round(($pick->team1_percent - 50) * 0.2, 1) }}% EV</span>
+                            @endif
                         </div>
                         @endforeach
                     @else
                         @foreach($staticBoard as $g)
-                        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
-                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#94A3B8;">{{ $g[0] }}</span>
-                                    <span style="font-weight:700;color:white;font-size:13px;">{{ $g[1] }} <span style="color:#475569;">vs</span> {{ $g[2] }}</span>
-                                </div>
-                                <span style="font-size:10px;font-family:monospace;color:#22c55e;font-weight:700;">{{ $g[5] }} EV</span>
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.04);transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.02)'" onmouseout="this.style.background='transparent'">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:9px;font-weight:700;letter-spacing:0.1em;color:#64748B;">{{ $g[0] }}</span>
+                                <span style="font-weight:600;color:white;font-size:13px;">{{ $g[1] }}</span>
                             </div>
-                            <div style="display:flex;align-items:center;justify-content:space-between;">
-                                <div style="display:flex;align-items:center;gap:8px;font-size:13px;">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                                    <span style="font-weight:600;color:#94A3B8;font-size:11px;">Members only</span>
-                                </div>
-                                <div style="display:flex;align-items:center;gap:8px;min-width:120px;">
-                                    <div class="conf-bar" style="flex:1;"><div class="conf-fill" style="width:{{ $g[4] }}%;"></div></div>
-                                    <span style="font-size:10px;font-family:monospace;color:#94A3B8;width:28px;text-align:right;">{{ $g[4] }}%</span>
-                                </div>
-                            </div>
+                            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#22c55e;font-weight:700;white-space:nowrap;">{{ $g[2] }}</span>
                         </div>
                         @endforeach
                     @endif
                 </div>
-                <div style="padding:12px 20px;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:space-between;">
-                    <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:#64748B;">
-                        {{ $hasLivePicks ? $expertPicks->count().' picks today' : 'Subscribe to unlock picks' }}
-                    </span>
-                    <a href="{{ route('picks') }}" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#22D3EE;text-decoration:none;display:flex;align-items:center;gap:4px;">View board <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></a>
+
+                {{-- Card footer — single centered CTA --}}
+                <div style="padding:14px 20px;background:rgba(30,144,255,0.06);border-top:1px solid rgba(30,144,255,0.12);text-align:center;">
+                    <a href="{{ route('join') }}" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#1E90FF'">
+                        Unlock Full Board
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -213,6 +166,22 @@ if($expertPicks->count() > 0) {
 <style>
 @media(max-width:900px){ .hero-grid{grid-template-columns:1fr!important} .hero-grid>div:last-child{display:none} }
 </style>
+
+{{-- ══════════════════════════════════════════════ --}}
+{{--  TICKER (below hero — quiet, not above fold)   --}}
+{{-- ══════════════════════════════════════════════ --}}
+<div style="border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);overflow:hidden;">
+    <div style="display:flex;gap:40px;padding:9px 0;white-space:nowrap;animation:ticker 60s linear infinite;opacity:0.7;">
+        @foreach($tickItems as $t)
+        <div style="display:inline-flex;align-items:center;gap:10px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">
+            <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#64748B;font-size:9px;font-weight:700;">{{ $t[0] }}</span>
+            <span style="color:#94a3b8;">{{ $t[1] }}</span>
+            <span style="font-weight:700;color:{{ $t[3] }};">{{ $t[2] }}</span>
+            <span style="color:#1e293b;">·</span>
+        </div>
+        @endforeach
+    </div>
+</div>
 
 {{-- ══════════════════════════════════════════════ --}}
 {{--  RECORD STRIP                                  --}}

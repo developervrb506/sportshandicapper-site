@@ -1,188 +1,49 @@
-@extends('layouts.public')
-@section('title', 'Live Odds - INSPIN')
+﻿@extends('layouts.public')
+@section('title', 'Live Odds | Sportshandicapper')
+@section('meta', 'Real time odds across every major sportsbook. Launching soon.')
 
 @push('styles')
 <style>
-.odds-grid { display:flex; flex-direction:column; gap:12px; }
-
-.odds-card {
-    background:#212121;
-    border:1px solid rgba(255,252,238,.08);
-    border-radius:12px;
-    overflow:hidden;
-    transition:border-color .2s;
+.cs-grad-text {
+    background: linear-gradient(to right, #67e8f9, #7dd3fc, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
-.odds-card:hover { border-color:rgba(253,181,21,.25); }
-
-.odds-header {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:12px 18px;
-    border-bottom:1px solid rgba(255,252,238,.06);
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.odds-body {
-    display:grid;
-    grid-template-columns:1fr repeat(4,auto);
-    gap:0;
-}
-@media(max-width:700px){ .odds-body { grid-template-columns:1fr; } }
-@media(max-width:600px){
-    .odds-col { border-left:none; border-top:1px solid rgba(255,252,238,.04); }
-    .odds-col:first-child { border-top:none; }
-    .odds-col-header { padding:5px 14px; }
-    .odds-val { padding:7px 14px; }
-    .odds-header { padding:10px 14px; flex-wrap:wrap; gap:6px; }
-    .odds-team-row { padding:8px 14px; }
-}
-
-.odds-team-col { padding:0; }
-.odds-team-row {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 18px;
-}
-.odds-team-row:first-child { border-bottom:1px solid rgba(255,252,238,.04); }
-
-.odds-col {
-    display:flex;
-    flex-direction:column;
-    border-left:1px solid rgba(255,252,238,.05);
-}
-.odds-col-header {
-    font-size:9px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.8px;
-    color:#4a4a4a;
-    padding:6px 20px;
-    border-bottom:1px solid rgba(255,252,238,.04);
-    text-align:center;
-    white-space:nowrap;
-}
-.odds-val {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:10px 20px;
-    font-size:13px;
-    font-weight:600;
-    text-align:center;
-    white-space:nowrap;
-}
-.odds-val:first-of-type { border-bottom:1px solid rgba(255,252,238,.04); }
-
-.sport-badge {
-    display:inline-block;
-    padding:2px 9px;
-    border-radius:20px;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.3px;
-}
-.fav { color:#FFFCEE; }
-.dog { color:#FDB515; }
-.over-val { color:#00D15B; }
-.under-val { color:#ef4444; }
 </style>
 @endpush
 
 @section('content')
-<div class="section">
-    <div class="container">
-        <h1 class="section-title">Live Odds</h1>
-        <p class="section-sub">Real-time odds from top sportsbooks</p>
+<div class="container-x" style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding-top:96px;padding-bottom:96px;">
+    <div style="position:relative;max-width:576px;width:100%;text-align:center;">
+        <div style="position:absolute;inset:-80px;background:radial-gradient(ellipse at 40% 40%,rgba(34,211,238,0.1) 0%,transparent 55%,rgba(99,102,241,0.1) 100%);filter:blur(64px);border-radius:9999px;pointer-events:none;"></div>
 
-        @if($consensus->count() > 0)
-        <div class="odds-grid">
-            @foreach($consensus as $game)
-            @php
-                $mlAway = $game->moneyline_away ?? '';
-                $mlHome = $game->moneyline_home ?? '';
-                $awayIsFav = is_numeric(str_replace(['+','-'],'',ltrim($mlAway,'+'))) && str_starts_with(ltrim($mlAway),' ') === false && $mlAway !== '' && (int)str_replace('+','',$mlAway) < 0;
-                $sportColors = ['NFL'=>['#3b82f6','#1e3a5f'],'NBA'=>['#ef4444','#3b0000'],'MLB'=>['#22c55e','#0a2e1a'],'NHL'=>['#a855f7','#2e1a45'],'NCAAF'=>['#f97316','#3b1a00'],'NCAAB'=>['#f97316','#3b1a00']];
-                $sc = $sportColors[$game->league] ?? ['#FDB515','#2a1f00'];
-            @endphp
-            <div class="odds-card">
-                {{-- Card header: sport badge + game time --}}
-                <div class="odds-header">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <span class="sport-badge" style="background:{{ $sc[1] }};color:{{ $sc[0] }};border:1px solid {{ $sc[0] }}44;">{{ $game->league }}</span>
-                        <span style="font-size:14px;font-weight:600;color:#FFFCEE;">
-                            {{ $game->away_team }} <span style="color:#4a4a4a;font-weight:400;margin:0 6px;">@</span> {{ $game->home_team }}
-                        </span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-                        <svg width="13" height="13" fill="none" stroke="#6e6e6e" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                        <span style="font-size:12px;color:#6e6e6e;font-weight:500;">
-                            {{ $game->game_date?->format('M d') ?? 'TBD' }}
-                            @if($game->game_date && $game->game_date->format('g:i A') !== '12:00 AM')
-                                · {{ $game->game_date->format('g:i A') }} ET
-                            @else
-                                · TBD ET
-                            @endif
-                        </span>
-                    </div>
-                </div>
-
-                {{-- Odds body --}}
-                <div class="odds-body">
-                    {{-- Teams column --}}
-                    <div class="odds-team-col">
-                        <div class="odds-team-row">
-                            <span style="font-size:12px;color:#6e6e6e;width:30px;text-align:center;font-weight:600;">AWY</span>
-                            <span style="font-size:13px;font-weight:600;color:#FFFCEE;">{{ $game->away_team }}</span>
-                        </div>
-                        <div class="odds-team-row">
-                            <span style="font-size:12px;color:#6e6e6e;width:30px;text-align:center;font-weight:600;">HME</span>
-                            <span style="font-size:13px;font-weight:600;color:#FFFCEE;">{{ $game->home_team }}</span>
-                        </div>
-                    </div>
-
-                    {{-- Moneyline --}}
-                    <div class="odds-col">
-                        <div class="odds-col-header">Moneyline</div>
-                        @php
-                            $mlA = $game->moneyline_away ?? '—';
-                            $mlH = $game->moneyline_home ?? '—';
-                            $mlAColor = (is_numeric(str_replace(['+'],'',$mlA)) && (int)str_replace('+','',$mlA) > 0) ? '#FDB515' : '#FFFCEE';
-                            $mlHColor = (is_numeric(str_replace(['+'],'',$mlH)) && (int)str_replace('+','',$mlH) > 0) ? '#FDB515' : '#FFFCEE';
-                        @endphp
-                        <div class="odds-val" style="color:{{ $mlAColor }}">{{ $mlA }}</div>
-                        <div class="odds-val" style="color:{{ $mlHColor }}">{{ $mlH }}</div>
-                    </div>
-
-                    {{-- Spread --}}
-                    <div class="odds-col">
-                        <div class="odds-col-header">Spread</div>
-                        <div class="odds-val" style="color:#9a9a9a;">{{ $game->spread_away ?? '—' }}</div>
-                        <div class="odds-val" style="color:#9a9a9a;">{{ $game->spread_home ?? '—' }}</div>
-                    </div>
-
-                    {{-- Total --}}
-                    <div class="odds-col">
-                        <div class="odds-col-header">Total</div>
-                        <div class="odds-val over-val">{{ $game->total_over ?? '—' }}</div>
-                        <div class="odds-val under-val">{{ $game->total_under ?? '—' }}</div>
-                    </div>
-                </div>
+        <div style="position:relative;">
+            <div style="margin:0 auto;width:64px;height:64px;border-radius:16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2);display:flex;align-items:center;justify-content:center;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49m11.31-2.82a10 10 0 010 14.14m-14.14 0a10 10 0 010-14.14"/>
+                </svg>
             </div>
-            @endforeach
-        </div>
-        @else
-        <div style="text-align:center;padding:60px 0;">
-            <div style="font-size:3rem;margin-bottom:16px;">📊</div>
-            <h3 style="color:#FFFCEE;margin-bottom:8px;">No odds data available</h3>
-            <p style="color:#6e6e6e;">Check back soon for live odds.</p>
-        </div>
-        @endif
 
-        <div style="text-align:center;margin-top:32px;">
-            <a href="{{ route('consensus') }}" style="display:inline-block;padding:12px 32px;border:1px solid #FDB515;color:#FDB515;border-radius:50px;font-weight:600;text-decoration:none;transition:background .18s;" onmouseover="this.style.background='rgba(253,181,21,.1)'" onmouseout="this.style.background='transparent'">View Consensus Data →</a>
+            <div style="display:inline-flex;align-items:center;margin-top:32px;padding:4px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-size:10px;text-transform:uppercase;letter-spacing:0.3em;color:#94a3b8;font-weight:600;font-family:'Inter',sans-serif;">
+                Live Odds
+            </div>
+
+            <h1 style="margin-top:24px;font-size:clamp(2.8rem,7vw,3.75rem);font-weight:900;color:white;line-height:1.05;font-family:'Exo 2',sans-serif;letter-spacing:-0.01em;">
+                Live Odds<br>
+                <span class="cs-grad-text">Coming Soon</span>
+            </h1>
+
+            <p style="margin-top:24px;color:#94a3b8;line-height:1.7;font-size:15px;">
+                A unified live odds board across every major US sportsbook. Coming soon.
+            </p>
+
+            <div style="margin-top:40px;">
+                <a href="{{ route('home') }}" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#cbd5e1;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#cbd5e1'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Back to home
+                </a>
+            </div>
         </div>
     </div>
 </div>

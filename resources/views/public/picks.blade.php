@@ -1,4 +1,4 @@
-@extends('layouts.public')
+﻿@extends('layouts.public')
 @section('title', 'Expert Picks | Sportshandicapper')
 @section('meta', 'Timestamped before lines move, graded after the final whistle. Expert picks across MLB, NBA, NFL, NHL, CFB and CBB.')
 
@@ -107,7 +107,7 @@ $staticPicks = [
             <div style="display:flex;gap:40px;">
                 @foreach([['67%','30-day hit','#22c55e'],['+184u','YTD profit','#1E90FF'],['12.8%','ROI','#fbbf24']] as $s)
                 <div style="text-align:right;">
-                    <div style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:monospace;color:{{ $s[2] }};line-height:1;">{{ $s[0] }}</div>
+                    <div style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:'JetBrains Mono',monospace;color:{{ $s[2] }};line-height:1;">{{ $s[0] }}</div>
                     <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-top:4px;">{{ $s[1] }}</div>
                 </div>
                 @endforeach
@@ -176,7 +176,7 @@ $staticPicks = [
                         <span class="ping-soft" style="position:relative;display:inline-flex;width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;"></span>
                         @endif
                     </div>
-                    <div style="font-size:10px;color:#64748B;font-family:monospace;padding-left:38px;">
+                    <div style="font-size:10px;color:#64748B;font-family:'JetBrains Mono',monospace;padding-left:38px;">
                         {{ $pick->game_date?->format('M d') }}{{ $pick->game_time ? ' · '.date('g:i A', strtotime($pick->game_time)).' ET' : '' }}
                         @if($status === 'graded')
                         &nbsp;<span style="color:{{ $pick->result==='win'?'#86efac':($pick->result==='loss'?'#f87171':'#fbbf24') }};font-weight:700;text-transform:uppercase;">{{ $pick->result }}</span>
@@ -187,7 +187,7 @@ $staticPicks = [
                 <div style="display:flex;align-items:center;gap:6px;">
                     @auth
                         @if(method_exists(auth()->user(),'canViewPick') && auth()->user()->canViewPick($pick))
-                        <span style="font-size:12px;font-weight:700;font-family:monospace;color:#e2e8f0;">{{ $pick->pick }}</span>
+                        <span style="font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#e2e8f0;">{{ $pick->pick }}</span>
                         @else
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
                         <span style="font-size:11px;color:#64748B;">Upgrade to unlock</span>
@@ -199,7 +199,7 @@ $staticPicks = [
                 </div>
                 {{-- Units --}}
                 <div style="text-align:center;">
-                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $pick->stars ?? 2 }}u</span>
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:'JetBrains Mono',monospace;">{{ $pick->stars ?? 2 }}u</span>
                 </div>
                 {{-- Confidence --}}
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
@@ -207,9 +207,9 @@ $staticPicks = [
                     <div style="flex:1;max-width:70px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.06);overflow:hidden;">
                         <div style="height:100%;border-radius:9999px;background:#4ade80;width:{{ $pick->team1_percent }}%;"></div>
                     </div>
-                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;min-width:32px;text-align:right;">{{ $pick->team1_percent }}%</span>
+                    <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#86efac;min-width:32px;text-align:right;">{{ $pick->team1_percent }}%</span>
                     @else
-                    <span style="font-size:11px;color:#475569;font-family:monospace;">–</span>
+                    <span style="font-size:11px;color:#475569;font-family:'JetBrains Mono',monospace;">–</span>
                     @endif
                 </div>
                 {{-- Expert --}}
@@ -240,20 +240,20 @@ $staticPicks = [
                         </div>
                         <span style="font-size:13px;font-weight:700;color:white;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ $row[1] }} vs {{ $row[2] }}</span>
                     </div>
-                    <div style="font-size:10px;color:#64748B;font-family:monospace;padding-left:38px;">{{ $row[3] }} ET &middot; {{ $row[4] }}</div>
+                    <div style="font-size:10px;color:#64748B;font-family:'JetBrains Mono',monospace;padding-left:38px;">{{ $row[3] }} ET &middot; {{ $row[4] }}</div>
                 </div>
                 <div style="display:flex;align-items:center;gap:6px;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                    <span style="font-size:11px;font-weight:600;font-family:monospace;color:#94A3B8;">{{ $row[8] }}</span>
+                    <span style="font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;color:#94A3B8;">{{ $row[8] }}</span>
                 </div>
                 <div style="text-align:center;">
-                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:monospace;">{{ $row[6] }}u</span>
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:rgba(30,144,255,0.12);border:1px solid rgba(30,144,255,0.3);color:#1E90FF;font-weight:900;font-size:11px;font-family:'JetBrains Mono',monospace;">{{ $row[6] }}u</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
                     <div style="flex:1;max-width:70px;height:4px;border-radius:9999px;background:rgba(255,255,255,0.06);overflow:hidden;">
                         <div style="height:100%;border-radius:9999px;background:#4ade80;width:{{ $row[5] }}%;"></div>
                     </div>
-                    <span style="font-size:11px;font-family:monospace;font-weight:700;color:#86efac;min-width:32px;text-align:right;">{{ $row[5] }}%</span>
+                    <span style="font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:700;color:#86efac;min-width:32px;text-align:right;">{{ $row[5] }}%</span>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;">
                     <div style="width:28px;height:28px;border-radius:50%;background:#1E90FF;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:white;flex-shrink:0;">{{ strtoupper(substr($row[7],0,2)) }}</div>
