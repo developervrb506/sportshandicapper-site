@@ -29,7 +29,7 @@ $sportColors=['MLB'=>['rgba(34,197,94,.1)','#22C55E'],'NFL'=>['rgba(59,130,246,.
     @php $sc=$sportColors[$article->sport??'']??['rgba(253,181,21,.1)','#FDB515']; @endphp
     <a href="/subscriber/articles/{{ $article->slug }}" style="text-decoration:none;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
         @if($article->featured_image)
-            <img src="{{ asset('storage/'.$article->featured_image) }}" alt="{{ $article->title }}" style="width:100%;height:160px;object-fit:cover;display:block;">
+            <img src="@inspinAsset($article->featured_image)" alt="{{ $article->title }}" style="width:100%;height:160px;object-fit:cover;display:block;">
         @else
             <div style="width:100%;height:160px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🏅</div>
         @endif

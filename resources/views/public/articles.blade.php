@@ -120,7 +120,7 @@ $rest        = $allItems->filter(fn($a) => $a->id !== $featured->id)->values();
         @endphp
         <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:{{ $grad }};">
             @if(!empty($featured->featured_image))
-            <img src="{{ asset('storage/'.$featured->featured_image) }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.8;" onerror="this.style.display='none'">
+            <img src="@inspinAsset($featured->featured_image)" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.8;" onerror="this.style.display='none'">
             @endif
             {{-- Grid lines overlay --}}
             <div style="position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px);"></div>

@@ -32,6 +32,8 @@ Route::get('/join', [PublicController::class, 'join'])->name('join');
 Route::get('/picks', [PublicController::class, 'picks'])->name('picks');
 Route::post('/picks/{pick}/simulate', [PickController::class, 'simulate'])->name('picks.simulate')->middleware('auth');
 Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::post('/contact/ticket', [PublicController::class, 'submitContactTicket'])->name('contact.ticket');
 Route::get('/reviews', function () { return view('public.reviews'); })->name('reviews');
 Route::get('/betting-tools', fn() => view('public.tools'))->name('tools');
 Route::get('/buy-bitcoin', function () { return view('public.bitcoin'); })->name('bitcoin');

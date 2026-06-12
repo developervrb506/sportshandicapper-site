@@ -140,6 +140,35 @@ class PublicController extends Controller
         ]);
     }
 
+    public function contact()
+    {
+        return view('public.contact');
+    }
+
+    public function submitContactTicket(\Illuminate\Http\Request $request)
+    {
+        $validated = $request->validate([
+            'customer_name'  => 'required|string|max:255',
+            'customer_email' => 'required|email|max:255',
+            'subject'        => 'required|string|max:255',
+            'message'        => 'required|string',
+        ]);
+
+        \App\Models\SupportTicket::create([
+            'customer_name'  => $validated['customer_name'],
+            'customer_email' => $validated['customer_email'],
+            'subject'        => $validated['subject'],
+            'message'        => $validated['message'],
+            'source_system'  => 'SPORTSHANDICAPPER',
+            'status'         => 'open',
+            'priority'       => 1,
+        ]);
+
+        return redirect()->route('contact')
+            ->with('ticket_success', true)
+            ->with('ticket_email', $validated['customer_email']);
+    }
+
     public function trends()
     {
         $streakService = new StreakService();
@@ -162,9 +191,37 @@ class PublicController extends Controller
             $picks = new \Illuminate\Pagination\LengthAwarePaginator(collect(), 0, 10);
         }
 
+        $statsBySport = [];
+        try {
+            $sports = ['ALL', 'NFL', 'NCAAF', 'NBA', 'NCAAB', 'MLB', 'NHL'];
+            foreach ($sports as $s) {
+                $row = Pick::whereNotNull('units_result')
+                    ->where('result', '!=', 'pending')
+                    ->when($s !== 'ALL', fn($q) => $q->where('sport', $s))
+                    ->selectRaw("SUM(units_result) as total_units, COUNT(*) as total,
+                        SUM(CASE WHEN result = 'win' THEN 1 ELSE 0 END) as wins,
+                        SUM(CASE WHEN result = 'loss' THEN 1 ELSE 0 END) as losses,
+                        SUM(CASE WHEN result = 'push' THEN 1 ELSE 0 END) as pushes")
+                    ->first();
+
+                $totalUnits = round((float) ($row->total_units ?? 0), 2);
+                $statsBySport[$s] = [
+                    'units'    => $totalUnits,
+                    'winRate'  => $row->total > 0 ? round($row->wins / $row->total * 100, 1) : 0,
+                    'bettor'   => round($totalUnits * 100),
+                    'wins'     => (int) $row->wins,
+                    'losses'   => (int) $row->losses,
+                    'pushes'   => (int) $row->pushes,
+                ];
+            }
+        } catch (\Exception $e) {
+            $statsBySport = [];
+        }
+
         return view('public.picks', [
             'picks' => $picks,
             'sport' => $sport,
+            'statsBySport' => $statsBySport,
         ]);
     }
 

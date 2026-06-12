@@ -65,7 +65,7 @@ return [
 
         // INSPIN shared database — picks and articles are read from here
         'inspin' => [
-            'driver' => 'mysql',
+            'driver' => env('INSPIN_DB_CONNECTION', 'mysql'),
             'host' => env('INSPIN_DB_HOST', '127.0.0.1'),
             'port' => env('INSPIN_DB_PORT', '3306'),
             'database' => env('INSPIN_DB_DATABASE', ''),

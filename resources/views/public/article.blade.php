@@ -47,7 +47,7 @@
     @if($article->featured_image)
     @php $sportGrads=['NHL'=>'linear-gradient(135deg,#0d2137,#0a3d6b)','NBA'=>'linear-gradient(135deg,#1a0d37,#3b1a6b)','MLB'=>'linear-gradient(135deg,#1a0d0d,#6b1a1a)','NFL'=>'linear-gradient(135deg,#1a1a0d,#5c4a0a)']; @endphp
     <div id="artHero" style="position:relative;border-radius:12px;margin-bottom:28px;overflow:hidden;background:{{ $sportGrads[$article->sport] ?? 'linear-gradient(135deg,#0d1224,#0a1a3d)' }};">
-        <img src="{{ asset('storage/'.$article->featured_image) }}" alt="{{ $article->title }}"
+        <img src="@inspinAsset($article->featured_image)" alt="{{ $article->title }}"
              style="width:100%;max-height:420px;object-fit:cover;display:block;"
              onerror="this.style.display='none';document.getElementById('artHero').style.minHeight='180px'">
     </div>
@@ -242,7 +242,7 @@
                         </div>
                     </div>
                     <audio controls style="width:100%;height:38px;border-radius:50px;outline:none;accent-color:#00D15B;">
-                        <source src="{{ asset('storage/'.$sup->image_path) }}" type="audio/mpeg">
+                        <source src="@inspinAsset($sup->image_path)" type="audio/mpeg">
                     </audio>
                 </div>
 
@@ -255,7 +255,7 @@
                         @if($sup->title)<div style="font-size:12px;font-weight:600;color:#FFFCEE;line-height:1.3;">{{ $sup->title }}</div>@endif
                     </div>
                 </div>
-                <img src="{{ asset('storage/'.$sup->image_path) }}" alt="{{ $sup->title }}" style="width:100%;display:block;border-radius:0 0 12px 12px;">
+                <img src="@inspinAsset($sup->image_path)" alt="{{ $sup->title }}" style="width:100%;display:block;border-radius:0 0 12px 12px;">
 
             @elseif($sup->embed_code && !$embedIsUrl && preg_match('/<iframe\s[^>]*src=["\']https?:\/\/[^"\']+["\'][^>]*>/i', $sup->embed_code))
                 {{-- Iframe embed — validated to contain only safe iframe tags --}}

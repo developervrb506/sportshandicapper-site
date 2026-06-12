@@ -46,6 +46,12 @@
 .sp-filter-btn.sp-active { border-color:#1E90FF;background:#1E90FF;color:white; }
 .sp-filter-btn:hover:not(.sp-active) { border-color:rgba(255,255,255,0.2);color:white; }
 
+.ph-stat-value { animation:phStatPop .5s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes phStatPop {
+    0% { opacity:0; transform:scale(.85) translateY(8px); }
+    100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
 .picks-pagination { display:flex;align-items:center;justify-content:center;gap:6px;margin-top:40px;flex-wrap:wrap; }
 .picks-pagination a,
 .picks-pagination span.pg-num {
@@ -104,13 +110,24 @@ $staticPicks = [
                 <h1 style="font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:0.95;letter-spacing:-0.03em;color:white;margin:0 0 16px;">Expert Picks.</h1>
                 <p style="font-size:14px;color:#64748B;line-height:1.7;max-width:480px;margin:0;">Timestamped before lines move, graded after the final whistle. Coverage across MLB, NBA, NFL, NHL, CFB and CBB.</p>
             </div>
-            <div style="display:flex;gap:40px;">
-                @foreach([['67%','30-day hit','#22c55e'],['+184u','YTD profit','#1E90FF'],['12.8%','ROI','#fbbf24']] as $s)
+            @php
+                $initialStats = $statsBySport[$sport ?: 'ALL'] ?? ['units' => 0, 'winRate' => 0, 'bettor' => 0];
+                $unitsLabel = ($initialStats['units'] >= 0 ? '+' : '-') . number_format(abs($initialStats['units']), 2) . 'u';
+                $bettorLabel = ($initialStats['units'] >= 0 ? '+$' : '-$') . number_format(abs($initialStats['bettor']));
+            @endphp
+            <div style="display:flex;gap:40px;" id="picksHeaderStats" data-stats="{{ json_encode($statsBySport) }}">
                 <div style="text-align:right;">
-                    <div style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:'JetBrains Mono',monospace;color:{{ $s[2] }};line-height:1;">{{ $s[0] }}</div>
-                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-top:4px;">{{ $s[1] }}</div>
+                    <div id="statWinRate" class="ph-stat-value" style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:'JetBrains Mono',monospace;color:#22c55e;line-height:1;animation-delay:0s;">{{ $initialStats['winRate'] }}%</div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-top:4px;">Win Rate</div>
                 </div>
-                @endforeach
+                <div style="text-align:right;">
+                    <div id="statUnits" class="ph-stat-value" style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:'JetBrains Mono',monospace;color:{{ $initialStats['units'] >= 0 ? '#1E90FF' : '#f87171' }};line-height:1;animation-delay:.08s;">{{ $unitsLabel }}</div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-top:4px;">Units</div>
+                </div>
+                <div style="text-align:right;">
+                    <div id="statBettor" class="ph-stat-value" style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;font-family:'JetBrains Mono',monospace;color:{{ $initialStats['units'] >= 0 ? '#fbbf24' : '#f87171' }};line-height:1;animation-delay:.16s;">{{ $bettorLabel }}</div>
+                    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:#475569;margin-top:4px;">$100 Bettor</div>
+                </div>
             </div>
         </div>
     </div>
@@ -325,6 +342,21 @@ function filterSport(sport) {
     document.querySelectorAll('.picks-board-row').forEach(function(row) {
         row.style.display = (sport === 'ALL' || row.dataset.sport === sport) ? '' : 'none';
     });
+
+    var statsEl = document.getElementById('picksHeaderStats');
+    var allStats = JSON.parse(statsEl.dataset.stats || '{}');
+    var s = allStats[sport] || { units: 0, winRate: 0, bettor: 0 };
+    var positive = s.units >= 0;
+
+    document.getElementById('statWinRate').textContent = s.winRate + '%';
+
+    var unitsEl = document.getElementById('statUnits');
+    unitsEl.textContent = (positive ? '+' : '-') + Math.abs(s.units).toFixed(2) + 'u';
+    unitsEl.style.color = positive ? '#1E90FF' : '#f87171';
+
+    var bettorEl = document.getElementById('statBettor');
+    bettorEl.textContent = (positive ? '+$' : '-$') + Math.abs(s.bettor).toLocaleString();
+    bettorEl.style.color = positive ? '#fbbf24' : '#f87171';
 }
 
 (function(){

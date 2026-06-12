@@ -8,6 +8,7 @@ use App\Models\Expert;
 use App\Models\Pick;
 use App\Models\SupportTicket;
 use App\Observers\PickObserver;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
                 'contests' => Contest::count(),
                 'articles' => Article::count(),
             ]);
+        });
+
+        Blade::directive('inspinAsset', function ($expression) {
+            return "<?php echo \\App\\Support\\Asset::inspin($expression); ?>";
         });
     }
 }

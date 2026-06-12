@@ -700,6 +700,9 @@
                 <a href="{{ route('about') }}" class="nav-pitem {{ request()->routeIs('about') ? 'active' : '' }}">
                     About Us
                 </a>
+                <a href="{{ route('contact') }}" class="nav-pitem {{ request()->routeIs('contact') ? 'active' : '' }}">
+                    Contact
+                </a>
             </div>
 
             {{-- Actions --}}
@@ -735,6 +738,7 @@
         <a href="{{ route('consensus') }}">Consensus</a>
         <a href="{{ route('trends') }}">Trends</a>
         <a href="{{ route('about') }}">About Us</a>
+        <a href="{{ route('contact') }}">Contact</a>
         @auth
             <a href="{{ Auth::user()->isAdmin() ? route('dashboard') : '/subscriber/dashboard' }}">My Account</a>
             <button type="button" onclick="doLogout()">Logout</button>
@@ -750,23 +754,44 @@
 
     <footer style="background:#0A0F1E;border-top:1px solid rgba(255,255,255,0.05);padding:48px 0 0;position:relative;z-index:1;">
         <div class="container-x">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:40px;padding-bottom:32px;" class="footer-grid-resp">
                 {{-- Brand column --}}
                 <div>
                     <div style="margin-bottom:16px;">
                         <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
+                    {{-- TODO: replace with real Sportshandicapper contact info once available --}}
+                    <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+                        <span style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;">
+                            📞 <span>Phone (TBD)</span>
+                        </span>
+                        <span style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;">
+                            ✉️ <span>support@sportshandicapper.com</span>
+                        </span>
+                    </div>
                 </div>
                 {{-- Links column --}}
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
                     <div>
-                        <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#64748B;margin-bottom:12px;">Product</p>
+                        <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#64748B;margin-bottom:12px;">Dashboard</p>
                         <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
-                            <li><a href="{{ route('articles') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Exclusive Articles</a></li>
-                            <li><a href="{{ route('picks') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Picks</a></li>
+                            <li><a href="{{ route('articles') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Articles</a></li>
+                            <li><a href="{{ route('picks') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">My Picks</a></li>
                             <li><a href="{{ route('join') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Packages</a></li>
+                            <li><a href="{{ route('profile') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">My Profile</a></li>
+                            <li><a href="{{ route('account.settings') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Settings</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#64748B;margin-bottom:12px;">Tools</p>
+                        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+                            <li><a href="{{ route('consensus') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Consensus</a></li>
+                            <li><a href="{{ route('trends') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Trends</a></li>
+                            <li><a href="{{ route('odds') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Live Odds</a></li>
+                            <li><a href="{{ route('tools') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Betting Tools</a></li>
                             <li><a href="{{ route('about') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">About Us</a></li>
+                            <li><a href="{{ route('contact') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Contact Us</a></li>
                         </ul>
                     </div>
                     <div>
@@ -1108,89 +1133,84 @@
     </script>
     @stack('scripts')
 
-    {{-- ═══ CONTACT US FLOATING BUTTON ═══ --}}
+    {{-- ═══ COMMUNICATIONS CENTER FLOATING BUTTON ═══ --}}
     <style>
         #contactBtn {
             position:fixed; bottom:88px; right:24px; z-index:8990;
             width:50px; height:50px; border-radius:50%;
-            background:#1E2640; border:1.5px solid rgba(99,102,241,.35);
-            cursor:pointer; display:flex; align-items:center; justify-content:center;
-            box-shadow:0 4px 16px rgba(0,0,0,.5), 0 0 0 1px rgba(99,102,241,.08);
-            transition:border-color .2s, box-shadow .2s, background .2s;
-        }
-        #contactBtn:hover { background:#2A3556; border-color:rgba(99,102,241,.6); box-shadow:0 4px 20px rgba(99,102,241,.2); }
-        #contactMenu {
-            position:fixed; bottom:148px; right:24px; z-index:8989;
-            display:flex; flex-direction:column; gap:10px; align-items:flex-end;
-            pointer-events:none; opacity:0;
-            transform:translateY(10px);
-            transition:opacity .22s, transform .22s;
-        }
-        #contactMenu.open { opacity:1; transform:translateY(0); pointer-events:all; }
-        .contact-item {
-            display:flex; align-items:center; gap:10px; cursor:pointer;
-        }
-        .contact-label {
-            background:#0A0F1E; border:1px solid rgba(99,102,241,.1);
-            color:#F0F0FF; font-size:12px; font-weight:600;
-            padding:6px 12px; border-radius:8px; white-space:nowrap;
-            box-shadow:0 2px 10px rgba(0,0,0,.3);
-        }
-        .contact-icon {
-            width:44px; height:44px; border-radius:50%; flex-shrink:0;
+            background:#1E2640; border:1.5px solid rgba(30,144,255,.35);
             display:flex; align-items:center; justify-content:center;
-            font-size:18px; box-shadow:0 2px 10px rgba(0,0,0,.3);
-            text-decoration:none; transition:transform .15s;
+            cursor:pointer; transition:transform .2s, box-shadow .2s, border-color .2s;
+            box-shadow:0 2px 12px rgba(0,0,0,.5);
         }
-        .contact-icon:hover { transform:scale(1.1); }
+        #contactBtn:hover { transform:scale(1.08); border-color:#1E90FF; box-shadow:0 4px 20px rgba(30,144,255,.3); }
+        #contactPanel {
+            position:fixed; bottom:144px; right:24px; z-index:8997;
+            width:240px; background:#0C1020;
+            border:1px solid rgba(30,144,255,.18); border-radius:0.875rem;
+            box-shadow:0 16px 48px rgba(0,0,0,.7);
+            display:none; flex-direction:column; overflow:hidden;
+        }
+        #contactPanel.open { display:flex; }
+        #contactPanel-header { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.06); }
+        .cp-item {
+            display:flex; align-items:center; gap:10px;
+            padding:11px 16px; text-decoration:none; color:white;
+            font-size:13px; font-weight:500; transition:background .15s;
+            border-bottom:1px solid rgba(255,255,255,.04); font-family:'Inter',sans-serif;
+        }
+        .cp-item:last-child { border-bottom:none; }
+        .cp-item:hover { background:rgba(30,144,255,.08); color:#1E90FF; }
+        .cp-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
+        @media (max-width:520px) {
+            #contactBtn { bottom:80px; right:16px; }
+            #contactPanel { right:16px; bottom:136px; width:220px; }
+        }
     </style>
-
-    {{-- Contact Menu Items --}}
-    <div id="contactMenu">
-        <div class="contact-item">
-            <span class="contact-label">Call Us</span>
-            <a href="tel:#" class="contact-icon" style="background:#1E2640;border:1px solid rgba(99,102,241,.12);" title="Call">
-                📞
-            </a>
-        </div>
-        <div class="contact-item">
-            <span class="contact-label">Send Email</span>
-            <a href="mailto:#" class="contact-icon" style="background:#EA4335;" title="Email">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4Z" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/>
-                    <path d="M22 6L12 13L2 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
-        </div>
-        <div class="contact-item">
-            <span class="contact-label">Telegram</span>
-            <a href="https://t.me/#" target="_blank" rel="noopener" class="contact-icon" style="background:#229ED9;" title="Telegram">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.012 9.475c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.462c.537-.194 1.006.131.875.747z"/></svg>
-            </a>
-        </div>
-        <div class="contact-item">
-            <span class="contact-label">WhatsApp</span>
-            <a href="https://wa.me/#" target="_blank" rel="noopener" class="contact-icon" style="background:#25D366;" title="WhatsApp">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            </a>
-        </div>
-    </div>
-
-    {{-- Contact Toggle Button --}}
-    <button id="contactBtn" onclick="toggleContact()" title="Contact Us">
-        <svg width="20" height="20" fill="none" stroke="#F0F0FF" stroke-width="2" viewBox="0 0 24 24" id="contactIcon"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+    <button id="contactBtn" onclick="toggleContactPanel()" aria-label="Contact options" title="Contact Us">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1E90FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.06 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012 .93h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+        </svg>
     </button>
-
+    <div id="contactPanel">
+        <div id="contactPanel-header">
+            <div style="font-size:12px;font-weight:700;color:#1E90FF;text-transform:uppercase;letter-spacing:.18em;font-family:'Inter',sans-serif;">Contact Us</div>
+        </div>
+        {{-- TODO: replace href with real phone number once available --}}
+        <a href="#" class="cp-item">
+            <span class="cp-icon">📞</span> Phone (TBD)
+        </a>
+        <button onclick="toggleChat();toggleContactPanel();" class="cp-item" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;">
+            <span class="cp-icon">🤖</span> SH Assistant
+        </button>
+        {{-- TODO: replace href with real WhatsApp number once available --}}
+        <a href="#" class="cp-item">
+            <span class="cp-icon">💬</span> WhatsApp (TBD)
+        </a>
+        {{-- TODO: replace href with real Telegram handle once available --}}
+        <a href="#" class="cp-item">
+            <span class="cp-icon">✈️</span> Telegram (TBD)
+        </a>
+        <a href="{{ route('contact') }}#ticket" class="cp-item">
+            <span class="cp-icon">🎫</span> Send a Ticket
+        </a>
+        {{-- TODO: replace with real support email once available --}}
+        <a href="mailto:support@sportshandicapper.com" class="cp-item">
+            <span class="cp-icon">✉️</span> Email Support
+        </a>
+    </div>
     <script>
-    var contactOpen = false;
-    function toggleContact() {
-        contactOpen = !contactOpen;
-        document.getElementById('contactMenu').classList.toggle('open', contactOpen);
-        var icon = document.getElementById('contactIcon');
-        icon.style.stroke = contactOpen ? '#6366F1' : '#F0F0FF';
+    var contactPanelOpen = false;
+    function toggleContactPanel() {
+        contactPanelOpen = !contactPanelOpen;
+        document.getElementById('contactPanel').classList.toggle('open', contactPanelOpen);
     }
-    // Close contact menu if chat opens
-    var origToggleChat = typeof toggleChat === 'function' ? toggleChat : null;
+    document.addEventListener('click', function(e) {
+        if (contactPanelOpen && !e.target.closest('#contactPanel') && !e.target.closest('#contactBtn')) {
+            contactPanelOpen = false;
+            document.getElementById('contactPanel').classList.remove('open');
+        }
+    });
     </script>
 
     {{-- ═══ INSPIN AI CHAT WIDGET ═══ --}}

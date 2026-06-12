@@ -278,7 +278,7 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
         </div>
         <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,#0A0C1C,#0d1024,rgba(30,144,255,0.1));">
             @if($featuredArticle->featured_image)
-            <img src="{{ asset('storage/'.$featuredArticle->featured_image) }}" alt="{{ $featuredArticle->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
+            <img src="@inspinAsset($featuredArticle->featured_image)" alt="{{ $featuredArticle->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
             @endif
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
                 <span style="font-size:4rem;font-weight:900;color:rgba(255,255,255,0.05);font-family:monospace;line-height:1;">{{ strtoupper(substr($featuredArticle->sport ?? 'SPT',0,3)) }}</span>

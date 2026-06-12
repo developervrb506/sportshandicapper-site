@@ -86,7 +86,7 @@
 
         {{-- Featured image --}}
         @if($article->featured_image)
-        <img src="{{ asset('storage/'.$article->featured_image) }}" alt="{{ $article->title }}"
+        <img src="@inspinAsset($article->featured_image)" alt="{{ $article->title }}"
              style="width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:24px;border:1px solid rgba(255,252,238,.08);">
         @endif
 
@@ -195,12 +195,12 @@
                     </div>
                 </div>
                 <audio controls style="width:100%;height:36px;border-radius:50px;outline:none;accent-color:#00D15B;">
-                    <source src="{{ asset('storage/'.$sup->image_path) }}" type="audio/mpeg">
+                    <source src="@inspinAsset($sup->image_path)" type="audio/mpeg">
                 </audio>
             </div>
 
             @elseif($sup->image_path)
-            <img src="{{ asset('storage/'.$sup->image_path) }}" alt="{{ $sup->title }}" style="width:100%;display:block;">
+            <img src="@inspinAsset($sup->image_path)" alt="{{ $sup->title }}" style="width:100%;display:block;">
 
             @elseif($sup->external_url || ($sup->embed_code && str_starts_with(trim($sup->embed_code),'http')))
             @php $url = $sup->external_url ?: trim($sup->embed_code); @endphp

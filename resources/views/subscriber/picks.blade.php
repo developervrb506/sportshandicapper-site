@@ -95,13 +95,13 @@
         <div style="padding:14px 16px;">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
                 <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                    @if($pick->team1_logo)<img src="{{ asset('storage/'.$pick->team1_logo) }}" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none;font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t1 }}</span>
+                    @if($pick->team1_logo)<img src="@inspinAsset($pick->team1_logo)" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none;font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t1 }}</span>
                     @else<span style="font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t1 }}</span>@endif
                 </div>
                 <span style="font-size:13px;font-weight:600;color:#fff;">{{ $pick->team1_name }}</span>
                 <span style="font-size:11px;color:rgba(255,255,255,.3);">vs</span>
                 <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                    @if($pick->team2_logo)<img src="{{ asset('storage/'.$pick->team2_logo) }}" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none;font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t2 }}</span>
+                    @if($pick->team2_logo)<img src="@inspinAsset($pick->team2_logo)" style="width:22px;height:22px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none;font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t2 }}</span>
                     @else<span style="font-size:8px;font-weight:700;color:rgba(255,255,255,.5);">{{ $t2 }}</span>@endif
                 </div>
                 <span style="font-size:13px;font-weight:600;color:#fff;">{{ $pick->team2_name }}</span>
