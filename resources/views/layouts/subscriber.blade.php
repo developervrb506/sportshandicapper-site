@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Member Portal - Sportshandicapper')</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/Sports-Handicappers.png') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo01.svg') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,7 +128,7 @@
 <div id="topnav">
     <div class="tn-brand">
         <a href="/subscriber/dashboard" style="display:flex;align-items:center;gap:10px;">
-            <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:108px;width:auto;object-fit:contain;margin:-20px 0;">
+            <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:108px;width:auto;object-fit:contain;margin:-20px 0;">
         </a>
     </div>
 

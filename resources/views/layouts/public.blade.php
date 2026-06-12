@@ -656,7 +656,7 @@
         <nav class="pill-nav">
             {{-- Logo --}}
             <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
-                <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:110px;width:auto;object-fit:contain;margin:-32px 0;">
+                <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:64px;width:auto;object-fit:contain;margin:-8px 0;">
             </a>
 
             {{-- Pill-grouped nav links --}}
@@ -758,7 +758,7 @@
                 {{-- Brand column --}}
                 <div>
                     <div style="margin-bottom:16px;">
-                        <img src="{{ asset('images/Sports-Handicappers.png') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
+                        <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
                     {{-- TODO: replace with real Sportshandicapper contact info once available --}}
