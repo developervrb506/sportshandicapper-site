@@ -12,7 +12,7 @@ class Asset
      */
     public static function inspin(string $path): string
     {
-        $base = rtrim(env('INSPIN_ASSET_URL', config('app.url')), '/');
+        $base = rtrim(config('inspin.asset_url'), '/');
 
         return $base.'/storage/'.$path;
     }
