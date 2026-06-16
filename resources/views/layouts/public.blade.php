@@ -132,8 +132,8 @@
         .btn-outline-dark:hover { background: var(--surface-2); color: var(--text); }
 
         /* ===== SECTIONS ===== */
-        .section { padding: 60px 0; background: #0A0F1E; }
-        .section-alt { background: #0A0F1E; }
+        .section { padding: 60px 0; background: transparent; }
+        .section-alt { background: transparent; }
         .section-title { font-family: 'Exo 2', sans-serif; font-size: 1.85rem; color: #F0F0FF; margin-bottom: 8px; font-weight: 500; padding-left: 16px; border-left: 4px solid #6366F1; letter-spacing: -0.2px; }
         .section-sub { color: #6e6e6e; margin-bottom: 36px; font-size: 15px; padding-left: 20px; }
 
@@ -471,6 +471,7 @@
         .nav-pdrop-label { font-size: 13.5px; font-weight: 600; color: white; margin-bottom: 1px; }
         .nav-pdrop-sub { font-size: 11px; color: #94A3B8; }
         .nav-pdrop-soon { font-size: 9px; font-weight: 700; background: rgba(99,102,241,0.15); color: #818CF8; border-radius: 20px; padding: 2px 8px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+        .nav-pdrop-live { font-size: 9px; font-weight: 700; background: rgba(0,209,91,.12); color: #00D15B; border: 1px solid rgba(0,209,91,.3); border-radius: 20px; padding: 2px 8px; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
         .nav-join { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13.5px; font-weight: 600; color: white; border-radius: 9999px; background: #1E90FF; box-shadow: 0 8px 24px -12px rgba(30,144,255,0.5); transition: transform 0.2s ease, background 0.2s ease; text-decoration: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
         .nav-join:hover { transform: translateY(-1px); background: #1873cc; color: white; }
         .nav-login-btn { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,0.8); transition: color 0.15s; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; font-family: 'Inter', sans-serif; }
@@ -661,31 +662,27 @@
 
             {{-- Pill-grouped nav links --}}
             <div class="nav-pill-group">
-                <a href="{{ route('articles') }}" class="nav-pitem {{ request()->routeIs('article*') || request()->routeIs('articles') ? 'active' : '' }}" style="position:relative;">
-                    Exclusive Articles
-                    <span class="nav-pitem-badge">New</span>
-                </a>
                 <a href="{{ route('picks') }}" class="nav-pitem {{ request()->routeIs('picks') ? 'active' : '' }}">
                     <span class="nav-pitem-pulse"></span>Picks
                 </a>
-                <a href="{{ route('join') }}" class="nav-pitem {{ request()->routeIs('join') ? 'active' : '' }}">
-                    Packages
+                <a href="{{ route('articles') }}" class="nav-pitem {{ request()->routeIs('article*') || request()->routeIs('articles') ? 'active' : '' }}">
+                    Articles
                 </a>
-                <div class="nav-pdivider"></div>
+                <a href="{{ route('odds') }}" class="nav-pitem {{ request()->routeIs('odds') ? 'active' : '' }}">
+                    Odds
+                </a>
                 <div class="nav-pdrop">
                     <button class="nav-pdrop-btn" onclick="toggleNavDrop(this)">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                        Data &amp; Tools
+                        Tools
                         <svg class="caret" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
                     <div class="nav-pdrop-menu">
                         <div class="nav-pdrop-menu-inner">
                         @php
                             $toolLinks = [
-                                ['Betting Tools',  'Calculators &amp; trackers',    'tools'],
-                                ['Live Odds',      'Real-time odds comparison',      'odds'],
-                                ['Consensus',      'Public betting splits',          'consensus'],
-                                ['Trends',         'Hot streaks &amp; patterns',     'trends'],
+                                ['Betting Calculator', 'Calculators &amp; trackers', 'tools'],
+                                ['Consensus',          'Public betting splits',       'consensus'],
+                                ['Trends',             'Hot streaks &amp; patterns',  'trends'],
                             ];
                         @endphp
                         @foreach($toolLinks as $tool)
@@ -697,8 +694,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="nav-pdivider"></div>
+                <a href="{{ route('join') }}" class="nav-pitem {{ request()->routeIs('join') ? 'active' : '' }}">
+                    Pricing
+                </a>
                 <a href="{{ route('about') }}" class="nav-pitem {{ request()->routeIs('about') ? 'active' : '' }}">
-                    About Us
+                    About
                 </a>
                 <a href="{{ route('contact') }}" class="nav-pitem {{ request()->routeIs('contact') ? 'active' : '' }}">
                     Contact
