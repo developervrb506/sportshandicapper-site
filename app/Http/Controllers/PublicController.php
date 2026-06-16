@@ -39,7 +39,7 @@ class PublicController extends Controller
         }
 
         try {
-            $articles = Article::published()->latest()->limit(3)->get();
+            $articles = Article::published()->latest()->limit(4)->get();
         } catch (\Exception $e) {
             $articles = collect();
         }
