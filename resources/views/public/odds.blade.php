@@ -1,50 +1,291 @@
-﻿@extends('layouts.public')
+@extends('layouts.public')
 @section('title', 'Live Odds | Sportshandicapper')
-@section('meta', 'Real time odds across every major sportsbook. Launching soon.')
+@section('meta', 'Compare real-time lines across top sportsbooks for MLB, NBA, NFL, NHL, CFB and CBB.')
 
 @push('styles')
 <style>
-.cs-grad-text {
-    background: linear-gradient(to right, #67e8f9, #7dd3fc, #a5b4fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.market-toggle { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+.market-btn {
+    padding:8px 20px; border-radius:50px; font-size:13px; font-weight:600;
+    font-family:'Inter', sans-serif; background:#0D1224; border:1px solid #1E2640;
+    color:#9a9ab0; cursor:pointer; transition:all .18s;
+}
+.market-btn:hover { background:#1E2640; border-color:#2A3556; color:#F0F0FF; }
+.market-btn.active { background:transparent; border-color:#6366F1; color:#6366F1; box-shadow:0 0 12px rgba(99,102,241,.2); }
+
+.odds-grid { display:flex; flex-direction:column; gap:12px; }
+
+.odds-card {
+    background:#0D1224;
+    border:1px solid #1E2640;
+    border-radius:12px;
+    overflow:hidden;
+    transition:border-color .2s;
+}
+.odds-card:hover { border-color:rgba(99,102,241,.35); }
+
+.odds-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px 18px;
+    border-bottom:1px solid #1E2640;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.sport-badge {
+    display:inline-block;
+    padding:2px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.3px;
+    font-family:'Inter', sans-serif;
+}
+
+.team-badge {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.2px;
+    flex-shrink:0;
+    font-family:'Inter', sans-serif;
+    box-shadow:0 0 0 1px rgba(255,255,255,.08);
+}
+.team-badge-sm { width:22px; height:22px; font-size:9px; }
+.matchup-team { display:inline-flex; align-items:center; gap:8px; }
+.matchup-at { color:#475569; font-weight:400; margin:0 6px; }
+.odds-team-cell { display:flex; align-items:center; gap:8px; }
+
+.odds-table-wrap { overflow-x:auto; }
+.odds-table { width:100%; border-collapse:collapse; min-width:480px; }
+.odds-table th, .odds-table td {
+    padding:10px 14px;
+    text-align:center;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    font-family:'JetBrains Mono', monospace;
+}
+.odds-table th {
+    font-size:9px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    color:#475569;
+    padding:8px 14px;
+    font-family:'Inter', sans-serif;
+}
+.odds-table td:first-child, .odds-table th:first-child {
+    text-align:left;
+    font-size:13px;
+    font-weight:600;
+    color:#F0F0FF;
+    text-transform:none;
+    letter-spacing:0;
+    font-family:'Inter', sans-serif;
+    position:sticky;
+    left:0;
+    background:#0D1224;
+}
+.odds-table tr:last-child td { border-bottom:none; }
+.odds-cell-price { color:#9a9ab0; }
+.odds-cell-best { color:#818CF8; }
+.odds-cell-best::after { content:'★'; font-size:9px; margin-left:4px; vertical-align:middle; }
+.odds-cell-na { color:#334155; }
+
+.market-block { display:none; }
+.market-block.active { display:table-row-group; }
+
+.odds-sync-note {
+    font-size:12px; color:#475569; text-align:right; margin-bottom:16px; font-family:'Inter', sans-serif;
+}
+.odds-mock-badge {
+    display:inline-block; padding:2px 10px; border-radius:20px; font-size:10px;
+    font-weight:700; letter-spacing:.5px; background:rgba(99,102,241,.12); color:#818CF8;
+    border:1px solid rgba(99,102,241,.3); margin-left:8px; text-transform:uppercase;
+    font-family:'Inter', sans-serif;
+}
+
+@media(max-width:600px){
+    .odds-header { padding:10px 14px; flex-wrap:wrap; gap:6px; }
+    .odds-table th, .odds-table td { padding:8px 10px; font-size:12px; }
 }
 </style>
 @endpush
 
 @section('content')
-<div class="container-x" style="min-height:80vh;display:flex;align-items:center;justify-content:center;padding-top:96px;padding-bottom:96px;">
-    <div style="position:relative;max-width:576px;width:100%;text-align:center;">
-        <div style="position:absolute;inset:-80px;background:radial-gradient(ellipse at 40% 40%,rgba(34,211,238,0.1) 0%,transparent 55%,rgba(99,102,241,0.1) 100%);filter:blur(64px);border-radius:9999px;pointer-events:none;"></div>
+<div class="section">
+    <div class="container-x">
+        <h1 class="section-title">
+            Live Odds
+            @if(!$liveConfigured)
+                <span class="odds-mock-badge">Preview Data</span>
+            @endif
+        </h1>
+        <p class="section-sub">Compare real-time lines across top sportsbooks</p>
 
-        <div style="position:relative;">
-            <div style="margin:0 auto;width:64px;height:64px;border-radius:16px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2);display:flex;align-items:center;justify-content:center;">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49m-8.48-.01a6 6 0 010-8.49m11.31-2.82a10 10 0 010 14.14m-14.14 0a10 10 0 010-14.14"/>
-                </svg>
+        <div class="sport-filter">
+            <a href="{{ route('odds') }}" class="{{ !$sport ? 'active' : '' }}">All</a>
+            @foreach($sports as $s)
+                <a href="{{ route('odds', ['sport' => $s]) }}" class="{{ $sport === $s ? 'active' : '' }}">{{ $s }}</a>
+            @endforeach
+        </div>
+
+        <div class="market-toggle">
+            <button type="button" class="market-btn active" data-market="h2h" onclick="setOddsMarket('h2h', this)">Moneyline</button>
+            <button type="button" class="market-btn" data-market="spreads" onclick="setOddsMarket('spreads', this)">Spread</button>
+            <button type="button" class="market-btn" data-market="totals" onclick="setOddsMarket('totals', this)">Total</button>
+        </div>
+
+        @if($lastSync)
+        <div class="odds-sync-note">Last updated {{ $lastSync->diffForHumans() }}</div>
+        @endif
+
+        @if($games->count() > 0)
+        <div class="odds-grid">
+            @foreach($games as $game)
+            @php
+                $sportColors = ['NFL'=>['#3b82f6','#101a33'],'NBA'=>['#ef4444','#330f0f'],'MLB'=>['#22c55e','#0e2818'],'NHL'=>['#a855f7','#251433'],'NCAAF'=>['#22d3ee','#0e2730'],'NCAAB'=>['#22d3ee','#0e2730']];
+                $sc = $sportColors[$game['sport_title']] ?? ['#6366F1','#1a1c33'];
+            @endphp
+            <div class="odds-card">
+                <div class="odds-header">
+                    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                        <span class="sport-badge" style="background:{{ $sc[1] }};color:{{ $sc[0] }};border:1px solid {{ $sc[0] }}44;">{{ $game['sport_title'] }}</span>
+                        <span style="font-size:14px;font-weight:600;color:#F0F0FF;font-family:'Inter',sans-serif;">
+                            <span class="matchup-team">
+                                <span class="team-badge" style="background:{{ $game['away_brand']['bg'] }};color:{{ $game['away_brand']['fg'] }};">{{ $game['away_brand']['abbr'] }}</span>
+                                {{ $game['away_team'] }}
+                            </span>
+                            <span class="matchup-at">@</span>
+                            <span class="matchup-team">
+                                <span class="team-badge" style="background:{{ $game['home_brand']['bg'] }};color:{{ $game['home_brand']['fg'] }};">{{ $game['home_brand']['abbr'] }}</span>
+                                {{ $game['home_team'] }}
+                            </span>
+                        </span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                        <svg width="13" height="13" fill="none" stroke="#475569" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        <span style="font-size:12px;color:#475569;font-weight:500;font-family:'Inter',sans-serif;">
+                            {{ $game['commence_time']?->format('M d · g:i A') ?? 'TBD' }} ET
+                        </span>
+                    </div>
+                </div>
+
+                <div class="odds-table-wrap">
+                    <table class="odds-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                @foreach($game['books'] as $book)
+                                    <th>{{ $book }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody class="market-block active" data-market="h2h">
+                            @foreach($game['markets']['h2h'] as $row)
+                            @php $brand = $row['label'] === $game['away_team'] ? $game['away_brand'] : $game['home_brand']; @endphp
+                            <tr>
+                                <td>
+                                    <span class="odds-team-cell">
+                                        <span class="team-badge team-badge-sm" style="background:{{ $brand['bg'] }};color:{{ $brand['fg'] }};">{{ $brand['abbr'] }}</span>
+                                        {{ $row['label'] }}
+                                    </span>
+                                </td>
+                                @foreach($row['cells'] as $cell)
+                                    <td>
+                                        @if($cell['price'] === null)
+                                            <span class="odds-cell-na">—</span>
+                                        @else
+                                            <span class="{{ $cell['is_best'] ? 'odds-cell-best' : 'odds-cell-price' }}">{{ $cell['price'] > 0 ? '+'.$cell['price'] : $cell['price'] }}</span>
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tbody class="market-block" data-market="spreads">
+                            @foreach($game['markets']['spreads'] as $row)
+                            @php $brand = $row['label'] === $game['away_team'] ? $game['away_brand'] : $game['home_brand']; @endphp
+                            <tr>
+                                <td>
+                                    <span class="odds-team-cell">
+                                        <span class="team-badge team-badge-sm" style="background:{{ $brand['bg'] }};color:{{ $brand['fg'] }};">{{ $brand['abbr'] }}</span>
+                                        {{ $row['label'] }}
+                                    </span>
+                                </td>
+                                @foreach($row['cells'] as $cell)
+                                    <td>
+                                        @if($cell['price'] === null)
+                                            <span class="odds-cell-na">—</span>
+                                        @else
+                                            <span class="{{ $cell['is_best'] ? 'odds-cell-best' : 'odds-cell-price' }}">
+                                                {{ $cell['point'] > 0 ? '+'.$cell['point'] : $cell['point'] }}
+                                                <small style="opacity:.7;">({{ $cell['price'] > 0 ? '+'.$cell['price'] : $cell['price'] }})</small>
+                                            </span>
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tbody class="market-block" data-market="totals">
+                            @foreach($game['markets']['totals'] as $row)
+                            <tr>
+                                <td>
+                                    <span class="odds-team-cell">
+                                        <span class="team-badge team-badge-sm" style="background:{{ $sc[1] }};color:{{ $sc[0] }};">{{ $row['label'] === 'Over' ? 'O' : 'U' }}</span>
+                                        {{ $row['label'] }} {{ $row['cells'][0]['point'] ?? '' }}
+                                    </span>
+                                </td>
+                                @foreach($row['cells'] as $cell)
+                                    <td>
+                                        @if($cell['price'] === null)
+                                            <span class="odds-cell-na">—</span>
+                                        @else
+                                            <span class="{{ $cell['is_best'] ? 'odds-cell-best' : 'odds-cell-price' }}">{{ $cell['price'] > 0 ? '+'.$cell['price'] : $cell['price'] }}</span>
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            @endforeach
+        </div>
+        @else
+        <div style="text-align:center;padding:60px 0;">
+            <div style="font-size:3rem;margin-bottom:16px;">📊</div>
+            <h3 style="color:#F0F0FF;margin-bottom:8px;">No odds data available</h3>
+            <p style="color:#475569;">Check back soon for live odds.</p>
+        </div>
+        @endif
 
-            <div style="display:inline-flex;align-items:center;margin-top:32px;padding:4px 14px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);font-size:10px;text-transform:uppercase;letter-spacing:0.3em;color:#94a3b8;font-weight:600;font-family:'Inter',sans-serif;">
-                Live Odds
-            </div>
-
-            <h1 style="margin-top:24px;font-size:clamp(2.8rem,7vw,3.75rem);font-weight:900;color:white;line-height:1.05;font-family:'Exo 2',sans-serif;letter-spacing:-0.01em;">
-                Live Odds<br>
-                <span class="cs-grad-text">Coming Soon</span>
-            </h1>
-
-            <p style="margin-top:24px;color:#94a3b8;line-height:1.7;font-size:15px;">
-                A unified live odds board across every major US sportsbook. Coming soon.
-            </p>
-
-            <div style="margin-top:40px;">
-                <a href="{{ route('home') }}" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:#cbd5e1;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#cbd5e1'">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                    Back to home
-                </a>
-            </div>
+        <div style="text-align:center;margin-top:32px;">
+            <a href="{{ route('consensus') }}" style="display:inline-block;padding:12px 32px;border:1px solid #6366F1;color:#6366F1;border-radius:50px;font-weight:600;text-decoration:none;transition:background .18s;font-family:'Inter',sans-serif;" onmouseover="this.style.background='rgba(99,102,241,.1)'" onmouseout="this.style.background='transparent'">View Consensus Data →</a>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+function setOddsMarket(market, btn) {
+    document.querySelectorAll('.market-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.market-block').forEach(function(block){
+        block.classList.toggle('active', block.dataset.market === market);
+    });
+}
+</script>
+@endpush

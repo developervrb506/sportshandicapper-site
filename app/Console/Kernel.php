@@ -16,6 +16,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+        // Free tier is ~500 requests/month. Each active sport costs ~3 requests per
+        // sync (3 markets x 1 region), so a daily sync runs ~360-540/month depending
+        // on how many sports are in season. Increase frequency only after upgrading.
+        $schedule->command('odds:sync')->dailyAt('09:15');
     }
 
     /**

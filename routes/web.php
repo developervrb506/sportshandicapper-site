@@ -26,7 +26,7 @@ Route::get('/articles', [PublicController::class, 'articles'])->name('articles')
 Route::get('/articles/{article}', [PublicController::class, 'article'])->name('article.show');
 // Coming Soon — original views preserved, restore by swapping back to PublicController methods
 Route::get('/top-consensus', fn() => view('public.consensus'))->name('consensus');
-Route::get('/live-odds', fn() => view('public.odds'))->name('odds');
+Route::get('/live-odds', [PublicController::class, 'odds'])->name('odds');
 Route::get('/trends', fn() => view('public.trends'))->name('trends');
 Route::get('/join', [PublicController::class, 'join'])->name('join');
 Route::get('/picks', [PublicController::class, 'picks'])->name('picks');
