@@ -219,6 +219,14 @@ $featuredArticle = $usingRealArticles ? $articles->first() : null;
 $restArticles = $usingRealArticles ? $articles->slice(1) : null;
 $staticFeatured = collect($staticArticles)->firstWhere(7, true);
 $staticRest = collect($staticArticles)->where(7, false)->values();
+$sportMeta = [
+    'NHL'  => ['bg'=>'rgba(56,189,248,0.12)','color'=>'#38BDF8','grad'=>'linear-gradient(135deg,#0d2137 0%,#0a3d6b 100%)'],
+    'NBA'  => ['bg'=>'rgba(168,85,247,0.12)','color'=>'#A855F7','grad'=>'linear-gradient(135deg,#1a0d37 0%,#3b1a6b 100%)'],
+    'MLB'  => ['bg'=>'rgba(248,113,113,0.12)','color'=>'#F87171','grad'=>'linear-gradient(135deg,#1a0d0d 0%,#6b1a1a 100%)'],
+    'NFL'  => ['bg'=>'rgba(251,191,36,0.12)','color'=>'#FBBF24','grad'=>'linear-gradient(135deg,#1a150d 0%,#5c3c0a 100%)'],
+    'NCAAF'=> ['bg'=>'rgba(34,197,94,0.12)','color'=>'#22C55E','grad'=>'linear-gradient(135deg,#0d1a0f 0%,#1a4a25 100%)'],
+];
+$sdm = fn($s) => $sportMeta[$s] ?? ['bg'=>'rgba(30,144,255,0.12)','color'=>'#1E90FF','grad'=>'linear-gradient(135deg,#0d1224 0%,#0a1a3d 100%)'];
 @endphp
 
 <section class="container-x" style="padding:80px 0 60px;">
@@ -257,52 +265,55 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
 
     {{-- Featured Article --}}
     @if($usingRealArticles && $featuredArticle)
-    <a href="{{ route('article.show', $featuredArticle) }}" class="reveal art-item" data-league="{{ $featuredArticle->sport }}" style="display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:48px;text-decoration:none;cursor:pointer;group:true;" class="art-featured-row">
+    @php $fm = $sdm($featuredArticle->sport); @endphp
+    <a href="{{ route('article.show', $featuredArticle) }}" class="reveal art-item" data-league="{{ $featuredArticle->sport }}" style="display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:48px;text-decoration:none;cursor:pointer;">
         <div>
-            <div style="display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:16px;">
-                <span style="color:#1E90FF;">{{ $featuredArticle->sport }}</span>
-                <span style="height:1px;width:20px;background:rgba(255,255,255,0.1);"></span>
-                <span style="color:#64748B;">Featured</span>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                <span style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:{{ $fm['bg'] }};color:{{ $fm['color'] }};">{{ $featuredArticle->sport }}</span>
+                <span style="width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0;"></span>
+                <span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;">Featured</span>
             </div>
             <h3 style="font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;line-height:1.1;color:white;margin-bottom:16px;letter-spacing:-0.02em;transition:color .2s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $featuredArticle->title }}</h3>
             <p style="color:#94A3B8;font-size:14px;line-height:1.7;margin-bottom:24px;">{{ Str::limit(strip_tags($featuredArticle->excerpt ?? ''), 160) }}</p>
-            <div style="display:flex;align-items:center;gap:16px;font-size:11px;color:#64748B;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#64748B;margin-bottom:24px;flex-wrap:wrap;">
                 <span style="font-weight:600;color:#cbd5e1;">{{ $featuredArticle->author }}</span>
-                <span>·</span>
-                <span style="font-family:monospace;">{{ $featuredArticle->published_at?->format('M d, Y') }}</span>
+                <span style="width:3px;height:3px;border-radius:50%;background:#475569;flex-shrink:0;"></span>
+                <span style="font-family:'JetBrains Mono',monospace;">{{ $featuredArticle->published_at?->format('M d, Y') }}</span>
             </div>
             <div style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;">
                 Read article
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
         </div>
-        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,#0A0C1C,#0d1024,rgba(30,144,255,0.1));">
+        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:{{ $fm['grad'] }};">
             @if($featuredArticle->featured_image)
-            <img src="@inspinAsset($featuredArticle->featured_image)" alt="{{ $featuredArticle->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.75;">
+            <img src="@inspinAsset($featuredArticle->featured_image)" alt="{{ $featuredArticle->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.82;" onerror="this.style.display='none'">
             @endif
+            <div style="position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px);"></div>
+            <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:{{ $fm['color'] }};filter:blur(60px);opacity:0.18;"></div>
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
-                <span style="font-size:4rem;font-weight:900;color:rgba(255,255,255,0.05);font-family:monospace;line-height:1;">{{ strtoupper(substr($featuredArticle->sport ?? 'SPT',0,3)) }}</span>
-                <span style="padding:4px 10px;border-radius:4px;border:1px solid rgba(30,144,255,0.4);background:rgba(30,144,255,0.1);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;">Featured</span>
+                <span style="font-size:4rem;font-weight:900;color:rgba(255,255,255,0.07);font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-0.05em;">{{ strtoupper(substr($featuredArticle->sport ?? 'SPT',0,3)) }}</span>
+                <span style="padding:4px 10px;border-radius:4px;border:1px solid {{ $fm['color'] }}66;background:{{ $fm['color'] }}1A;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:{{ $fm['color'] }};">Featured</span>
             </div>
         </div>
     </a>
     @else
     {{-- Static featured article --}}
-    @php $sf = $staticFeatured; @endphp
+    @php $sf = $staticFeatured; $sfm = $sdm($sf[1]); @endphp
     <div class="reveal art-item" data-league="{{ $sf[1] }}" style="display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:48px;cursor:pointer;" onclick="window.location='{{ route('articles') }}'">
         <div>
-            <div style="display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:16px;">
-                <span style="color:#1E90FF;">{{ $sf[1] }}</span>
-                <span style="height:1px;width:20px;background:rgba(255,255,255,0.1);"></span>
-                <span style="color:#64748B;">{{ $sf[2] }}</span>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                <span style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:{{ $sfm['bg'] }};color:{{ $sfm['color'] }};">{{ $sf[1] }}</span>
+                <span style="width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0;"></span>
+                <span style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#64748B;">{{ $sf[2] }}</span>
             </div>
             <h3 style="font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;line-height:1.1;color:white;margin-bottom:16px;letter-spacing:-0.02em;transition:color .2s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $sf[3] }}</h3>
             <p style="color:#94A3B8;font-size:14px;line-height:1.7;margin-bottom:24px;">{{ $sf[4] }}</p>
-            <div style="display:flex;align-items:center;gap:16px;font-size:11px;color:#64748B;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#64748B;margin-bottom:24px;flex-wrap:wrap;">
                 <span style="font-weight:600;color:#cbd5e1;">{{ $sf[5] }}</span>
-                <span>·</span>
-                <span style="font-family:monospace;">{{ $sf[6] }}</span>
-                <span>·</span>
+                <span style="width:3px;height:3px;border-radius:50%;background:#475569;flex-shrink:0;"></span>
+                <span style="font-family:'JetBrains Mono',monospace;">{{ $sf[6] }}</span>
+                <span style="width:3px;height:3px;border-radius:50%;background:#475569;flex-shrink:0;"></span>
                 <span style="display:flex;align-items:center;gap:4px;">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     {{ $sf[7] }}
@@ -312,50 +323,76 @@ $staticRest = collect($staticArticles)->where(7, false)->values();
                 Read article <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
         </div>
-        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:linear-gradient(135deg,#0A0C1C,#0d1024,rgba(30,144,255,0.08));">
-            <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 80px);"></div>
+        <div style="position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:{{ $sfm['grad'] }};">
+            <div style="position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 60px);"></div>
+            <div style="position:absolute;top:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:{{ $sfm['color'] }};filter:blur(60px);opacity:0.18;"></div>
             <div style="position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:flex-end;justify-content:space-between;">
-                <span style="font-size:4rem;font-weight:900;color:rgba(255,255,255,0.05);font-family:monospace;line-height:1;">{{ $sf[1] }}</span>
-                <span style="padding:4px 10px;border-radius:4px;border:1px solid rgba(30,144,255,0.4);background:rgba(30,144,255,0.1);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#1E90FF;">Featured</span>
+                <span style="font-size:4rem;font-weight:900;color:rgba(255,255,255,0.07);font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-0.05em;">{{ strtoupper(substr($sf[1],0,3)) }}</span>
+                <span style="padding:4px 10px;border-radius:4px;border:1px solid {{ $sfm['color'] }}66;background:{{ $sfm['color'] }}1A;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:{{ $sfm['color'] }};">Featured</span>
             </div>
         </div>
     </div>
     @endif
 
     {{-- Articles Grid --}}
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px 40px;" id="articlesGrid" class="articles-grid">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" id="articlesGrid" class="articles-grid">
         @if($usingRealArticles)
             @foreach($restArticles as $i=>$art)
-            <article class="reveal art-item" data-league="{{ $art->sport }}" style="display:flex;flex-direction:column;cursor:pointer;transition-delay:{{ $i*0.06 }}s;" onclick="window.location='{{ route('article.show', $art) }}'">
-                <div style="display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:12px;">
-                    <span style="color:#1E90FF;">{{ $art->sport }}</span>
-                    <span style="height:1px;width:16px;background:rgba(255,255,255,0.1);"></span>
-                    <span style="color:#64748B;">Analysis</span>
+            @php $am = $sdm($art->sport); @endphp
+            <article class="reveal art-item" data-league="{{ $art->sport }}"
+                     style="background:#0C1120;border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;transition-delay:{{ $i*0.06 }}s;"
+                     onclick="window.location='{{ route('article.show', $art) }}'"
+                     onmouseover="this.style.borderColor='rgba(30,144,255,0.35)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.4)'"
+                     onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='';this.style.boxShadow=''">
+                {{-- Thumbnail --}}
+                <div style="position:relative;aspect-ratio:16/9;background:{{ $am['grad'] }};overflow:hidden;flex-shrink:0;">
+                    @if(!empty($art->featured_image))
+                    <img src="@inspinAsset($art->featured_image)" alt="{{ $art->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.82;" onerror="this.style.display='none'">
+                    @endif
+                    <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 48px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 48px);"></div>
+                    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:{{ $am['color'] }};filter:blur(40px);opacity:0.2;"></div>
+                    <span style="position:absolute;bottom:8px;left:12px;font-size:2.8rem;font-weight:900;color:rgba(255,255,255,0.08);font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-0.04em;">{{ strtoupper(substr($art->sport,0,3)) }}</span>
+                    <span style="position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:{{ $am['bg'] }};color:{{ $am['color'] }};">{{ $art->sport }}</span>
                 </div>
-                <h3 style="font-size:15px;font-weight:700;line-height:1.4;color:white;margin-bottom:10px;transition:color .2s;flex:1;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $art->title }}</h3>
-                <p style="font-size:13px;color:#64748B;line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ Str::limit(strip_tags($art->excerpt ?? ''), 100) }}</p>
-                <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#64748B;">
-                    <span style="font-weight:600;color:#94A3B8;">{{ $art->author }}</span>
-                    <span style="font-family:monospace;">{{ $art->published_at?->format('M d') }}</span>
+                {{-- Content --}}
+                <div style="padding:16px 18px 18px;display:flex;flex-direction:column;flex:1;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#64748B;margin-bottom:10px;">{{ $art->category ?? 'Analysis' }}</div>
+                    <h3 style="font-size:14px;font-weight:700;line-height:1.45;color:white;margin-bottom:10px;flex:1;transition:color .2s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $art->title }}</h3>
+                    <p style="font-size:12px;color:#64748B;line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ Str::limit(strip_tags($art->excerpt ?? ''), 100) }}</p>
+                    <div style="padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#64748B;">
+                        <span style="font-weight:600;color:#94A3B8;">{{ $art->author }}</span>
+                        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;">{{ $art->published_at?->format('M d') }}</span>
+                    </div>
                 </div>
             </article>
             @endforeach
         @else
             @foreach($staticRest->take(5) as $i=>$art)
-            <article class="reveal art-item" data-league="{{ $art[1] }}" style="display:flex;flex-direction:column;cursor:pointer;transition-delay:{{ $i*0.06 }}s;" onclick="window.location='{{ route('articles') }}'">
-                <div style="display:flex;align-items:center;gap:10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:12px;">
-                    <span style="color:#1E90FF;">{{ $art[1] }}</span>
-                    <span style="height:1px;width:16px;background:rgba(255,255,255,0.1);"></span>
-                    <span style="color:#64748B;">{{ $art[2] }}</span>
+            @php $am = $sdm($art[1]); @endphp
+            <article class="reveal art-item" data-league="{{ $art[1] }}"
+                     style="background:#0C1120;border:1px solid rgba(255,255,255,0.07);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;transition-delay:{{ $i*0.06 }}s;"
+                     onclick="window.location='{{ route('articles') }}'"
+                     onmouseover="this.style.borderColor='rgba(30,144,255,0.35)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.4)'"
+                     onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='';this.style.boxShadow=''">
+                {{-- Thumbnail --}}
+                <div style="position:relative;aspect-ratio:16/9;background:{{ $am['grad'] }};overflow:hidden;flex-shrink:0;">
+                    <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,1) 0 1px,transparent 1px 48px),repeating-linear-gradient(0deg,rgba(255,255,255,1) 0 1px,transparent 1px 48px);"></div>
+                    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:{{ $am['color'] }};filter:blur(40px);opacity:0.2;"></div>
+                    <span style="position:absolute;bottom:8px;left:12px;font-size:2.8rem;font-weight:900;color:rgba(255,255,255,0.08);font-family:'JetBrains Mono',monospace;line-height:1;letter-spacing:-0.04em;">{{ strtoupper(substr($art[1],0,3)) }}</span>
+                    <span style="position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;background:{{ $am['bg'] }};color:{{ $am['color'] }};">{{ $art[1] }}</span>
                 </div>
-                <h3 style="font-size:15px;font-weight:700;line-height:1.4;color:white;margin-bottom:10px;transition:color .2s;flex:1;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $art[3] }}</h3>
-                <p style="font-size:13px;color:#64748B;line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">{{ $art[4] }}</p>
-                <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#64748B;">
-                    <span style="font-weight:600;color:#94A3B8;">{{ $art[5] }}</span>
-                    <span style="display:flex;align-items:center;gap:4px;font-family:monospace;">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                        {{ $art[7] }}
-                    </span>
+                {{-- Content --}}
+                <div style="padding:16px 18px 18px;display:flex;flex-direction:column;flex:1;">
+                    <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#64748B;margin-bottom:10px;">{{ $art[2] }}</div>
+                    <h3 style="font-size:14px;font-weight:700;line-height:1.45;color:white;margin-bottom:10px;flex:1;transition:color .2s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='white'">{{ $art[3] }}</h3>
+                    <p style="font-size:12px;color:#64748B;line-height:1.65;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ $art[4] }}</p>
+                    <div style="padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#64748B;">
+                        <span style="font-weight:600;color:#94A3B8;">{{ $art[5] }}</span>
+                        <span style="display:flex;align-items:center;gap:4px;font-size:10px;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            {{ $art[7] }}
+                        </span>
+                    </div>
                 </div>
             </article>
             @endforeach
