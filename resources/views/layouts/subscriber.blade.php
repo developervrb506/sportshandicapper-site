@@ -128,7 +128,7 @@
 <div id="topnav">
     <div class="tn-brand">
         <a href="/subscriber/dashboard" style="display:flex;align-items:center;gap:10px;">
-            <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:108px;width:auto;object-fit:contain;margin:-20px 0;">
+            <img src="{{ asset('images/Sports-Handicappers2.png') }}" alt="Sportshandicapper" style="height:64px;width:auto;object-fit:contain;">
         </a>
     </div>
 

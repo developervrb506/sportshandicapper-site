@@ -657,7 +657,7 @@
         <nav class="pill-nav">
             {{-- Logo --}}
             <a href="{{ route('home') }}" style="text-decoration:none;flex-shrink:0;display:flex;align-items:center;">
-                <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:64px;width:auto;object-fit:contain;margin:-8px 0;">
+                <img src="{{ asset('images/Sports-Handicappers2.png') }}" alt="Sportshandicapper" style="height:48px;width:auto;object-fit:contain;">
             </a>
 
             {{-- Pill-grouped nav links --}}
@@ -759,17 +759,19 @@
                 {{-- Brand column --}}
                 <div>
                     <div style="margin-bottom:16px;">
-                        <img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" style="height:80px;width:auto;object-fit:contain;">
+                        <img src="{{ asset('images/Sports-Handicappers2.png') }}" alt="Sportshandicapper" style="height:60px;width:auto;object-fit:contain;">
                     </div>
                     <p style="color:#64748B;font-size:13px;line-height:1.7;max-width:280px;">Simulation-powered sports picks with a verified 3-year track record. Built by bettors, powered by data.</p>
-                    {{-- TODO: replace with real Sportshandicapper contact info once available --}}
                     <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
-                        <span style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;">
-                            📞 <span>Phone (TBD)</span>
-                        </span>
-                        <span style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;">
-                            ✉️ <span>support@sportshandicapper.com</span>
-                        </span>
+                        <a href="tel:+16104715405" style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='#475569'">
+                            📞 <span>(610) 471-5405</span>
+                        </a>
+                        <a href="mailto:help@sportshandicapper.com" style="display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#1E90FF'" onmouseout="this.style.color='#475569'">
+                            ✉️ <span>help@sportshandicapper.com</span>
+                        </a>
+                    </div>
+                    <div style="margin-top:10px;display:flex;align-items:center;gap:6px;color:#475569;font-size:12px;">
+                        🕗 <span>Mon – Sun · 8:00 AM – 10:00 PM Eastern</span>
                     </div>
                 </div>
                 {{-- Links column --}}
@@ -793,6 +795,7 @@
                             <li><a href="{{ route('tools') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Betting Tools</a></li>
                             <li><a href="{{ route('about') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">About Us</a></li>
                             <li><a href="{{ route('contact') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">Contact Us</a></li>
+                            <li><a href="{{ route('faq') }}" style="font-size:13px;color:#94A3B8;text-decoration:none;transition:color .15s;" onmouseover="this.style.color='#e2e8f0'" onmouseout="this.style.color='#94A3B8'">FAQ's</a></li>
                         </ul>
                     </div>
                     <div>
@@ -1177,26 +1180,22 @@
         <div id="contactPanel-header">
             <div style="font-size:12px;font-weight:700;color:#1E90FF;text-transform:uppercase;letter-spacing:.18em;font-family:'Inter',sans-serif;">Contact Us</div>
         </div>
-        {{-- TODO: replace href with real phone number once available --}}
-        <a href="#" class="cp-item">
-            <span class="cp-icon">📞</span> Phone (TBD)
+        <a href="tel:+16104715405" class="cp-item">
+            <span class="cp-icon">📞</span> (610) 471-5405
         </a>
         <button onclick="toggleChat();toggleContactPanel();" class="cp-item" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;">
             <span class="cp-icon">🤖</span> SH Assistant
         </button>
-        {{-- TODO: replace href with real WhatsApp number once available --}}
-        <a href="#" class="cp-item">
-            <span class="cp-icon">💬</span> WhatsApp (TBD)
-        </a>
-        {{-- TODO: replace href with real Telegram handle once available --}}
-        <a href="#" class="cp-item">
-            <span class="cp-icon">✈️</span> Telegram (TBD)
-        </a>
+        <span class="cp-item" style="opacity:.45;cursor:default;">
+            <span class="cp-icon">💬</span> WhatsApp · Soon
+        </span>
+        <span class="cp-item" style="opacity:.45;cursor:default;">
+            <span class="cp-icon">✈️</span> Telegram · Soon
+        </span>
         <a href="{{ route('contact') }}#ticket" class="cp-item">
             <span class="cp-icon">🎫</span> Send a Ticket
         </a>
-        {{-- TODO: replace with real support email once available --}}
-        <a href="mailto:support@sportshandicapper.com" class="cp-item">
+        <a href="mailto:help@sportshandicapper.com" class="cp-item">
             <span class="cp-icon">✉️</span> Email Support
         </a>
     </div>
@@ -1214,7 +1213,7 @@
     });
     </script>
 
-    {{-- ═══ INSPIN AI CHAT WIDGET ═══ --}}
+    {{-- ═══ SH AI CHAT WIDGET ═══ --}}
     <style>
         #chatBtn {
             position:fixed; bottom:24px; right:24px; z-index:9000;
@@ -1321,7 +1320,7 @@
     <div id="chatPanel">
         <div id="chatHeader">
             <div id="chatAvatar">
-                <img src="{{ asset('images/chat-bot.png') }}" alt="INSPIN Assistant" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+                <img src="{{ asset('images/chat-bot.png') }}" alt="Sportshandicapper Assistant" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
             </div>
             <div style="flex:1;">
                 <div style="font-size:13.5px;font-weight:700;color:#F0F0FF;font-family:'Exo 2',sans-serif;">SH Assistant</div>

@@ -3,7 +3,7 @@
 
 @section('content')
 
-<img src="{{ asset('images/logo01.svg') }}" alt="Sportshandicapper" class="auth-logo">
+<img src="{{ asset('images/Sports-Handicappers2.png') }}" alt="Sportshandicapper" class="auth-logo">
 
 <div class="auth-eyebrow">Join the Edge</div>
 <h1 class="auth-heading">Create your account</h1>

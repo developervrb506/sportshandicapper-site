@@ -39,6 +39,8 @@ Route::get('/betting-tools', fn() => view('public.tools'))->name('tools');
 Route::get('/buy-bitcoin', function () { return view('public.bitcoin'); })->name('bitcoin');
 Route::get('/terms-of-service', function () { return view('public.terms'); })->name('terms');
 Route::get('/privacy-policy', function () { return view('public.privacy'); })->name('privacy');
+Route::get('/faq', function () { return view('public.faq'); })->name('faq');
+Route::get('/cashier', function () { return view('public.cashier'); })->name('cashier');
 Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'respond'])->name('chat');
 
 // ==========================================
