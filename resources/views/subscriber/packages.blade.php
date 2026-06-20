@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title', 'Upgrade Package - INSPIN')
+@section('title', 'Upgrade Package | Sportshandicapper')
 @section('page-title', 'Membership Packages')
 
 @push('styles')

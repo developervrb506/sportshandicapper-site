@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title', $article->title . ' - INSPIN')
+@section('title', $article->title . ' | Sportshandicapper')
 @section('page-title', Str::limit($article->title, 50))
 
 @push('styles')

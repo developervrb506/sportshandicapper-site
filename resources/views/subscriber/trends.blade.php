@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title','Trends - INSPIN')
+@section('title','Trends | Sportshandicapper')
 @section('page-title','Betting Trends')
 
 @section('content')

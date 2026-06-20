@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title','My Profile - INSPIN')
+@section('title','My Profile | Sportshandicapper')
 @section('page-title','My Profile')
 
 @section('content')

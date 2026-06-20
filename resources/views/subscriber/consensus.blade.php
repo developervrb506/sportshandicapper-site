@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title','Consensus - INSPIN')
+@section('title','Consensus | Sportshandicapper')
 @section('page-title','Top Consensus')
 
 @push('styles')

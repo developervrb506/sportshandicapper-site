@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', ($pageTitle ?? 'Coming Soon') . ' - INSPIN')
+@section('title', ($pageTitle ?? 'Coming Soon') . ' | Sportshandicapper')
 
 @section('content')
 <div style="background:#171818;min-height:72vh;display:flex;align-items:center;justify-content:center;padding:60px 20px;">

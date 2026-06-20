@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Reset Password - INSPIN')
+@section('title', 'Reset Password | Sportshandicapper')
 
 @section('content')
 

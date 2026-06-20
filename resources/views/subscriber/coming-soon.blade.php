@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title', ($pageTitle ?? 'Coming Soon') . ' - INSPIN')
+@section('title', ($pageTitle ?? 'Coming Soon') . ' | Sportshandicapper')
 @section('page-title', $pageTitle ?? 'Coming Soon')
 
 @section('content')

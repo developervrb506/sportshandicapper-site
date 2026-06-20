@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reset Your Password - INSPIN</title>
+<title>Reset Your Password | Sportshandicapper</title>
 </head>
 <body style="margin:0;padding:0;background-color:#0a0a0a;font-family:'Helvetica Neue',Arial,sans-serif;">
 
@@ -15,7 +15,7 @@
                 {{-- Logo --}}
                 <tr>
                     <td align="center" style="padding-bottom:28px;">
-                        <img src="https://inspin.com/images/inspin-logo.png" alt="INSPIN" height="40" style="height:40px;width:auto;">
+                        <img src="https://sportshandicapper.com/images/sh-logo.png" alt="Sportshandicapper" height="40" style="height:40px;width:auto;">
                     </td>
                 </tr>
 
@@ -25,7 +25,7 @@
 
                         {{-- Gold top bar --}}
                         <table width="100%" cellpadding="0" cellspacing="0">
-                            <tr><td style="height:4px;background:linear-gradient(90deg,#FDB515,#f59e0b);"></td></tr>
+                            <tr><td style="height:4px;background:linear-gradient(90deg,#6366F1,#f59e0b);"></td></tr>
                         </table>
 
                         <table width="100%" cellpadding="0" cellspacing="0">
@@ -36,7 +36,7 @@
                                     <table width="100%" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td align="center" style="padding-bottom:24px;">
-                                                <div style="width:64px;height:64px;background:rgba(253,181,21,.1);border:1px solid rgba(253,181,21,.3);border-radius:16px;display:inline-block;line-height:64px;text-align:center;font-size:28px;">🔑</div>
+                                                <div style="width:64px;height:64px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);border-radius:16px;display:inline-block;line-height:64px;text-align:center;font-size:28px;">🔑</div>
                                             </td>
                                         </tr>
                                     </table>
@@ -47,7 +47,7 @@
                                     </h1>
 
                                     <p style="margin:0 0 28px;font-size:15px;color:rgba(255,255,255,.5);text-align:center;line-height:1.7;">
-                                        Hi <strong style="color:#fff;">{{ $userName }}</strong>, we received a request to reset your INSPIN account password.<br>
+                                        Hi <strong style="color:#fff;">{{ $userName }}</strong>, we received a request to reset your Sportshandicapper account password.<br>
                                         Click the button below to choose a new one.
                                     </p>
 
@@ -56,7 +56,7 @@
                                         <tr>
                                             <td align="center" style="padding-bottom:28px;">
                                                 <a href="{{ $resetUrl }}"
-                                                   style="display:inline-block;padding:15px 44px;background:#FDB515;color:#000000;font-size:15px;font-weight:700;text-decoration:none;border-radius:50px;">
+                                                   style="display:inline-block;padding:15px 44px;background:#6366F1;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;border-radius:50px;">
                                                     🔓 &nbsp; Reset My Password
                                                 </a>
                                             </td>
@@ -70,7 +70,7 @@
 
                                     {{-- Expiry notice --}}
                                     <p style="margin:20px 0 0;font-size:13px;color:rgba(255,255,255,.35);text-align:center;line-height:1.6;">
-                                        ⏱ This reset link expires in <strong style="color:#FDB515;">60 minutes</strong>.
+                                        ⏱ This reset link expires in <strong style="color:#6366F1;">60 minutes</strong>.
                                     </p>
 
                                     <p style="margin:10px 0 20px;font-size:13px;color:rgba(255,255,255,.25);text-align:center;line-height:1.6;">
@@ -85,7 +85,7 @@
                                     {{-- Fallback --}}
                                     <p style="margin:16px 0 0;font-size:11px;color:rgba(255,255,255,.2);text-align:center;line-height:1.6;">
                                         Button not working? Copy and paste this link into your browser:<br>
-                                        <a href="{{ $resetUrl }}" style="color:#FDB515;word-break:break-all;font-size:11px;">{{ $resetUrl }}</a>
+                                        <a href="{{ $resetUrl }}" style="color:#6366F1;word-break:break-all;font-size:11px;">{{ $resetUrl }}</a>
                                     </p>
 
                                 </td>
@@ -98,8 +98,8 @@
                 <tr>
                     <td align="center" style="padding:24px 0 0;">
                         <p style="margin:0;font-size:12px;color:rgba(255,255,255,.2);">
-                            © {{ date('Y') }} INSPIN. All rights reserved.<br>
-                            <a href="https://inspin.com" style="color:rgba(255,255,255,.3);text-decoration:none;">inspin.com</a>
+                            © {{ date('Y') }} Sportshandicapper. All rights reserved.<br>
+                            <a href="https://sportshandicapper.com" style="color:rgba(255,255,255,.3);text-decoration:none;">sportshandicapper.com</a>
                         </p>
                     </td>
                 </tr>

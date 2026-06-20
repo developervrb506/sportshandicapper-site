@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', 'Buy Bitcoin - INSPIN')
+@section('title', 'Buy Bitcoin | Sportshandicapper')
 
 @section('content')
 <div class="page">

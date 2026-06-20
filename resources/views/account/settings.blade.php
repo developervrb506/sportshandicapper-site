@@ -1,5 +1,5 @@
 @extends('layouts.subscriber')
-@section('title','Account Settings - INSPIN')
+@section('title','Account Settings | Sportshandicapper')
 @section('page-title','Account Settings')
 
 @push('styles')
