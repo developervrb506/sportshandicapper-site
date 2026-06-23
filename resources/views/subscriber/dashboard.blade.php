@@ -15,12 +15,16 @@
 @media(max-width:1000px){ .mid-row,.bot-row{grid-template-columns:1fr;} }
 
 /* Card inner utility */
-.dk { background:var(--inner); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:18px 20px; }
+.dk { background:var(--inner); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:20px 22px; }
 
 /* Section header */
-.sh { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-.sh-t { font-size:15px; font-weight:700; color:#fff; }
-.sh-l { font-size:12px; font-weight:600; color:var(--accent); }
+.sh { display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,.06); }
+.sh-t { font-size:15px; font-weight:700; color:#fff; letter-spacing:-.01em; }
+.sh-l { font-size:12px; font-weight:600; color:var(--accent); display:inline-flex; align-items:center; gap:4px; }
+.sh-l svg { width:13px; height:13px; stroke:currentColor; }
+
+.stat-num { font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+.welcome-h1 { font-size:clamp(24px,3vw,32px); font-weight:800; color:#fff; letter-spacing:-.02em; }
 
 /* Pick row */
 .pick-row { display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.05); }
@@ -87,8 +91,8 @@
 {{-- ─── Greeting ─── --}}
 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
     <div>
-        <div style="font-size:28px;font-weight:800;color:#fff;">Welcome back, {{ explode(' ',$user->name)[0] }}.</div>
-        <div style="font-size:14px;color:rgba(255,255,255,.4);margin-top:4px;">Here is a snapshot of your handicapping desk today.</div>
+        <div class="welcome-h1">Welcome back, {{ explode(' ',$user->name)[0] }}.</div>
+        <div style="font-size:14.5px;color:rgba(255,255,255,.4);margin-top:5px;">Here is a snapshot of your handicapping desk today.</div>
     </div>
     <a href="/subscriber/picks" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--accent);color:#fff;border-radius:50px;font-weight:700;font-size:13px;white-space:nowrap;">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1-6.3-4.3-6.3 4.3 2.3-7.1-6-4.4h7.6z"/></svg>
@@ -137,7 +141,7 @@
                 </svg>
             </div>
         </div>
-        <div style="font-size:32px;font-weight:800;line-height:1;color:{{ $u>=0?'#22C55E':'#EF4444' }};margin-bottom:8px;">{{ $u>=0?'+':'' }}{{ number_format($u,2) }}</div>
+        <div style="font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:{{ $u>=0?'#22C55E':'#EF4444' }};margin-bottom:8px;">{{ $u>=0?'+':'' }}{{ number_format($u,2) }}</div>
         <div style="height:4px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin-bottom:8px;">
             <div style="height:100%;width:{{ min(abs($u)*8,100) }}%;background:{{ $u>=0?'#22C55E':'#EF4444' }};border-radius:10px;"></div>
         </div>
@@ -158,7 +162,7 @@
                 </svg>
             </div>
         </div>
-        <div style="font-size:32px;font-weight:800;line-height:1;color:{{ $wr>=55?'#22C55E':($wr>=45&&$total>0?'#1E90FF':($total>0?'#EF4444':'rgba(255,255,255,.3)')) }};margin-bottom:8px;">{{ $wr }}%</div>
+        <div style="font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:{{ $wr>=55?'#22C55E':($wr>=45&&$total>0?'#1E90FF':($total>0?'#EF4444':'rgba(255,255,255,.3)')) }};margin-bottom:8px;">{{ $wr }}%</div>
         <div style="height:4px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin-bottom:8px;">
             <div style="height:100%;width:{{ max($wr,4) }}%;background:{{ $wr>=55?'#22C55E':($wr>=45&&$total>0?'#1E90FF':'#EF4444') }};border-radius:10px;"></div>
         </div>
@@ -171,7 +175,7 @@
             <div class="kpi-label">Active Picks</div>
             <div class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="2 12 6 12 9 4 14 20 17 12 22 12"/></svg></div>
         </div>
-        <div style="font-size:32px;font-weight:800;line-height:1;color:#fff;margin-bottom:8px;">{{ $activePicks->count() }}</div>
+        <div style="font-size:32px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:#fff;margin-bottom:8px;">{{ $activePicks->count() }}</div>
         <div style="height:4px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden;margin-bottom:8px;">
             <div style="height:100%;width:{{ $picksSinceStart>0 ? min(($activePicks->count()/$picksSinceStart)*100,100) : 0 }}%;background:var(--accent);border-radius:10px;"></div>
         </div>
@@ -186,7 +190,7 @@
     <div class="dk">
         <div class="sh">
             <span class="sh-t">Active Picks</span>
-            <a href="/subscriber/picks" class="sh-l">View All</a>
+            <a href="/subscriber/picks" class="sh-l">View All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
         @if($activePicks->count()>0)
             @foreach($activePicks as $pick)
@@ -228,7 +232,7 @@
     <div class="dk">
         <div class="sh">
             <span class="sh-t">By Sport</span>
-            <a href="/subscriber/trends" class="sh-l">Full Trends</a>
+            <a href="/subscriber/trends" class="sh-l">Full Trends <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
         @if(count($sportRecord)>0)
             @foreach($sportRecord as $sport=>$rec)
@@ -269,7 +273,7 @@
     <div class="dk">
         <div class="sh">
             <span class="sh-t">Pick History</span>
-            <a href="/subscriber/picks?tab=results" class="sh-l">See All</a>
+            <a href="/subscriber/picks?tab=results" class="sh-l">See All <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
         @if($recentPicks->count()>0)
             @foreach($recentPicks as $pick)
@@ -311,7 +315,7 @@
     <div class="dk">
         <div class="sh">
             <span class="sh-t">Latest Articles</span>
-            <a href="/subscriber/articles" class="sh-l">All Articles</a>
+            <a href="/subscriber/articles" class="sh-l">All Articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
         </div>
         @if($latestArticles->count()>0)
             @foreach($latestArticles as $art)
