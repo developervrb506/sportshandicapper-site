@@ -7,6 +7,7 @@ use App\Models\BettingConsensus;
 use App\Models\Package;
 use App\Models\Pick;
 use App\Models\WhalePackage;
+use App\Services\OddsApiService;
 use App\Services\StreakService;
 use App\Services\SubscriptionService;
 use Illuminate\Http\Request;
@@ -193,9 +194,10 @@ class SubscriberController extends Controller
 
     public function odds()
     {
-        return view('subscriber.odds', [
-            'consensus' => BettingConsensus::orderBy('game_date')->limit(10)->get(),
-        ]);
+        $sport = request('sport');
+        $data = app(OddsApiService::class)->getUpcomingGames($sport);
+
+        return view('subscriber.odds', $data + ['sport' => $sport]);
     }
 
     public function packages()

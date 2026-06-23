@@ -168,10 +168,10 @@ if($expertPicks->count() > 0) {
 </style>
 
 {{-- ══════════════════════════════════════════════ --}}
-{{--  TICKER (below hero — quiet, not above fold)   --}}
+{{--  TICKER (below hero — quiet ambient strip)     --}}
 {{-- ══════════════════════════════════════════════ --}}
-<div style="border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);overflow:hidden;">
-    <div style="display:flex;gap:40px;padding:9px 0;white-space:nowrap;animation:ticker 60s linear infinite;opacity:0.7;">
+<div style="border-top:1px solid rgba(255,255,255,0.05);overflow:hidden;">
+    <div style="display:flex;gap:40px;padding:11px 0;white-space:nowrap;animation:ticker 70s linear infinite;opacity:0.45;">
         @foreach($tickItems as $t)
         <div style="display:inline-flex;align-items:center;gap:10px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">
             <span style="padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#64748B;font-size:9px;font-weight:700;">{{ $t[0] }}</span>
@@ -186,12 +186,12 @@ if($expertPicks->count() > 0) {
 {{-- ══════════════════════════════════════════════ --}}
 {{--  RECORD STRIP                                  --}}
 {{-- ══════════════════════════════════════════════ --}}
-<section style="border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);">
-    <div class="container-x" style="padding:32px 0;">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);divide-x:1px solid rgba(255,255,255,0.05);" class="record-grid">
+<section style="border-top:1px solid rgba(255,255,255,0.07);background:rgba(0,0,0,0.22);">
+    <div class="container-x" style="padding:44px 0;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);" class="record-grid">
             @foreach([['30-Day Hit','67.4','%','67.4'],['YTD Units','+184','u','184'],['Win Streak','7','W','7'],['ROI','12.8','%','12.8']] as $i=>$r)
-            <div class="reveal" style="text-align:center;padding:0 16px;border-right:{{ $i<3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }};">
-                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#64748B;margin-bottom:8px;">{{ $r[0] }}</div>
+            <div class="reveal stat-col" style="text-align:center;padding:0 16px;border-right:{{ $i<3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }};transition-delay:{{ $i*60 }}ms;">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#64748B;margin-bottom:10px;">{{ $r[0] }}</div>
                 <div class="counter-num" style="font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:white;font-family:monospace;line-height:1;" data-target="{{ $r[3] }}" data-prefix="{{ str_starts_with($r[1],'+') ? '+' : '' }}" data-suffix="{{ $r[2] }}">{{ $r[1] }}{{ $r[2] }}</div>
             </div>
             @endforeach
@@ -199,6 +199,8 @@ if($expertPicks->count() > 0) {
     </div>
 </section>
 <style>
+.stat-col.is-visible { transition:transform .25s ease,opacity 0.8s cubic-bezier(0.22,1,0.36,1); }
+.stat-col:hover { transform:translateY(-3px); }
 @media(max-width:640px){ .record-grid{grid-template-columns:repeat(2,1fr)!important} }
 </style>
 

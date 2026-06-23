@@ -85,6 +85,37 @@
 
         .tn-hamburger { display:none; background:none; border:none; cursor:pointer; color:#fff; }
 
+        /* ── Tools dropdown ── */
+        .tn-pdrop { position:relative; }
+        .tn-pdrop-btn {
+            display:flex; align-items:center; gap:6px;
+            padding:9px 16px; border-radius:30px;
+            font-size:13px; font-weight:600; color:rgba(255,255,255,.55);
+            background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif;
+            transition:all .15s; white-space:nowrap;
+        }
+        .tn-pdrop-btn:hover { color:#fff; background:rgba(255,255,255,.05); }
+        .tn-pdrop-btn .caret { width:11px; height:11px; transition:transform .2s; opacity:.7; }
+        .tn-pdrop.open .tn-pdrop-btn .caret { transform:rotate(180deg); }
+        .tn-pdrop.open .tn-pdrop-btn,
+        .tn-pdrop-btn.active { color:#fff; background:rgba(255,255,255,.05); }
+
+        .tn-pdrop-menu { display:none; position:absolute; left:0; top:100%; padding-top:10px; width:270px; z-index:300; }
+        .tn-pdrop-menu-inner {
+            border-radius:14px; border:1px solid var(--bdr);
+            background:var(--card); padding:8px;
+            box-shadow:0 20px 50px rgba(0,0,0,.5);
+        }
+        .tn-pdrop.open .tn-pdrop-menu { display:block; animation:tnDropIn .15s ease; }
+        @keyframes tnDropIn { from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:translateY(0);} }
+
+        .tn-pdrop-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:10px; cursor:pointer; transition:background .12s; text-decoration:none; }
+        .tn-pdrop-item:hover { background:rgba(255,255,255,.05); }
+        .tn-pdrop-label { font-size:13.5px; font-weight:600; color:#fff; margin-bottom:1px; }
+        .tn-pdrop-sub { font-size:11px; color:rgba(255,255,255,.4); }
+        .tn-pdrop-soon { font-size:9px; font-weight:700; background:rgba(30,144,255,.15); color:var(--accent); border-radius:20px; padding:2px 8px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+        .tn-pdrop-live { font-size:9px; font-weight:700; background:rgba(34,197,94,.12); color:#22C55E; border:1px solid rgba(34,197,94,.3); border-radius:20px; padding:2px 8px; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
+
         /* ══════════ CONTENT ══════════ */
         #sub-content-wrap { max-width:1320px; margin:0 auto; padding:24px; }
 
@@ -134,19 +165,52 @@
 
     @auth
     @php $sub = auth()->user()->activeSubscription()?->load('package'); @endphp
+    @php
+        $toolsRoutes = ['subscriber/odds', 'subscriber/consensus', 'subscriber/trends', 'subscriber/betting-tools'];
+        $onToolsPage = collect($toolsRoutes)->contains(fn($r) => request()->is($r.'*'));
+    @endphp
     <nav class="tn-links">
         <a href="/subscriber/dashboard" class="tn-link {{ request()->is('subscriber/dashboard') ? 'active' : '' }}">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
             Overview
         </a>
-        <a href="/subscriber/articles" class="tn-link {{ request()->is('subscriber/article*') ? 'active' : '' }}">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            Articles
-        </a>
         <a href="/subscriber/picks" class="tn-link {{ request()->is('subscriber/picks*') ? 'active' : '' }}">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
             My Picks
         </a>
+        <a href="/subscriber/articles" class="tn-link {{ request()->is('subscriber/article*') ? 'active' : '' }}">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Articles
+        </a>
+
+        <div class="tn-pdrop">
+            <button class="tn-pdrop-btn {{ $onToolsPage ? 'active' : '' }}" onclick="toggleTnDrop(this)">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                Tools
+                <svg class="caret" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="tn-pdrop-menu">
+                <div class="tn-pdrop-menu-inner">
+                    <a href="/subscriber/odds" class="tn-pdrop-item">
+                        <div><p class="tn-pdrop-label">Live Odds</p><p class="tn-pdrop-sub">Compare sportsbook lines</p></div>
+                        <span class="tn-pdrop-live">Live</span>
+                    </a>
+                    <a href="/subscriber/consensus" class="tn-pdrop-item">
+                        <div><p class="tn-pdrop-label">Consensus</p><p class="tn-pdrop-sub">Public betting splits</p></div>
+                        <span class="tn-pdrop-soon">Soon</span>
+                    </a>
+                    <a href="/subscriber/trends" class="tn-pdrop-item">
+                        <div><p class="tn-pdrop-label">Trends</p><p class="tn-pdrop-sub">Hot streaks &amp; patterns</p></div>
+                        <span class="tn-pdrop-soon">Soon</span>
+                    </a>
+                    <a href="/subscriber/betting-tools" class="tn-pdrop-item">
+                        <div><p class="tn-pdrop-label">Betting Tools</p><p class="tn-pdrop-sub">Calculators &amp; trackers</p></div>
+                        <span class="tn-pdrop-soon">Soon</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <a href="/subscriber/packages" class="tn-link {{ request()->is('subscriber/packages*') ? 'active' : '' }}">
             <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
             Packages
@@ -219,6 +283,18 @@ function toggleAvDd(){ document.getElementById('avddMenu').classList.toggle('ope
 document.addEventListener('click', function(e){
     var wrap = document.getElementById('avddWrap');
     if (wrap && !wrap.contains(e.target)) document.getElementById('avddMenu').classList.remove('open');
+});
+
+function toggleTnDrop(btn){
+    var wrap = btn.closest('.tn-pdrop');
+    var isOpen = wrap.classList.contains('open');
+    document.querySelectorAll('.tn-pdrop.open').forEach(function(el){ el.classList.remove('open'); });
+    if (!isOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', function(e){
+    if (!e.target.closest('.tn-pdrop')) {
+        document.querySelectorAll('.tn-pdrop.open').forEach(function(el){ el.classList.remove('open'); });
+    }
 });
 function confirmLogout(){ document.getElementById('avddMenu').classList.remove('open'); document.getElementById('logoutModal').style.display='flex'; }
 document.getElementById('logoutModal').addEventListener('click',function(e){ if(e.target===this) this.style.display='none'; });

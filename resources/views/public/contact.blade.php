@@ -142,13 +142,12 @@
                 <div class="comm-card-title">Chat with an Agent</div>
                 <span class="comm-card-badge" style="background:rgba(239,68,68,.1);color:#ef4444;border-color:rgba(239,68,68,.25);">Offline</span>
             </div>
-            <p class="comm-card-desc">Connect directly with a Customer Service representative. When our team is online you'll chat live — when offline your message goes straight to our support inbox.</p>
+            <p class="comm-card-desc">Connect directly with a Customer Service representative. When our team is online you'll chat live — when offline your message goes straight to help@sportshandicapper.com.</p>
             <div class="agent-status">
                 <div class="agent-dot"></div>
                 <span>No agents online right now</span>
             </div>
-            {{-- TODO: replace with real support email once available --}}
-            <a href="mailto:support@sportshandicapper.com" class="btn-primary" style="width:100%;">Email Support</a>
+            <a href="mailto:help@sportshandicapper.com" class="btn-primary" style="width:100%;">Email Support</a>
         </div>
 
         {{-- 2. Chatbot --}}
@@ -175,36 +174,58 @@
                 <div class="comm-card-title">Talk with Us</div>
                 <div style="font-size:12px;color:#475569;margin-top:2px;font-family:'Inter',sans-serif;">Phone, WhatsApp &amp; Telegram</div>
             </div>
-            <p class="comm-card-desc">Reach us directly on your preferred platform. Direct lines are being set up — check back soon.</p>
+            <p class="comm-card-desc">Reach us directly on your preferred platform. We're available by phone — messaging apps are being set up.</p>
             <div style="display:flex;flex-direction:column;gap:8px;">
-                {{-- TODO: replace href with real phone number once available --}}
-                <a href="#" class="talk-row">
+                <a href="tel:+16104715405" class="talk-row">
                     <div class="talk-row-icon" style="background:rgba(30,144,255,.08);">📞</div>
                     <div>
-                        <div class="talk-row-label">Phone</div>
-                        <div class="talk-row-sub">Coming soon</div>
+                        <div class="talk-row-label">(610) 471-5405</div>
+                        <div class="talk-row-sub">Phone</div>
                     </div>
-                    <span class="comm-card-badge soon" style="margin-left:auto;">TBD</span>
                 </a>
-                {{-- TODO: replace href with real WhatsApp number once available --}}
-                <a href="#" class="talk-row">
+                <div class="talk-row" style="opacity:.5;cursor:default;">
                     <div class="talk-row-icon" style="background:rgba(37,211,102,.08);">💬</div>
                     <div>
                         <div class="talk-row-label">WhatsApp</div>
                         <div class="talk-row-sub">Coming soon</div>
                     </div>
-                    <span class="comm-card-badge soon" style="margin-left:auto;">TBD</span>
-                </a>
-                {{-- TODO: replace href with real Telegram handle once available --}}
-                <a href="#" class="talk-row">
+                </div>
+                <div class="talk-row" style="opacity:.5;cursor:default;">
                     <div class="talk-row-icon" style="background:rgba(0,136,204,.08);">✈️</div>
                     <div>
                         <div class="talk-row-label">Telegram</div>
                         <div class="talk-row-sub">Coming soon</div>
                     </div>
-                    <span class="comm-card-badge soon" style="margin-left:auto;">TBD</span>
-                </a>
+                </div>
             </div>
+        </div>
+
+        {{-- 5. Email Us --}}
+        <div class="comm-card card-premium reveal" style="transition-delay:240ms;">
+            <span class="comm-card-num">05</span>
+            <div class="comm-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E90FF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <div>
+                <div class="comm-card-title">Email Us</div>
+                <div style="font-size:12px;color:#475569;margin-top:2px;font-family:'Inter',sans-serif;">We respond within 24 hours</div>
+            </div>
+            <p class="comm-card-desc">Prefer email? Send us a message directly and our Customer Service team will get back to you.</p>
+            <a href="mailto:help@sportshandicapper.com" class="btn-primary" style="width:100%;">help@sportshandicapper.com</a>
+        </div>
+
+        {{-- 6. FAQ's --}}
+        <div class="comm-card card-premium reveal" style="transition-delay:300ms;">
+            <span class="comm-card-num">06</span>
+            <div class="comm-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1E90FF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+            </div>
+            <div>
+                <div class="comm-card-title">FAQ's</div>
+                <span class="comm-card-badge soon">Coming Soon</span>
+            </div>
+            <p class="comm-card-desc">Quick answers to the most common questions about picks, packages, and how Sportshandicapper works.</p>
+            <a href="{{ route('faq') }}" class="btn-secondary" style="width:100%;">View FAQ's</a>
         </div>
 
         {{-- 4. Send a Ticket --}}
@@ -282,13 +303,35 @@
             <img src="{{ asset('images/social-youtube.png') }}" alt="YouTube" style="width:24px;height:24px;object-fit:contain;">
             <span>YouTube</span>
         </a>
-        <a href="#" class="connect-item" style="border-color:rgba(37,211,102,.15);">
-            <span style="font-size:22px;line-height:1;">💬</span>
-            <span>WhatsApp</span>
+        <div class="connect-item" style="opacity:.45;cursor:default;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M16.6 5.82c-.93-.93-1.45-2.18-1.45-3.5h-3.2v13.93c0 1.6-1.3 2.9-2.9 2.9a2.9 2.9 0 01-2.9-2.9 2.9 2.9 0 012.9-2.9c.32 0 .63.05.92.14V10.3a6.1 6.1 0 00-.92-.07c-3.36 0-6.08 2.72-6.08 6.08S6.6 22.4 9.96 22.4s6.08-2.72 6.08-6.08V9.1c1.3.93 2.9 1.48 4.6 1.48v-3.2c-1.5 0-2.8-.6-4.04-1.56z"/></svg>
+            <span>TikTok</span>
+        </div>
+    </div>
+
+    {{-- Section 3: Hours & Legal --}}
+    <div class="comm-section-label reveal">Hours &amp; Legal</div>
+    <div class="reveal" style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:60px;">
+        <div class="talk-row" style="flex:1;min-width:240px;cursor:default;">
+            <div class="talk-row-icon" style="background:rgba(30,144,255,.08);">🕗</div>
+            <div>
+                <div class="talk-row-label">Monday – Sunday</div>
+                <div class="talk-row-sub">8:00 AM – 10:00 PM Eastern</div>
+            </div>
+        </div>
+        <a href="{{ route('terms') }}" class="talk-row" style="flex:1;min-width:240px;">
+            <div class="talk-row-icon" style="background:rgba(30,144,255,.08);">📋</div>
+            <div>
+                <div class="talk-row-label">Terms &amp; Conditions</div>
+                <div class="talk-row-sub">Read our terms of service</div>
+            </div>
         </a>
-        <a href="#" class="connect-item" style="border-color:rgba(0,136,204,.15);">
-            <span style="font-size:22px;line-height:1;">✈️</span>
-            <span>Telegram</span>
+        <a href="{{ route('privacy') }}" class="talk-row" style="flex:1;min-width:240px;">
+            <div class="talk-row-icon" style="background:rgba(30,144,255,.08);">🔒</div>
+            <div>
+                <div class="talk-row-label">Privacy Policy</div>
+                <div class="talk-row-sub">How we handle your data</div>
+            </div>
         </a>
     </div>
 

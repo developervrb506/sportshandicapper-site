@@ -134,7 +134,7 @@
         /* ===== SECTIONS ===== */
         .section { padding: 60px 0; background: transparent; }
         .section-alt { background: transparent; }
-        .section-title { font-family: 'Exo 2', sans-serif; font-size: 1.85rem; color: #F0F0FF; margin-bottom: 8px; font-weight: 500; padding-left: 16px; border-left: 4px solid #6366F1; letter-spacing: -0.2px; }
+        .section-title { font-family: 'Exo 2', sans-serif; font-size: 1.85rem; color: #F0F0FF; margin-bottom: 8px; font-weight: 500; padding-left: 16px; border-left: 4px solid #1E90FF; letter-spacing: -0.2px; }
         .section-sub { color: #6e6e6e; margin-bottom: 36px; font-size: 15px; padding-left: 20px; }
 
         /* ===== GRID ===== */
@@ -257,7 +257,7 @@
         .sport-filter { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
         .sport-filter a { padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; background: #0D1224; border: 1px solid #1E2640; color: #9a9a9a; transition: all 0.18s; }
         .sport-filter a:hover { background: #2a2a2a; border-color: #2A3556; color: #F0F0FF; }
-        .sport-filter a.active { background: transparent; border-color: #6366F1; color: #6366F1; box-shadow: 0 0 12px rgba(99,102,241,0.15); }
+        .sport-filter a.active { background: transparent; border-color: #1E90FF; color: #1E90FF; box-shadow: 0 0 12px rgba(30,144,255,0.15); }
 
         /* ===== ADMIN (unchanged — admin pages only) ===== */
         .admin-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }

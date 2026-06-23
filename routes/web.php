@@ -100,7 +100,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/subscriber/articles/{article}', [\App\Http\Controllers\SubscriberController::class, 'article'])->name('subscriber.article');
     Route::get('/subscriber/consensus', fn() => view('subscriber.coming-soon', ['pageTitle'=>'Consensus','pageIcon'=>'📊','pageDesc'=>'Public betting splits and sharp money data are coming soon. You\'ll be able to see where the smart money is going before every game.']))->name('subscriber.consensus');
     Route::get('/subscriber/trends', fn() => view('subscriber.coming-soon', ['pageTitle'=>'Betting Trends','pageIcon'=>'📈','pageDesc'=>'Hot streak tracking, sport-by-sport performance trends, and historical unit data are coming soon.']))->name('subscriber.trends');
-    Route::get('/subscriber/odds', fn() => view('subscriber.coming-soon', ['pageTitle'=>'Live Odds','pageIcon'=>'⚡','pageDesc'=>'Real-time odds comparison across all major sportsbooks is coming soon. Never miss the best line again.']))->name('subscriber.odds');
+    Route::get('/subscriber/odds', [\App\Http\Controllers\SubscriberController::class, 'odds'])->name('subscriber.odds');
     Route::get('/subscriber/betting-tools', fn() => view('subscriber.coming-soon', ['pageTitle'=>'Betting Tools','pageIcon'=>'🛠️','pageDesc'=>'Calculators, trackers, and betting tools to help you manage your bankroll and maximize your edge are coming soon.']))->name('subscriber.betting-tools');
     Route::get('/subscriber/packages', [\App\Http\Controllers\SubscriberController::class, 'packages'])->name('subscriber.packages');
 

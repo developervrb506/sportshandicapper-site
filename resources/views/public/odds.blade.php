@@ -7,29 +7,29 @@
 .market-toggle { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
 .market-btn {
     padding:8px 20px; border-radius:50px; font-size:13px; font-weight:600;
-    font-family:'Inter', sans-serif; background:#0D1224; border:1px solid #1E2640;
-    color:#9a9ab0; cursor:pointer; transition:all .18s;
+    font-family:'Inter', sans-serif; background:#0C1020; border:1px solid rgba(255,255,255,0.08);
+    color:#94A3B8; cursor:pointer; transition:all .18s;
 }
-.market-btn:hover { background:#1E2640; border-color:#2A3556; color:#F0F0FF; }
-.market-btn.active { background:transparent; border-color:#6366F1; color:#6366F1; box-shadow:0 0 12px rgba(99,102,241,.2); }
+.market-btn:hover { background:rgba(255,255,255,0.04); border-color:rgba(255,255,255,0.15); color:white; }
+.market-btn.active { background:rgba(30,144,255,0.1); border-color:#1E90FF; color:#1E90FF; box-shadow:0 0 12px rgba(30,144,255,.15); }
 
 .odds-grid { display:flex; flex-direction:column; gap:12px; }
 
 .odds-card {
-    background:#0D1224;
-    border:1px solid #1E2640;
+    background:#0C1020;
+    border:1px solid rgba(255,255,255,0.08);
     border-radius:12px;
     overflow:hidden;
     transition:border-color .2s;
 }
-.odds-card:hover { border-color:rgba(99,102,241,.35); }
+.odds-card:hover { border-color:rgba(30,144,255,.35); }
 
 .odds-header {
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:12px 18px;
-    border-bottom:1px solid #1E2640;
+    border-bottom:1px solid rgba(255,255,255,0.08);
     flex-wrap:wrap;
     gap:8px;
 }
@@ -87,17 +87,17 @@
     text-align:left;
     font-size:13px;
     font-weight:600;
-    color:#F0F0FF;
+    color:white;
     text-transform:none;
     letter-spacing:0;
     font-family:'Inter', sans-serif;
     position:sticky;
     left:0;
-    background:#0D1224;
+    background:#0C1020;
 }
 .odds-table tr:last-child td { border-bottom:none; }
-.odds-cell-price { color:#9a9ab0; }
-.odds-cell-best { color:#818CF8; }
+.odds-cell-price { color:#94A3B8; }
+.odds-cell-best { color:#1E90FF; }
 .odds-cell-best::after { content:'★'; font-size:9px; margin-left:4px; vertical-align:middle; }
 .odds-cell-na { color:#334155; }
 
@@ -109,8 +109,8 @@
 }
 .odds-mock-badge {
     display:inline-block; padding:2px 10px; border-radius:20px; font-size:10px;
-    font-weight:700; letter-spacing:.5px; background:rgba(99,102,241,.12); color:#818CF8;
-    border:1px solid rgba(99,102,241,.3); margin-left:8px; text-transform:uppercase;
+    font-weight:700; letter-spacing:.5px; background:rgba(30,144,255,.12); color:#1E90FF;
+    border:1px solid rgba(30,144,255,.3); margin-left:8px; text-transform:uppercase;
     font-family:'Inter', sans-serif;
 }
 
@@ -154,13 +154,13 @@
             @foreach($games as $game)
             @php
                 $sportColors = ['NFL'=>['#3b82f6','#101a33'],'NBA'=>['#ef4444','#330f0f'],'MLB'=>['#22c55e','#0e2818'],'NHL'=>['#a855f7','#251433'],'NCAAF'=>['#22d3ee','#0e2730'],'NCAAB'=>['#22d3ee','#0e2730']];
-                $sc = $sportColors[$game['sport_title']] ?? ['#6366F1','#1a1c33'];
+                $sc = $sportColors[$game['sport_title']] ?? ['#1E90FF','#0c1a33'];
             @endphp
             <div class="odds-card">
                 <div class="odds-header">
                     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
                         <span class="sport-badge" style="background:{{ $sc[1] }};color:{{ $sc[0] }};border:1px solid {{ $sc[0] }}44;">{{ $game['sport_title'] }}</span>
-                        <span style="font-size:14px;font-weight:600;color:#F0F0FF;font-family:'Inter',sans-serif;">
+                        <span style="font-size:14px;font-weight:600;color:white;font-family:'Inter',sans-serif;">
                             <span class="matchup-team">
                                 <span class="team-badge" style="background:{{ $game['away_brand']['bg'] }};color:{{ $game['away_brand']['fg'] }};">{{ $game['away_brand']['abbr'] }}</span>
                                 {{ $game['away_team'] }}
@@ -266,13 +266,13 @@
         @else
         <div style="text-align:center;padding:60px 0;">
             <div style="font-size:3rem;margin-bottom:16px;">📊</div>
-            <h3 style="color:#F0F0FF;margin-bottom:8px;">No odds data available</h3>
+            <h3 style="color:white;margin-bottom:8px;">No odds data available</h3>
             <p style="color:#475569;">Check back soon for live odds.</p>
         </div>
         @endif
 
         <div style="text-align:center;margin-top:32px;">
-            <a href="{{ route('consensus') }}" style="display:inline-block;padding:12px 32px;border:1px solid #6366F1;color:#6366F1;border-radius:50px;font-weight:600;text-decoration:none;transition:background .18s;font-family:'Inter',sans-serif;" onmouseover="this.style.background='rgba(99,102,241,.1)'" onmouseout="this.style.background='transparent'">View Consensus Data →</a>
+            <a href="{{ route('consensus') }}" style="display:inline-block;padding:12px 32px;border:1px solid #1E90FF;color:#1E90FF;border-radius:50px;font-weight:600;text-decoration:none;transition:background .18s;font-family:'Inter',sans-serif;" onmouseover="this.style.background='rgba(30,144,255,.1)'" onmouseout="this.style.background='transparent'">View Consensus Data →</a>
         </div>
     </div>
 </div>
