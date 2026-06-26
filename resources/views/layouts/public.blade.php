@@ -702,7 +702,7 @@
                     About
                 </a>
                 <a href="{{ route('contact') }}" class="nav-pitem {{ request()->routeIs('contact') ? 'active' : '' }}">
-                    Contact
+                    Contact Us
                 </a>
             </div>
 
@@ -739,7 +739,7 @@
         <a href="{{ route('consensus') }}">Consensus</a>
         <a href="{{ route('trends') }}">Trends</a>
         <a href="{{ route('about') }}">About Us</a>
-        <a href="{{ route('contact') }}">Contact</a>
+        <a href="{{ route('contact') }}">Contact Us</a>
         @auth
             <a href="{{ Auth::user()->isAdmin() ? route('dashboard') : '/subscriber/dashboard' }}">My Account</a>
             <button type="button" onclick="doLogout()">Logout</button>
